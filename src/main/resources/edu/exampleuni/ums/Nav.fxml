@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+
+<TreeView prefHeight="400.0" prefWidth="100.0" showRoot="false" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1">
+    <TreeItem fx:id="root" expanded="true">
+        <children>
+            <TreeItem fx:id="child1" expanded="true" value="Child 1">
+                <children>
+                    <TreeItem fx:id="child11" value="Child 1.1" />
+                    <TreeItem fx:id="child12" value="Child 1.2" />
+                </children>
+            </TreeItem>
+            <TreeItem fx:id="child2" expanded="true" value="Child 2">
+                <children>
+                    <TreeItem fx:id="child21" value="Child 2.1" />
+                    <TreeItem fx:id="child22" value="Child 2.2" />
+                </children>
+            </TreeItem>
+        </children>
+    </TreeItem>
+</TreeView>
