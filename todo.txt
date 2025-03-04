@@ -1,0 +1,316 @@
+Subject Management
+The Subject Management module allows administrators to manage the various subjects offered
+by the university. It supports adding new subjects, editing existing ones, and deleting subjects
+that are no longer offered. Subjects are the elements upon which courses are built.
+Features
+- ADMIN Features:
+	- Add Course: Create new courses with detailed information.
+	- Edit Course: Update course details such as timing or location.
+	- Delete Course: Remove courses from the system.
+	- View Courses: Display a list of courses with essential details.
+	- Assign Faculty: Assign a teacher to the course.
+	- Manage Enrollments: View and manage students enrolled in the course.
+- USER Features:
+	- View Courses: Access comprehensive information about courses.
+	- View Enrollments: Faculty can view courses they teach; students can view courses they are enrolled in.
+Data Attributes
+	- Course Name: A descriptive name of the course.
+	- Course Code: A unique identifier for the course (e.g., 001).
+	- Subject Name: The subject to which the course belongs.
+	- Section Number: The specific section identifier (e.g., Section 1).
+	- Teacher Name: The faculty assigned to teach the course.
+	- Capacity: The maximum number of students allowed.
+	- Lecture Time: Scheduled days and times for the course lectures.
+	- Final Exam Date/Time: The date and time of the final examination.
+	- Location: The venue for lectures (e.g., Room 101).
+Functionality
+	- Prevent over-enrollment beyond course capacity.
+	- Conflict detection for scheduling (e.g., overlapping lecture times).
+	- Update student records when courses are added or removed.
+Student Management
+The Student Management module handles all operations related to student information. It allows
+the university to maintain up-to-date records for each student, including personal details,
+academic progress, and enrollment status.
+Features
+- ADMIN Features:
+	- Add Student: Register new students with all necessary details. (with default password and unique student id as username)
+	- Edit Student: Update student information such as address or contact details.
+	- Delete Student: Remove student records when necessary.
+	- View Student Profile: Access detailed information about a student.
+	- Manage Enrollments: Enroll students in courses and manage their schedules.
+	- Academic Progress Tracking: Monitor grades and graduation progress.
+	- Tuition Management: Record and manage tuition fees. Tuition fee for undergrad students is $5000, graduate students $4000 per semester.
+- USER Features (for students):
+	- View Profile: Access their own personal and academic information.
+	- Edit Profile: Access to edit the password. Upload a picture to change their profile photo.
+	- View Enrolled Courses: See the list of courses they are enrolled in.
+	- View Grades: Check academic performance records per semester.
+	- View Tuition Status: Review tuition fee information and payment status.
+- USER Features (for faculty):
+	- View Student Information: View name & ID of students enrolled in their course
+Data Attributes
+	- Name: Full name of the student.
+	- Student ID: A unique 10-character identifier generated upon registration.
+	- Profile Photo: A picture associated with the student's profile. First, the default photo is shown.
+	- Address: Residential address.
+	- Telephone: Contact number.
+	- Tuition: Tuition fee information and payment status.
+	- Registered Courses: List of courses the student is enrolled in.
+	- Email Address: Official email for communication.
+	- Grades: Academic performance records.
+	- Current Semester: The semester the student is currently enrolled in.
+	- Subjects Registered: The subjects the student is taking.
+	- Academic Level: Undergraduate, graduate, or Ph.D. student.
+	- Thesis Title: For Ph.D. students, the title of their thesis.
+	- Progress: Percentage of the program completed (e.g., 50%).
+Functionality
+	- Generate student IDs automatically upon registration.
+	- Provide a semester-wise view of grades and subjects.
+	- Calculate academic progress based on completed courses.
+	- Allow students to upload profile photos.
+	- Enable communication via email integration for notifications.
+Faculty Management
+The Faculty Management module is designed to handle information related to university faculty
+members. It maintains profiles of each faculty member, including their qualifications, research
+interests, and the courses they teach.
+Features
+- ADMIN Features:
+	- Add Faculty Member: Create new faculty profiles. (with default password and unique email as username)
+	- Edit Faculty Member: Update faculty information.
+	- Delete Faculty Member: Remove faculty profiles when necessary.
+	- View Faculty Profile: Access detailed information about a faculty member.
+	- Assign Courses: Manage the courses assigned to faculty members.
+- USER Features (Faculty):
+	- View Profile: Access and view their own profile information.
+	- Edit Profile: Access to edit their default password. Upload a picture to change their profile photo.
+	- View Assigned Courses: See the list of courses they are teaching.
+	- View Student Lists: Access name & ID of students enrolled in their courses.
+- USER Features (Students):
+	- View Faculty Profiles: Access profiles of faculty members teaching their courses
+	(limited to name, email, office location, and research interests).
+Data Attributes
+	- Name: Full name of faculty member.
+	- Profile Photo: A picture associated with the student's profile. At first, the default photo is shown.
+	- Degree: Highest degree obtained (e.g., Ph.D., Master's).
+	- Research Interest: Areas of research and expertise.
+	- Courses Offered: List of courses the faculty member teaches.
+	- Email: Official email address and a unique identifier for the faculties.
+	- Office Location: Office address or room number.
+Functionality
+	- Link faculty profiles to the courses they teach.
+	- Display research interests for collaboration and student advising.
+	- Provide contact information for scheduling and communication.
+	- Update course assignments as faculty schedules change.
+Event Management
+The Event Management module allows the university to organize and manage events such as
+seminars, workshops, and conferences. It provides functionalities to schedule events, manage
+participants, and handle registrations.
+Features
+- ADMIN Features:
+	- Add Event: Create new events with comprehensive details.
+	- Edit Event: Update event information. Also be able to upload an image as a new header image.
+	- Delete Event: Remove events from the schedule.
+	- View Events: Display upcoming events with details.
+	- Manage Registrations: Track and manage student registrations for events.
+- USER Features:
+	- View Events: Access the list of upcoming events and view details.
+	- Register for Events: Sign up for events they are interested in attending.
+	- View Registered Events: See the events they have registered for.
+Data Attributes
+	- Event Name: The title of the event.
+	- Event Code: A unique identifier for the event (e.g., EV001).
+	- Description: Detailed information about the event.
+	- Header Image: An image representing the event. At First, the default photo is shown.
+	- Location: Venue of the event.
+	- Date and Time: Scheduled date and time.
+	- Capacity: Maximum number of participants.
+	- Cost: Indicates if the event is free or paid; includes the amount if paid.
+	- Registered Students: List of students registered for the event.
+Functionality
+	- Display events on a calendar view for easy tracking.
+	- Limit registrations based on capacity.
+	- Send confirmation emails upon registration.
+	- Generate attendee lists for event organizers.
+User Interface Design
+Overview
+The application features an intuitive and consistent user interface designed to facilitate
+accessibility. The GUI is developed using JavaFX to provide a modern look and feel. The interface
+adapts based on the user's role, presenting only the functionalities permitted to them.
+Authentication and Authorization
+	- Login Screen: Users must log in with their student id and password. Authentication verifies the user's identity and assigns the appropriate role (ADMIN or USER).
+	- Role-Based Menus: After logging in, the navigation menu displays options relevant to the user's role.
+	- ADMIN: Full menu with access to all modules and functionalities.
+	- USER: Limited menu with access to view functionalities only.
+Navigation
+	- Left-Side Menu: A collapsible menu displaying the main modules:
+	- Dashboard
+	- Subject Management
+	- Course Management
+	- Student Management
+	- Faculty Management
+	- Event Management
+Module Interfaces
+Dashboard
+- Purpose: Provide an overview of key metrics and recent activities.
+- Components:
+- Summaries of total students, courses, faculties, and events.
+- Recent registrations and upcoming events.
+- Notifications and alerts.
+Subject Management Interface
+- ADMIN View:
+- Listing Page: Displays all subjects with options to add, edit, or delete.
+- Detail/Edit Page: Form to input or update subject information.
+- USER View:
+- Listing Page: Displays all subjects without options for modification.
+Course Management Interface
+- ADMIN View:
+- Listing Page: Lists all courses with key details.
+- Detail/Edit Page: Contains tabs for course details, enrolled students, and
+schedule.
+- Actions: Add a new course, assign faculty, manage enrollments.
+- USER View (Faculty):
+- Listing Page: Shows courses they teach.
+- Course Details: View enrolled students and schedule.
+- USER View (Students):
+- Listing Page: Shows courses they are enrolled in.
+- Course Details: View course information and schedule.
+Student Management Interface
+- ADMIN View:
+- Listing Page: Shows all students with basic info and search functionality.
+- Profile Page: Displays comprehensive student details with tabs for personal info,
+academic records, tuition, and contact information.
+- Actions: Edit profile, manage enrollments, view progress reports.
+- USER View (Students):
+- Profile Page: Access to their own personal and academic information.
+- Actions: View progress reports and tuition fee.
+- USER View (Faculty):
+- Student Lists: Access basic academic information of students in their courses.
+Faculty Management Interface
+- ADMIN View:
+- Listing Page: Lists all faculty members with their departments.
+- Profile Page: Shows faculty details, courses taught, and research interests.
+- Actions: Edit profile, assign courses.
+- USER View (Faculty):
+- Profile Page: Access to their own profile details.
+- Actions: View assigned courses.
+- USER View (Students):
+- Faculty Profiles: View faculty information relevant to their courses.
+Event Management Interface
+- ADMIN View:
+- Calendar View: Visual representation of events over the month.
+- List View: Detailed list of events with sorting and filtering options.
+- Event Page: Event details, registered students.
+- Actions: Add, edit, delete events, manage registrations.
+- USER View (Students and Faculty):
+- Calendar View: View upcoming events.
+- List View: Browse events with filtering options.
+- Event Page: View event details and register.
+User Interaction
+- Responsive Design: UI elements adjust to various screen sizes and resolutions.
+- Feedback Mechanisms: Confirmation dialogs for critical actions, success/error
+notifications.
+- Accessibility: Keyboard navigation, screen reader compatibility, and color contrast
+considerations.
+- Role-Based Visibility: UI components and actions are visible based on the user's role.
+Implementation Phases
+Phase 1: GUI Development, Core Functionality, and Authentication
+Duration: 3 weeks
+- Develop the GUI: Create all the interface layouts for each module, incorporating role-
+based views.
+- Implement Basic Navigation: Enable users to move between modules seamlessly, with
+access based on their role.
+- Authentication Mechanism: Implement login functionality to authenticate users and
+assign roles.
+- Core Functionality: Implement one or two key functionalities per module for both ADMIN
+and USER roles.
+Deliverables
+- Functional GUI with role-based navigation.
+- User authentication system.
+- Demonstration of adding and viewing entries in at least two modules as an ADMIN and
+viewing data as a USER.
+Phase 2: Partial System Implementation with Role Management
+Duration: 2 weeks
+- Complete Functionality: Implement at least three sub-systems outlined in the project
+scope, ensuring role-based access control.
+- Data Integration: Ensure that actions in one module reflect in others (e.g., enrolling a
+student update both student and course records), respecting role permissions.
+- Validation and Error Handling: Implement robust input validation and exception
+handling, including unauthorized access attempts.
+Phase 3: Full System Implementation
+Duration: 2 weeks
+- Complete development of all module functionalities with full role-based access control.
+- Implement data consistency checks and constraints.
+- Enhance the user interface with additional features like search, filters, and reports.
+- Conduct thorough testing and debugging, focusing on security and access control.
+Deliverables
+- Fully functional University Management System with role-based access control.
+- User manual and documentation, including role definitions and access rights.
+- Test reports and bug fixes.
+Testing and Validation
+Data Import
+- Excel Data Import: An Excel file contains data for each management system module.
+The system should read this file and import the data upon launch, ensuring that ADMIN
+users can see and manage the data, while USERs can view it. Also when the users
+changes their information, like password, the program should update the excel file.
+Scenario: Navigating the University Management System with Roles
+1. User Authentication
+- Upon launching the University Management System, the user is presented with a
+login screen.
+- The user enters their credentials.
+- ADMIN Login: The system authenticates the user as an ADMIN.
+- USER Login: The system authenticates the user as a USER.
+2. Dashboard Access
+- ADMIN:
+- After logging in, the ADMIN sees a Dashboard with full metrics and recent
+activities, including options to manage subjects, courses, students, faculty,
+and events.
+- USER:
+- The USER sees a Dashboard tailored to their role.
+- Students: View their own progress, upcoming courses, and
+registered events.
+- Faculty: View courses they teach, upcoming schedules, and
+related events.
+3. Navigation Menu
+- The left-side collapsible menu displays modules relevant to the user's role.
+- ADMIN Menu:
+- Dashboard
+- Subject Management
+- Course Management
+- Student Management
+- Faculty Management
+- Event Management
+- USER Menu:
+- Dashboard
+- Course Management (limited to viewing)
+- Event Management (limited to viewing and registering)
+- Profile Management (own profile)
+4. Module Access
+- ADMIN:
+- Has full access to all modules with all functionalities.
+- Can add, edit, delete, and view data in all modules.
+- USER (Students and Faculty):
+- Subject Management: Can view subjects.
+- Course Management:
+- Students: View enrolled courses and course details.
+- Faculty: View courses they teach and related student lists.
+- Student Management:
+- Students: View their own profile and academic information.
+- Faculty: View basic academic information of students in their
+courses.
+- Faculty Management:
+- Students: View profiles of faculty teaching their courses.
+- Faculty: View and edit their own profile.
+- Event Management: View events and register.
+5. Attempting Unauthorized Actions
+- USER:
+- If a USER attempts to access an ADMIN function (e.g., adding a course),
+the system displays an "Access Denied" message.
+- The option to perform unauthorized actions is not visible to USERS in the
+UI.
+6. Responsive and Accessible Design
+- The user experiences a responsive interface that adjusts to their device.
+- Accessibility features ensure that all users can navigate the system effectively.
+7. Feedback and Notifications
+- When a USER registers for an event, a confirmation message is displayed.
+- Notifications about schedule changes or upcoming events are displayed on the
+Dashboard.
