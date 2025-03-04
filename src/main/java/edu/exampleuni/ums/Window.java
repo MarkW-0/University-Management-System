@@ -311,18 +311,6 @@ public class Window extends Application {
         TextField searchField = new TextField();
         searchField.setPromptText("Search subjects...");
         searchField.setPrefWidth(300);
-
-        Button addButton = new Button("Add Subject");
-        addButton.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-text-fill: white;");
-        if (this.userRole.equals("USER")) {
-            addButton.setDisable(true);
-        }
-
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-
-        controls.getChildren().addAll(searchField, spacer, addButton);
-
         // Subjects table
         TableView<Subject> subjectsTable = new TableView<>();
         TableColumn<Subject, String> codeCol = new TableColumn<>("Subject Code");
@@ -334,6 +322,26 @@ public class Window extends Application {
         nameCol.setPrefWidth(400);
 
         subjectsTable.getColumns().addAll(codeCol, nameCol);
+
+        Button addButton = new Button("Add Subject");
+        addButton.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-text-fill: white;");
+
+        // Add button functionality
+        addButton.setOnAction(e -> {
+            Dialog<Subject> dialog = createSubjectEditDialog(null);
+            dialog.showAndWait().ifPresent(newSubject -> {
+                subjectsTable.getItems().add(newSubject);
+            });
+        });
+
+        if (this.userRole.equals("USER")) {
+            addButton.setDisable(true);
+        }
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        controls.getChildren().addAll(searchField, spacer, addButton);
 
         // Add action column if ADMIN
         if (this.userRole.equals("ADMIN")) {
