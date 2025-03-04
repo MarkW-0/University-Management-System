@@ -370,11 +370,13 @@ public class Window extends Application {
 
                 editBtn.setOnAction(event -> {
                     Subject subject = getTableView().getItems().get(getIndex());
-                    // Show the dialog and handle the result
-                    createSubjectForm(subject).showAndWait().ifPresent(result -> {
-                        // Just redisplay the subject management screen
-
-                        setContent(createSubjectManagement());
+                    Dialog<Subject> dialog = createSubjectEditDialog(subject);
+                    dialog.showAndWait().ifPresent(editedSubject -> {
+                        // Update the existing subject in the table
+                        int index = getTableView().getItems().indexOf(subject);
+                        if (index != -1) {
+                            getTableView().getItems().set(index, editedSubject);
+                        }
                     });
                 });
 
