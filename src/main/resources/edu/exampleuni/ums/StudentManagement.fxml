@@ -11,7 +11,7 @@
 	</padding>
 	<Label text="Student Management">
 		<font>
-			<Font name="Arial Black" size="24.0" />
+			<Font name="Arial Bold" size="24.0" />
 		</font>
 	</Label>
 	<Label text="Under construction" />

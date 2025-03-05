@@ -325,14 +325,20 @@ public class Window extends Application {
 	}
 	private Dialog<Subject> createSubjectEditDialog(Subject existingSubject) {
 		Dialog<Subject> dialog = new Dialog<>();
+		// Create a dialog for the subject form
 		dialog.setTitle(existingSubject == null ? "Add Subject" : "Edit Subject");
+
+		// Set the button types
 		ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
 		dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+
+		// Create the form
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(20, 150, 10, 10));
 		TextField codeField = new TextField();
+
 		codeField.setPromptText("Subject Code");
 		TextField nameField = new TextField();
 		nameField.setPromptText("Subject Name");
