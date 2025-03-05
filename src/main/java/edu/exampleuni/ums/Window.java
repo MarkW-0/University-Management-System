@@ -19,7 +19,6 @@ public class Window extends Application {
 	private static final String SECONDARY_COLOR = "#2c3e50";
 	private static final String ACCENT_COLOR = "#e74c3c";
 	private String userRole = "";
-	private VBox menuPane;
 	private StackPane contentPane;
 	private Stage stage;
 	@Override
@@ -78,18 +77,15 @@ public class Window extends Application {
 
 			if (username.equals("admin") && password.equals("admin")) {
 				this.userRole = "ADMIN";
-				Scene mainScene = new Scene(createMainApplication(), 1024, 768);
-				this.stage.setScene(mainScene);
-				this.stage.setMaximized(true);
 			} else if (username.equals("user") && password.equals("user")) {
 				this.userRole = "USER";
-				Scene mainScene = new Scene(createMainApplication(), 1024, 768);
-				this.stage.setScene(mainScene);
-				this.stage.setMaximized(true);
 			} else {
 				errorMessage.setText("Invalid username or password!");
 				errorMessage.setVisible(true);
+				return;
 			}
+			this._setScene(createMainApplication(), 1024, 768);
+			this.stage.setMaximized(true);
 		});
 
 		// Center login form
@@ -105,12 +101,16 @@ public class Window extends Application {
 		BorderPane mainLayout = new BorderPane();
 
 		//  header
-		HBox header = createHeader();
-		mainLayout.setTop(header);
+		mainLayout.setTop(createHeader());
 
 		// Create left menu
-		this.menuPane = createMenu();
-		ScrollPane menuScrollPane = new ScrollPane(this.menuPane);
+		VBox menuPane;
+		if (this.userRole.equals("ADMIN")) {
+			menuPane = createAdminMenu();
+		} else {
+			menuPane = createUserMenu();
+		}
+		ScrollPane menuScrollPane = new ScrollPane(menuPane);
 		menuScrollPane.setFitToWidth(true);
 		menuScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		menuScrollPane.setPrefWidth(250);
@@ -152,39 +152,41 @@ public class Window extends Application {
 
 		Button logoutBtn = new Button("Logout");
 		logoutBtn.setStyle("-fx-background-color: " + Window.ACCENT_COLOR + "; -fx-text-fill: white;");
-		logoutBtn.setOnAction(e -> this.stage.setScene(new Scene(createLoginScreen(), 800, 600)));
+		logoutBtn.setOnAction(e -> this._setScene(createLoginScreen(), 800, 600));
 
 		header.getChildren().addAll(title, spacer, userLabel, new Separator(javafx.geometry.Orientation.VERTICAL), logoutBtn);
 		return header;
 	}
 
-	private VBox createMenu() {
-		VBox menu = new VBox();
-		menu.setPrefWidth(250);
-		menu.setStyle("-fx-background-color: " + Window.SECONDARY_COLOR + ";");
-		// Dashboard menu item
-		VBox dashboardItem = createMenuItem("Dashboard", e -> setContent(createDashboard()));
-		menu.getChildren().add(dashboardItem);
+	// Only add management options for ADMIN
+	private VBox createAdminMenu() {
 
-		// Only add management options for ADMIN, or show appropriate USER options
-		if (this.userRole.equals("ADMIN")) {
+			VBox menu = new VBox();
+			menu.setPrefWidth(250);
+			menu.setStyle("-fx-background-color: " + Window.SECONDARY_COLOR + ";");
 			// Add all management options for ADMIN
 			menu.getChildren().addAll(
+					createMenuItem("Dashboard", e -> setContent(createDashboard())),
 					createMenuItem("Subject Management", e -> setContent(createSubjectManagement())),
 					createMenuItem("Course Management", e -> setContent(createCourseManagement())),
 					createMenuItem("Student Management", e -> setContent(createStudentManagement())),
 					createMenuItem("Faculty Management", e -> setContent(createFacultyManagement())),
 					createMenuItem("Event Management", e -> setContent(createEventManagement()))
 			);
-		} else {
-			// USER role - limited menu
-			menu.getChildren().addAll(
-					createMenuItem("Course Management", e -> setContent(createCourseManagement())),
-					createMenuItem("Event Management", e -> setContent(createEventManagement())),
-					createMenuItem("Profile Management", e -> setContent(createProfileManagement()))
-			);
-		}
-
+			return menu;
+	}
+	// Show appropriate USER options
+	private VBox createUserMenu() {
+		VBox menu = new VBox();
+		menu.setPrefWidth(250);
+		menu.setStyle("-fx-background-color: " + Window.SECONDARY_COLOR + ";");
+		// USER role - limited menu
+		menu.getChildren().addAll(
+				createMenuItem("Dashboard", e -> setContent(createDashboard())),
+				createMenuItem("Course Management", e -> setContent(createCourseManagement())),
+				createMenuItem("Event Management", e -> setContent(createEventManagement())),
+				createMenuItem("Profile Management", e -> setContent(createProfileManagement()))
+		);
 		return menu;
 	}
 
@@ -219,6 +221,14 @@ public class Window extends Application {
 
 		Button addButton = new Button("Add Subject");
 		addButton.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-text-fill: white;");
+		if (this.userRole.equals("USER")) {
+			addButton.setDisable(true);
+		}
+
+		Region spacer = new Region();
+		HBox.setHgrow(spacer, Priority.ALWAYS);
+
+		controls.getChildren().addAll(searchField, spacer, addButton);
 
 		// Subjects table
 		TableView<Subject> subjectsTable = new TableView<>();
@@ -232,7 +242,6 @@ public class Window extends Application {
 
 		subjectsTable.getColumns().addAll(codeCol, nameCol);
 
-
 		// Add button functionality
 		addButton.setOnAction(e -> {
 			Dialog<Subject> dialog = createSubjectEditDialog(null);
@@ -240,15 +249,6 @@ public class Window extends Application {
 				subjectsTable.getItems().add(newSubject);
 			});
 		});
-
-		if (this.userRole.equals("USER")) {
-			addButton.setDisable(true);
-		}
-
-		Region spacer = new Region();
-		HBox.setHgrow(spacer, Priority.ALWAYS);
-
-		controls.getChildren().addAll(searchField, spacer, addButton);
 
 		// Add action column if ADMIN
 		if (this.userRole.equals("ADMIN")) {
@@ -365,40 +365,6 @@ public class Window extends Application {
 			}
 			return null;
 		});
-		return dialog;
-	}
-	private Dialog<Subject> createSubjectForm(Subject subject) {
-		// Create a dialog for the subject form
-		Dialog<Subject> dialog = new Dialog<>();
-		dialog.setTitle(subject == null ? "Add Subject" : "Edit Subject");
-
-		// Set the button types
-		ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
-
-		// Create the form
-		GridPane grid = new GridPane();
-		grid.setHgap(10);
-		grid.setVgap(10);
-		grid.setPadding(new Insets(20, 150, 10, 10));
-
-		TextField codeField = new TextField();
-		codeField.setPromptText("Subject Code");
-		TextField nameField = new TextField();
-		nameField.setPromptText("Subject Name");
-
-		if (subject != null) {
-			codeField.setText(subject.code.get());
-			nameField.setText(subject.name.get());
-		}
-
-		grid.add(new Label("Subject Code:"), 0, 0);
-		grid.add(codeField, 1, 0);
-		grid.add(new Label("Subject Name:"), 0, 1);
-		grid.add(nameField, 1, 1);
-
-		dialog.getDialogPane().setContent(grid);
-
 		return dialog;
 	}
 
@@ -560,34 +526,14 @@ public class Window extends Application {
 	}
 
 	// Student Management content
-	private VBox createStudentManagement() {
-		VBox content = new VBox(20);
-		content.setPadding(new Insets(20));
-
-		Label titleLabel = new Label("Student Management");
-		titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-
-		// Other content would be added here
-		// Just a placeholder for now
-		content.getChildren().addAll(titleLabel);
-		return content;
+	private Node createStudentManagement() {
+		return createFXML("StudentManagement.fxml");
 	}
 
 	// Faculty Management content
-	private VBox createFacultyManagement() {
-		VBox content = new VBox(20);
-		content.setPadding(new Insets(20));
-
-		Label titleLabel = new Label("Faculty Management");
-		titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-
-		// Other content would be added here
-		// Just a placeholder for now
-
-		content.getChildren().addAll(titleLabel);
-		return content;
+	private Node createFacultyManagement() {
+		return createFXML("FacultyManagement.fxml");
 	}
-
 	// Event Management content
 	private Node createEventManagement() {
 		return createFXML("EventManagement.fxml");
