@@ -1,10 +1,10 @@
 module edu.exampleuni.ums {
-    requires javafx.controls;
-    requires javafx.fxml;
+	requires javafx.controls;
+	requires javafx.fxml;
 
-    requires org.controlsfx.controls;
-    requires org.kordamp.bootstrapfx.core;
+	requires org.controlsfx.controls;
+	requires org.kordamp.bootstrapfx.core;
 
-    opens edu.exampleuni.ums to javafx.fxml;
-    exports edu.exampleuni.ums;
+	opens edu.exampleuni.ums to javafx.fxml;
+	exports edu.exampleuni.ums;
 }

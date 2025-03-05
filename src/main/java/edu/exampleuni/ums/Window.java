@@ -281,19 +281,10 @@ public class Window extends Application {
 	}
 
 	private VBox createMetricCard(String title, String value, String color) {
-		VBox card = new VBox(5);
-		card.setPadding(new Insets(20));
-		card.setPrefWidth(200);
-		card.setStyle("-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-background-radius: 5;");
-
-		Label titleLabel = new Label(title);
-		titleLabel.setFont(Font.font("Arial", 14));
-
-		Label valueLabel = new Label(value);
-		valueLabel.setFont(Font.font("Arial", FontWeight.BOLD, 28));
-		valueLabel.setTextFill(Color.web(color));
-
-		card.getChildren().addAll(titleLabel, valueLabel);
+		MetricCard card = new MetricCard();
+		card.setTitle(title);
+		card.setValue(value);
+		card.setColor(Color.web(color));
 		return card;
 	}
 
