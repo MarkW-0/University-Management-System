@@ -1,10 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import edu.exampleuni.ums.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1">
-	<TilePane prefHeight="200.0" prefWidth="200.0">
-		<Label text="Label" />
-	</TilePane>
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+	<padding>
+		<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+	</padding>
+	<Label text="Dashboard">
+		<font>
+			<Font name="Arial Bold" size="24.0" />
+		</font>
+	</Label>
+	<HBox alignment="CENTER" spacing="10.0">
+		<MetricCard color="#3498db" title="Students" value="1,250"/>
+		<MetricCard color="#e74c3c" title="Courses" value="87"/>
+		<MetricCard color="#2ecc71" title="Faculty" value="64"/>
+		<MetricCard color="#f39c12" title="Events" value="12"/>
+	</HBox>
+	<VBox spacing="10.0">
+		<Label text="Recent Activities">
+			<font>
+				<Font name="Arial Bold" size="18.0" />
+			</font>
+		</Label>
+		<ListView VBox.vgrow="ALWAYS">
+			<String fx:value="New student registration: John Doe (10 minutes ago)" />
+			<String fx:value="Course CS101 updated by Dr. Smith (1 hour ago)" />
+			<String fx:value="Event 'Tech Symposium' created (3 hours ago)" />
+			<String fx:value="Faculty member Dr. Johnson edited profile (Yesterday)" />
+		</ListView>
+	</VBox>
+	<VBox spacing="10.0">
+		<Label text="Upcoming Events">
+			<font>
+				<Font name="Arial Bold" size="18.0" />
+			</font>
+		</Label>
+		<ListView VBox.vgrow="ALWAYS">
+			<String fx:value="Tech Symposium (March 10, 2025)" />
+			<String fx:value="Final Exams Begin (April 15, 2025)" />
+			<String fx:value="Graduation Ceremony (May 20, 2025)" />
+		</ListView>
+	</VBox>
 </VBox>

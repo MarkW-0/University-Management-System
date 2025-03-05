@@ -1,0 +1,6 @@
+.MenuItem:hover {
+    -fx-background-color: #3498db
+}
+.MenuItem {
+    -fx-cursor: hand
+}

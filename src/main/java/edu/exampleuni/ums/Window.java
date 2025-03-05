@@ -4,12 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
+import javafx.scene.*;
+import javafx.scene.input.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,10 +25,8 @@ public class Window extends Application {
 	@Override
 	public void start(Stage stage) {
 		this.stage = stage;
-		stage.setMinWidth(1024);
-		stage.setMinHeight(768);
 		stage.setTitle("University Management System");
-		stage.setScene(new Scene(createLoginScreen(), 800, 600));
+		this._setScene(createLoginScreen(), 800, 600);
 		stage.show();
 	}
 	private StackPane createLoginScreen() {
@@ -190,111 +188,18 @@ public class Window extends Application {
 		return menu;
 	}
 
-	private VBox createMenuItem(String name, javafx.event.EventHandler<javafx.event.ActionEvent> action) {
-		VBox item = new VBox();
-		item.setPadding(new Insets(10, 15, 10, 15));
-		item.setStyle("-fx-cursor: hand;");
-
-		Label label = new Label(name);
-		label.setFont(Font.font("Arial", 14));
-		label.setTextFill(Color.WHITE);
-
-		item.getChildren().add(label);
-
-		// Hover effect
-		item.setOnMouseEntered(e ->
-				item.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-cursor: hand;"));
-
-		item.setOnMouseExited(e ->
-				item.setStyle("-fx-cursor: hand;"));
-
+	private VBox createMenuItem(String name, javafx.event.EventHandler<MouseEvent> action) {
+		MenuItem item = new MenuItem();
+		item.setName(name);
 		// Click action
-		item.setOnMouseClicked(e -> {
-			if (action != null) {
-				action.handle(new javafx.event.ActionEvent());
-			}
-
-			// Highlight selected menu item
-			for (javafx.scene.Node node : this.menuPane.getChildren()) {
-				node.setStyle("-fx-cursor: hand;");
-			}
-			item.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-cursor: hand;");
-		});
+		item.setOnMouseClicked(action);
 
 		return item;
 	}
 
 	// Dashboard content
-	private VBox createDashboard() {
-		VBox dashboardContent = new VBox(20);
-		dashboardContent.setPadding(new Insets(20));
-
-		Label titleLabel = new Label("Dashboard");
-		titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-
-		// Dashboard cards for key metrics
-		HBox metricsRow = new HBox(20);
-		metricsRow.setAlignment(Pos.CENTER);
-
-		metricsRow.getChildren().addAll(
-				createMetricCard("Students", "1,250", "#3498db"),
-				createMetricCard("Courses", "87", "#e74c3c"),
-				createMetricCard("Faculty", "64", "#2ecc71"),
-				createMetricCard("Events", "12", "#f39c12")
-		);
-
-		// Recent activities section
-		VBox recentActivities = new VBox(10);
-		Label activitiesLabel = new Label("Recent Activities");
-		activitiesLabel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-
-		ListView<String> activitiesList = new ListView<>();
-		activitiesList.getItems().addAll(
-				"New student registration: John Doe (10 minutes ago)",
-				"Course CS101 updated by Dr. Smith (1 hour ago)",
-				"Event 'Tech Symposium' created (3 hours ago)",
-				"Faculty member Dr. Johnson edited profile (Yesterday)"
-		);
-
-		recentActivities.getChildren().addAll(activitiesLabel, activitiesList);
-		VBox.setVgrow(activitiesList, Priority.ALWAYS);
-
-		// Upcoming events
-		VBox upcomingEvents = new VBox(10);
-		Label eventsLabel = new Label("Upcoming Events");
-		eventsLabel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-
-		ListView<String> eventsList = new ListView<>();
-		eventsList.getItems().addAll(
-				"Tech Symposium (March 10, 2025)",
-				"Final Exams Begin (April 15, 2025)",
-				"Graduation Ceremony (May 20, 2025)"
-		);
-
-		upcomingEvents.getChildren().addAll(eventsLabel, eventsList);
-		VBox.setVgrow(eventsList, Priority.ALWAYS);
-
-		// Add all components to dashboard
-		dashboardContent.getChildren().addAll(titleLabel, metricsRow, recentActivities, upcomingEvents);
-
-		return dashboardContent;
-	}
-
-	private VBox createMetricCard(String title, String value, String color) {
-		VBox card = new VBox(5);
-		card.setPadding(new Insets(20));
-		card.setPrefWidth(200);
-		card.setStyle("-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-background-radius: 5;");
-
-		Label titleLabel = new Label(title);
-		titleLabel.setFont(Font.font("Arial", 14));
-
-		Label valueLabel = new Label(value);
-		valueLabel.setFont(Font.font("Arial", FontWeight.BOLD, 28));
-		valueLabel.setTextFill(Color.web(color));
-
-		card.getChildren().addAll(titleLabel, valueLabel);
-		return card;
+	private Node createDashboard() {
+		return createFXML("Dashboard.fxml");
 	}
 
 	private VBox createSubjectManagement() {
@@ -311,6 +216,10 @@ public class Window extends Application {
 		TextField searchField = new TextField();
 		searchField.setPromptText("Search subjects...");
 		searchField.setPrefWidth(300);
+
+		Button addButton = new Button("Add Subject");
+		addButton.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-text-fill: white;");
+
 		// Subjects table
 		TableView<Subject> subjectsTable = new TableView<>();
 		TableColumn<Subject, String> codeCol = new TableColumn<>("Subject Code");
@@ -323,8 +232,6 @@ public class Window extends Application {
 
 		subjectsTable.getColumns().addAll(codeCol, nameCol);
 
-		Button addButton = new Button("Add Subject");
-		addButton.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-text-fill: white;");
 
 		// Add button functionality
 		addButton.setOnAction(e -> {
@@ -682,32 +589,31 @@ public class Window extends Application {
 	}
 
 	// Event Management content
-	private VBox createEventManagement() {
-		VBox content = new VBox(20);
-		content.setPadding(new Insets(20));
-
-		Label titleLabel = new Label("Event Management");
-		titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-
-		// Other content would be added here
-		// Just a placeholder for now
-
-		content.getChildren().addAll(titleLabel, new Label("Under construction"));
-		return content;
+	private Node createEventManagement() {
+		return createFXML("EventManagement.fxml");
 	}
 	// Profile Management (for USER role)
-	private javafx.scene.Node createProfileManagement() {
+	private Node createProfileManagement() {
 		return createFXML("ProfileManagement.fxml");
 	}
 
-	private javafx.scene.Node createFXML(String fxml) {
+
+	private Node createFXML(String fxml) {
 		try {
 			return new FXMLLoader(Window.class.getResource(fxml)).load();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
-	private void setContent(javafx.scene.Node content) {
+	private void _setScene(Parent content, double width, double height) {
+		Scene scene = new Scene(content, width, height);
+		var stylesheet = Window.class.getResource("style.css");
+		if (stylesheet != null) scene.getStylesheets().add(stylesheet.toExternalForm());
+		else System.err.println("missing stylesheet");
+		this.stage.setScene(scene);
+	}
+
+	private void setContent(Node content) {
 		this.contentPane.getChildren().clear();
 		this.contentPane.getChildren().add(content);
 	}
