@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox id="content" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="content" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12">
 	<padding>
 		<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
 	</padding>
@@ -30,7 +30,7 @@
 		<padding>
 			<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
 		</padding>
-		<VBox spacing="10.0" GridPane.halignment="CENTER" GridPane.rowSpan="5" GridPane.valignment="CENTER">
+		<VBox alignment="CENTER" spacing="10.0" GridPane.rowSpan="5">
 			<StackPane id="avatarPane" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #f0f0f0; -fx-background-radius: 60;">
 				<Label id="avatarLabel" text="JD" textFill="#808080">
 					<font>

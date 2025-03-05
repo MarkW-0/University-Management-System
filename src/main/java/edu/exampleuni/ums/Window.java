@@ -225,67 +225,8 @@ public class Window extends Application {
 	}
 
 	// Dashboard content
-	private VBox createDashboard() {
-		VBox dashboardContent = new VBox(20);
-		dashboardContent.setPadding(new Insets(20));
-
-		Label titleLabel = new Label("Dashboard");
-		titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-
-		// Dashboard cards for key metrics
-		HBox metricsRow = new HBox(20);
-		metricsRow.setAlignment(Pos.CENTER);
-
-		metricsRow.getChildren().addAll(
-				createMetricCard("Students", "1,250", "#3498db"),
-				createMetricCard("Courses", "87", "#e74c3c"),
-				createMetricCard("Faculty", "64", "#2ecc71"),
-				createMetricCard("Events", "12", "#f39c12")
-		);
-
-		// Recent activities section
-		VBox recentActivities = new VBox(10);
-		Label activitiesLabel = new Label("Recent Activities");
-		activitiesLabel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-
-		ListView<String> activitiesList = new ListView<>();
-		activitiesList.getItems().addAll(
-				"New student registration: John Doe (10 minutes ago)",
-				"Course CS101 updated by Dr. Smith (1 hour ago)",
-				"Event 'Tech Symposium' created (3 hours ago)",
-				"Faculty member Dr. Johnson edited profile (Yesterday)"
-		);
-
-		recentActivities.getChildren().addAll(activitiesLabel, activitiesList);
-		VBox.setVgrow(activitiesList, Priority.ALWAYS);
-
-		// Upcoming events
-		VBox upcomingEvents = new VBox(10);
-		Label eventsLabel = new Label("Upcoming Events");
-		eventsLabel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-
-		ListView<String> eventsList = new ListView<>();
-		eventsList.getItems().addAll(
-				"Tech Symposium (March 10, 2025)",
-				"Final Exams Begin (April 15, 2025)",
-				"Graduation Ceremony (May 20, 2025)"
-		);
-
-		upcomingEvents.getChildren().addAll(eventsLabel, eventsList);
-		VBox.setVgrow(eventsList, Priority.ALWAYS);
-
-		// Add all components to dashboard
-		dashboardContent.getChildren().addAll(titleLabel, metricsRow, recentActivities, upcomingEvents);
-
-		return dashboardContent;
-	}
-
-	private VBox createMetricCard(String title, String value, String color) {
-		MetricCard card = new MetricCard();
-		card.setTitle(title);
-		card.setValue(value);
-		card.setColor(Color.web(color));
-		return card;
+	private javafx.scene.Node createDashboard() {
+		return createFXML("Dashboard.fxml");
 	}
 
 	private VBox createSubjectManagement() {
