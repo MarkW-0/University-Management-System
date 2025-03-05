@@ -11,7 +11,7 @@
 	</padding>
 	<Label id="titleLabel" text="Profile Management">
 		<font>
-			<Font name="Arial Black" size="24.0" />
+			<Font name="Arial Bold" size="24.0" />
 		</font>
 	</Label>
 	<GridPane id="profileGrid" hgap="20.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" vgap="10.0">
@@ -34,7 +34,7 @@
 			<StackPane id="avatarPane" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #f0f0f0; -fx-background-radius: 60;">
 				<Label id="avatarLabel" text="JD" textFill="#808080">
 					<font>
-						<Font name="Arial Black" size="36.0" />
+						<Font name="Arial Bold" size="36.0" />
 					</font>
 				</Label>
 			</StackPane>

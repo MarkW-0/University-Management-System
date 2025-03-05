@@ -242,6 +242,14 @@ public class Window extends Application {
 
 		subjectsTable.getColumns().addAll(codeCol, nameCol);
 
+		// Add button functionality
+		addButton.setOnAction(e -> {
+			Dialog<Subject> dialog = createSubjectEditDialog(null);
+			dialog.showAndWait().ifPresent(newSubject -> {
+				subjectsTable.getItems().add(newSubject);
+			});
+		});
+
 		// Add action column if ADMIN
 		if (this.userRole.equals("ADMIN")) {
 			subjectsTable.getColumns().add(SubjectManagementAdminActionCol());
@@ -277,11 +285,13 @@ public class Window extends Application {
 
 				editBtn.setOnAction(event -> {
 					Subject subject = getTableView().getItems().get(getIndex());
-					// Show the dialog and handle the result
-					createSubjectForm(subject).showAndWait().ifPresent(result -> {
-						// Just redisplay the subject management screen
-
-						setContent(createSubjectManagement());
+					Dialog<Subject> dialog = createSubjectEditDialog(subject);
+					dialog.showAndWait().ifPresent(editedSubject -> {
+						// Update the existing subject in the table
+						int index = getTableView().getItems().indexOf(subject);
+						if (index != -1) {
+							getTableView().getItems().set(index, editedSubject);
+						}
 					});
 				});
 
@@ -313,11 +323,10 @@ public class Window extends Application {
 		});
 		return actionCol;
 	}
-
-	private Dialog<Subject> createSubjectForm(Subject subject) {
-		// Create a dialog for the subject form
+	private Dialog<Subject> createSubjectEditDialog(Subject existingSubject) {
 		Dialog<Subject> dialog = new Dialog<>();
-		dialog.setTitle(subject == null ? "Add Subject" : "Edit Subject");
+		// Create a dialog for the subject form
+		dialog.setTitle(existingSubject == null ? "Add Subject" : "Edit Subject");
 
 		// Set the button types
 		ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
@@ -328,24 +337,40 @@ public class Window extends Application {
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(20, 150, 10, 10));
-
 		TextField codeField = new TextField();
+
 		codeField.setPromptText("Subject Code");
 		TextField nameField = new TextField();
 		nameField.setPromptText("Subject Name");
-
-		if (subject != null) {
-			codeField.setText(subject.code.get());
-			nameField.setText(subject.name.get());
+		// Pre-fill fields if editing a subject that is already there
+		if (existingSubject != null) {
+			codeField.setText(existingSubject.code.get());
+			nameField.setText(existingSubject.name.get());
 		}
-
 		grid.add(new Label("Subject Code:"), 0, 0);
 		grid.add(codeField, 1, 0);
 		grid.add(new Label("Subject Name:"), 0, 1);
 		grid.add(nameField, 1, 1);
-
 		dialog.getDialogPane().setContent(grid);
-
+		// Convert the result to a Subject when the save button is clicked
+		dialog.setResultConverter(dialogButton -> {
+			if (dialogButton == saveButtonType) {
+				String code = codeField.getText().trim();
+				String name = nameField.getText().trim();
+				// Validate input
+				if (code.isEmpty() || name.isEmpty()) {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setTitle("Invalid Input");
+					alert.setHeaderText(null);
+					alert.setContentText("Subject Code and Name cannot be empty!");
+					alert.showAndWait();
+					return null;
+				}
+				// If editing existing subject, create a new Subject with updated values
+				return new Subject(code, name);
+			}
+			return null;
+		});
 		return dialog;
 	}
 
