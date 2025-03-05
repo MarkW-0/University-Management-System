@@ -4,12 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
+import javafx.scene.*;
+import javafx.scene.input.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,16 +19,13 @@ public class Window extends Application {
 	private static final String SECONDARY_COLOR = "#2c3e50";
 	private static final String ACCENT_COLOR = "#e74c3c";
 	private String userRole = "";
-	private VBox menuPane;
 	private StackPane contentPane;
 	private Stage stage;
 	@Override
 	public void start(Stage stage) {
 		this.stage = stage;
-		stage.setMinWidth(1024);
-		stage.setMinHeight(768);
 		stage.setTitle("University Management System");
-		stage.setScene(new Scene(createLoginScreen(), 800, 600));
+		this._setScene(createLoginScreen(), 800, 600);
 		stage.show();
 	}
 	private StackPane createLoginScreen() {
@@ -80,18 +77,15 @@ public class Window extends Application {
 
 			if (username.equals("admin") && password.equals("admin")) {
 				this.userRole = "ADMIN";
-				Scene mainScene = new Scene(createMainApplication(), 1024, 768);
-				this.stage.setScene(mainScene);
-				this.stage.setMaximized(true);
 			} else if (username.equals("user") && password.equals("user")) {
 				this.userRole = "USER";
-				Scene mainScene = new Scene(createMainApplication(), 1024, 768);
-				this.stage.setScene(mainScene);
-				this.stage.setMaximized(true);
 			} else {
 				errorMessage.setText("Invalid username or password!");
 				errorMessage.setVisible(true);
+				return;
 			}
+			this._setScene(createMainApplication(), 1024, 768);
+			this.stage.setMaximized(true);
 		});
 
 		// Center login form
@@ -107,12 +101,16 @@ public class Window extends Application {
 		BorderPane mainLayout = new BorderPane();
 
 		//  header
-		HBox header = createHeader();
-		mainLayout.setTop(header);
+		mainLayout.setTop(createHeader());
 
 		// Create left menu
-		this.menuPane = createMenu();
-		ScrollPane menuScrollPane = new ScrollPane(this.menuPane);
+		VBox menuPane;
+		if (this.userRole.equals("ADMIN")) {
+			menuPane = createAdminMenu();
+		} else {
+			menuPane = createUserMenu();
+		}
+		ScrollPane menuScrollPane = new ScrollPane(menuPane);
 		menuScrollPane.setFitToWidth(true);
 		menuScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		menuScrollPane.setPrefWidth(250);
@@ -154,78 +152,55 @@ public class Window extends Application {
 
 		Button logoutBtn = new Button("Logout");
 		logoutBtn.setStyle("-fx-background-color: " + Window.ACCENT_COLOR + "; -fx-text-fill: white;");
-		logoutBtn.setOnAction(e -> this.stage.setScene(new Scene(createLoginScreen(), 800, 600)));
+		logoutBtn.setOnAction(e -> this._setScene(createLoginScreen(), 800, 600));
 
 		header.getChildren().addAll(title, spacer, userLabel, new Separator(javafx.geometry.Orientation.VERTICAL), logoutBtn);
 		return header;
 	}
 
-	private VBox createMenu() {
-		VBox menu = new VBox();
-		menu.setPrefWidth(250);
-		menu.setStyle("-fx-background-color: " + Window.SECONDARY_COLOR + ";");
-		// Dashboard menu item
-		VBox dashboardItem = createMenuItem("Dashboard", e -> setContent(createDashboard()));
-		menu.getChildren().add(dashboardItem);
+	// Only add management options for ADMIN
+	private VBox createAdminMenu() {
 
-		// Only add management options for ADMIN, or show appropriate USER options
-		if (this.userRole.equals("ADMIN")) {
+			VBox menu = new VBox();
+			menu.setPrefWidth(250);
+			menu.setStyle("-fx-background-color: " + Window.SECONDARY_COLOR + ";");
 			// Add all management options for ADMIN
 			menu.getChildren().addAll(
+					createMenuItem("Dashboard", e -> setContent(createDashboard())),
 					createMenuItem("Subject Management", e -> setContent(createSubjectManagement())),
 					createMenuItem("Course Management", e -> setContent(createCourseManagement())),
 					createMenuItem("Student Management", e -> setContent(createStudentManagement())),
 					createMenuItem("Faculty Management", e -> setContent(createFacultyManagement())),
 					createMenuItem("Event Management", e -> setContent(createEventManagement()))
 			);
-		} else {
-			// USER role - limited menu
-			menu.getChildren().addAll(
-					createMenuItem("Course Management", e -> setContent(createCourseManagement())),
-					createMenuItem("Event Management", e -> setContent(createEventManagement())),
-					createMenuItem("Profile Management", e -> setContent(createProfileManagement()))
-			);
-		}
-
+			return menu;
+	}
+	// Show appropriate USER options
+	private VBox createUserMenu() {
+		VBox menu = new VBox();
+		menu.setPrefWidth(250);
+		menu.setStyle("-fx-background-color: " + Window.SECONDARY_COLOR + ";");
+		// USER role - limited menu
+		menu.getChildren().addAll(
+				createMenuItem("Dashboard", e -> setContent(createDashboard())),
+				createMenuItem("Course Management", e -> setContent(createCourseManagement())),
+				createMenuItem("Event Management", e -> setContent(createEventManagement())),
+				createMenuItem("Profile Management", e -> setContent(createProfileManagement()))
+		);
 		return menu;
 	}
 
-	private VBox createMenuItem(String name, javafx.event.EventHandler<javafx.event.ActionEvent> action) {
-		VBox item = new VBox();
-		item.setPadding(new Insets(10, 15, 10, 15));
-		item.setStyle("-fx-cursor: hand;");
-
-		Label label = new Label(name);
-		label.setFont(Font.font("Arial", 14));
-		label.setTextFill(Color.WHITE);
-
-		item.getChildren().add(label);
-
-		// Hover effect
-		item.setOnMouseEntered(e ->
-				item.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-cursor: hand;"));
-
-		item.setOnMouseExited(e ->
-				item.setStyle("-fx-cursor: hand;"));
-
+	private VBox createMenuItem(String name, javafx.event.EventHandler<MouseEvent> action) {
+		MenuItem item = new MenuItem();
+		item.setName(name);
 		// Click action
-		item.setOnMouseClicked(e -> {
-			if (action != null) {
-				action.handle(new javafx.event.ActionEvent());
-			}
-
-			// Highlight selected menu item
-			for (javafx.scene.Node node : this.menuPane.getChildren()) {
-				node.setStyle("-fx-cursor: hand;");
-			}
-			item.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-cursor: hand;");
-		});
+		item.setOnMouseClicked(action);
 
 		return item;
 	}
 
 	// Dashboard content
-	private javafx.scene.Node createDashboard() {
+	private Node createDashboard() {
 		return createFXML("Dashboard.fxml");
 	}
 
@@ -532,31 +507,40 @@ public class Window extends Application {
 	}
 
 	// Student Management content
-	private javafx.scene.Node createStudentManagement() {
+	private Node createStudentManagement() {
 		return createFXML("StudentManagement.fxml");
 	}
 
 	// Faculty Management content
-	private javafx.scene.Node createFacultyManagement() {
+	private Node createFacultyManagement() {
 		return createFXML("FacultyManagement.fxml");
 	}
 	// Event Management content
-	private javafx.scene.Node createEventManagement() {
+	private Node createEventManagement() {
 		return createFXML("EventManagement.fxml");
 	}
 	// Profile Management (for USER role)
-	private javafx.scene.Node createProfileManagement() {
+	private Node createProfileManagement() {
 		return createFXML("ProfileManagement.fxml");
 	}
 
-	private javafx.scene.Node createFXML(String fxml) {
+
+	private Node createFXML(String fxml) {
 		try {
 			return new FXMLLoader(Window.class.getResource(fxml)).load();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
-	private void setContent(javafx.scene.Node content) {
+	private void _setScene(Parent content, double width, double height) {
+		Scene scene = new Scene(content, width, height);
+		var stylesheet = Window.class.getResource("style.css");
+		if (stylesheet != null) scene.getStylesheets().add(stylesheet.toExternalForm());
+		else System.err.println("missing stylesheet");
+		this.stage.setScene(scene);
+	}
+
+	private void setContent(Node content) {
 		this.contentPane.getChildren().clear();
 		this.contentPane.getChildren().add(content);
 	}
