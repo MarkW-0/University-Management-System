@@ -6,8 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-		 prefWidth="200.0" spacing="5.0"
-		 style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-background-radius: 5;">
+		 prefWidth="200.0" spacing="5.0" styleClass="MetricCard">
 	<Label fx:id="title" text="Title">
       <font>
          <Font name="Arial" size="14.0" />

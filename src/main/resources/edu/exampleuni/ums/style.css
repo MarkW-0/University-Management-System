@@ -1,6 +1,82 @@
-.MenuItem:hover {
-    -fx-background-color: #3498db
+.root {
+	theme-color-primary: #3498db;
+	theme-color-secondary: #2c3e50;
+	theme-color-red: #e74c3c;
+	/* I can't find this in the javaFX spec, only color look up is supported */
+	theme-dropshadow: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+.LoginScreen {
+	-fx-background-color: #f5f5f5;
+}
+.LoginScreen > VBox {
+   -fx-background-color: white;
+   -fx-effect: theme-dropshadow;
+}
+.LoginScreen > VBox > Label {
+	-fx-text-fill: theme-color-secondary;
+}
+.loginButton {
+	-fx-background-color: theme-color-primary;
+	-fx-text-fill: white;
+}
+
+.navigationMenu {
+	-fx-background-color: theme-color-secondary;
+}
+
+.menuScrollPane {
+	-fx-background-color: theme-color-secondary;
 }
 .MenuItem {
-    -fx-cursor: hand
+	-fx-cursor: hand;
+}
+.MenuItem:hover {
+	-fx-background-color: theme-color-primary;
+}
+
+.contentPane {
+	-fx-background-color: #f5f5f5;
+}
+.header {
+	-fx-background-color: theme-color-primary;
+}
+.logoutButton {
+	-fx-background-color: theme-color-red;
+	-fx-text-fill: white;
+}
+
+.MetricCard {
+	-fx-background-color: white;
+	-fx-effect: theme-dropshadow;
+	-fx-background-radius: 5;
+}
+
+.addButton {
+	-fx-background-color: theme-color-primary;
+	-fx-text-fill: white;
+}
+.editButton {
+	-fx-background-color: #f39c12;
+	-fx-text-fill: white;
+}
+.deleteButton {
+	-fx-background-color: theme-color-red;
+	-fx-text-fill: white;
+}
+
+.profileGrid {
+	-fx-background-color: white;
+	-fx-effect: theme-dropshadow;
+}
+.avatarPane {
+	-fx-background-color: #f0f0f0;
+	-fx-background-radius: 60;
+}
+.uploadPhotoButton {
+	-fx-background-color: theme-color-primary;
+	-fx-text-fill: white;
+}
+.updatePasswordButton {
+	-fx-background-color: theme-color-primary;
+	-fx-text-fill: white;
 }

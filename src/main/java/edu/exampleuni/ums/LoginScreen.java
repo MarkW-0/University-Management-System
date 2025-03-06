@@ -8,7 +8,6 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 
 public class LoginScreen extends StackPane {
-	@FXML public Label title;
 	@FXML public TextField usernameField;
 	@FXML public PasswordField passwordField;
 	@FXML public Button loginButton;

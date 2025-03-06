@@ -15,9 +15,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Window extends Application {
-	private static final String PRIMARY_COLOR = "#3498db";
-	private static final String SECONDARY_COLOR = "#2c3e50";
-	private static final String ACCENT_COLOR = "#e74c3c";
 	private String userRole = "";
 	private StackPane contentPane;
 	private Stage stage;
@@ -30,8 +27,6 @@ public class Window extends Application {
 	}
 	private StackPane createLoginScreen() {
 		LoginScreen loginScreen = new LoginScreen();
-		loginScreen.title.setTextFill(Color.web(Window.SECONDARY_COLOR));
-		loginScreen.loginButton.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-text-fill: white;");
 
 		// Login button action
 		loginScreen.loginButton.setOnAction(e -> {
@@ -46,7 +41,6 @@ public class Window extends Application {
 			} else if (username.equals("user") && password.equals("user")) {
 				this.userRole = "USER";
 			} else {
-				loginScreen.errorMessage.setText("Invalid username or password!");
 				loginScreen.errorMessage.setVisible(true);
 				return;
 			}
@@ -75,14 +69,14 @@ public class Window extends Application {
 		menuScrollPane.setFitToWidth(true);
 		menuScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		menuScrollPane.setPrefWidth(250);
-		menuScrollPane.setStyle("-fx-background-color: " + Window.SECONDARY_COLOR + ";");
+		menuScrollPane.getStyleClass().add("menuScrollPane");
 
 		mainLayout.setLeft(menuScrollPane);
 
 		// Create content area
 		this.contentPane = new StackPane();
 		this.contentPane.setPadding(new Insets(20));
-		this.contentPane.setStyle("-fx-background-color: #f5f5f5;");
+		this.contentPane.getStyleClass().add("contentPane");
 
 		mainLayout.setCenter(this.contentPane);
 
@@ -93,9 +87,9 @@ public class Window extends Application {
 	}
 
 	private HBox createHeader() {
-		HBox header = new HBox();
+		HBox header = new HBox(5);
 		header.setPadding(new Insets(10, 15, 10, 15));
-		header.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + ";");
+		header.getStyleClass().add("header");
 		header.setAlignment(Pos.CENTER_LEFT);
 
 		// App title
@@ -112,10 +106,10 @@ public class Window extends Application {
 		userLabel.setTextFill(Color.WHITE);
 
 		Button logoutBtn = new Button("Logout");
-		logoutBtn.setStyle("-fx-background-color: " + Window.ACCENT_COLOR + "; -fx-text-fill: white;");
+		logoutBtn.getStyleClass().add("logoutButton");
 		logoutBtn.setOnAction(e -> this._setScene(createLoginScreen(), 800, 600));
 
-		header.getChildren().addAll(title, spacer, userLabel, new Separator(javafx.geometry.Orientation.VERTICAL), logoutBtn);
+		header.getChildren().addAll(title, spacer, userLabel, logoutBtn);
 		return header;
 	}
 
@@ -124,7 +118,7 @@ public class Window extends Application {
 
 			VBox menu = new VBox();
 			menu.setPrefWidth(250);
-			menu.setStyle("-fx-background-color: " + Window.SECONDARY_COLOR + ";");
+			menu.getStyleClass().add("navigationMenu");
 			// Add all management options for ADMIN
 			menu.getChildren().addAll(
 					createMenuItem("Dashboard", e -> setContent(createDashboard())),
@@ -140,7 +134,7 @@ public class Window extends Application {
 	private VBox createUserMenu() {
 		VBox menu = new VBox();
 		menu.setPrefWidth(250);
-		menu.setStyle("-fx-background-color: " + Window.SECONDARY_COLOR + ";");
+		menu.getStyleClass().add("navigationMenu");
 		// USER role - limited menu
 		menu.getChildren().addAll(
 				createMenuItem("Dashboard", e -> setContent(createDashboard())),
@@ -167,7 +161,7 @@ public class Window extends Application {
 		searchField.setPrefWidth(300);
 
 		Button addButton = new Button("Add Subject");
-		addButton.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-text-fill: white;");
+		addButton.getStyleClass().add("addButton");
 		if (this.userRole.equals("USER")) {
 			addButton.setDisable(true);
 		}
@@ -227,8 +221,8 @@ public class Window extends Application {
 			private final HBox actionButtons = new HBox(5, editBtn, deleteBtn);
 
 			{
-				editBtn.setStyle("-fx-background-color: #f39c12; -fx-text-fill: white;");
-				deleteBtn.setStyle("-fx-background-color: " + Window.ACCENT_COLOR + "; -fx-text-fill: white;");
+				editBtn.getStyleClass().add("editButton");
+				deleteBtn.getStyleClass().add("deleteButton");
 
 				editBtn.setOnAction(event -> {
 					Subject subject = getTableView().getItems().get(getIndex());
@@ -352,7 +346,7 @@ public class Window extends Application {
 		subjectFilter.setValue("All Subjects");
 
 		Button addButton = new Button("Add Course");
-		addButton.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-text-fill: white;");
+		addButton.getStyleClass().add("addButton");
 		if (this.userRole.equals("USER")) {
 			addButton.setDisable(true);
 		}
@@ -461,8 +455,8 @@ public class Window extends Application {
 			private final HBox actionButtons = new HBox(5, editBtn, deleteBtn);
 
 			{
-				editBtn.setStyle("-fx-background-color: #f39c12; -fx-text-fill: white;");
-				deleteBtn.setStyle("-fx-background-color: " + Window.ACCENT_COLOR + "; -fx-text-fill: white;");
+				editBtn.getStyleClass().add("editButton");
+				deleteBtn.getStyleClass().add("deleteButton");
 			}
 
 			@Override

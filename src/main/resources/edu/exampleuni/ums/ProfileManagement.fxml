@@ -5,16 +5,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox id="content" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12">
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12">
 	<padding>
 		<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
 	</padding>
-	<Label id="titleLabel" text="Profile Management">
+	<Label text="Profile Management">
 		<font>
 			<Font name="Arial Bold" size="24.0" />
 		</font>
 	</Label>
-	<GridPane id="profileGrid" hgap="20.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" vgap="10.0">
+	<GridPane styleClass="profileGrid" hgap="20.0" vgap="10.0">
 		<columnConstraints>
 			<ColumnConstraints />
 			<ColumnConstraints />
@@ -31,14 +31,14 @@
 			<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
 		</padding>
 		<VBox alignment="CENTER" spacing="10.0" GridPane.rowSpan="5">
-			<StackPane id="avatarPane" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #f0f0f0; -fx-background-radius: 60;">
-				<Label id="avatarLabel" text="JD" textFill="#808080">
+			<StackPane styleClass="avatarPane" prefHeight="120.0" prefWidth="120.0">
+				<Label text="JD" textFill="#808080">
 					<font>
 						<Font name="Arial Bold" size="36.0" />
 					</font>
 				</Label>
 			</StackPane>
-			<Button id="uploadPhotoBtn" mnemonicParsing="false" style="-fx-text-fill: white; -fx-background-color: #3498db;" text="Upload Photo" />
+			<Button styleClass="uploadPhotoButton" text="Upload Photo" />
 		</VBox>
 		<Label text="Name:" GridPane.columnIndex="1" />
 		<Label text="ID:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -51,8 +51,8 @@
 		<Label text="123 Campus Drive, University City" GridPane.columnIndex="2" GridPane.rowIndex="3" />
 		<Label text="(555) 123-4567" GridPane.columnIndex="2" GridPane.rowIndex="4" />
 	</GridPane>
-	<TitledPane id="changePasswordPane" text="Change Password">
-		<GridPane id="passwordGrid" hgap="10.0" vgap="10.0">
+	<TitledPane text="Change Password">
+		<GridPane hgap="10.0" vgap="10.0">
 			<columnConstraints>
 				<ColumnConstraints />
 				<ColumnConstraints />
@@ -69,7 +69,7 @@
 			<Label text="Current Password:" />
 			<Label text="New Password:" GridPane.rowIndex="1" />
 			<Label text="Confirm Password:" GridPane.rowIndex="2" />
-			<Button style="-fx-text-fill: white; -fx-background-color: #3498db;" text="Update Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+			<Button styleClass="updatePasswordButton" text="Update Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 			<PasswordField GridPane.columnIndex="1" />
 			<PasswordField GridPane.columnIndex="1" GridPane.rowIndex="1" />
 			<PasswordField GridPane.columnIndex="1" GridPane.rowIndex="2" />
