@@ -29,71 +29,32 @@ public class Window extends Application {
 		stage.show();
 	}
 	private StackPane createLoginScreen() {
-		VBox loginForm = new VBox(15);
-		loginForm.setAlignment(Pos.CENTER);
-		loginForm.setPadding(new Insets(30));
-		loginForm.setMaxWidth(400);
-		loginForm.setStyle("-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);");
-
-		// Place holder University logo/header
-		Label headerLabel = new Label("University Management System");
-		headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-		headerLabel.setTextFill(Color.web(Window.SECONDARY_COLOR));
-
-		// Username field
-		TextField usernameField = new TextField();
-		usernameField.setPromptText("Username / Student ID");
-		usernameField.setPrefHeight(40);
-
-		// Password field
-		PasswordField passwordField = new PasswordField();
-		passwordField.setPromptText("Password");
-		passwordField.setPrefHeight(40);
-
-		// Login button
-		Button loginButton = new Button("Login");
-		loginButton.setPrefHeight(40);
-		loginButton.setPrefWidth(Double.MAX_VALUE);
-		loginButton.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-text-fill: white;");
-
-		// Error message form/label
-		Label errorMessage = new Label();
-		errorMessage.setTextFill(Color.RED);
-		errorMessage.setVisible(false);
-
-		// Add all components to form
-		loginForm.getChildren().addAll(headerLabel,
-				new Label("Username"), usernameField,
-				new Label("Password"), passwordField,
-				loginButton, errorMessage);
+		LoginScreen loginScreen = new LoginScreen();
+		loginScreen.title.setTextFill(Color.web(Window.SECONDARY_COLOR));
+		loginScreen.loginButton.setStyle("-fx-background-color: " + Window.PRIMARY_COLOR + "; -fx-text-fill: white;");
 
 		// Login button action
-		loginButton.setOnAction(e -> {
+		loginScreen.loginButton.setOnAction(e -> {
 			// Simple authentication logic for demo purposes
 			// needs JDBC
 
-			String username = usernameField.getText();
-			String password = passwordField.getText();
+			String username = loginScreen.usernameField.getText();
+			String password = loginScreen.passwordField.getText();
 
 			if (username.equals("admin") && password.equals("admin")) {
 				this.userRole = "ADMIN";
 			} else if (username.equals("user") && password.equals("user")) {
 				this.userRole = "USER";
 			} else {
-				errorMessage.setText("Invalid username or password!");
-				errorMessage.setVisible(true);
+				loginScreen.errorMessage.setText("Invalid username or password!");
+				loginScreen.errorMessage.setVisible(true);
 				return;
 			}
 			this._setScene(createMainApplication(), 1024, 768);
 			this.stage.setMaximized(true);
 		});
 
-		// Center login form
-		StackPane rootPane = new StackPane();
-		rootPane.setStyle("-fx-background-color: #f5f5f5;");
-		rootPane.getChildren().add(loginForm);
-
-		return rootPane;
+		return loginScreen;
 	}
 
 	private BorderPane createMainApplication() {
@@ -188,20 +149,6 @@ public class Window extends Application {
 				createMenuItem("Profile Management", e -> setContent(createProfileManagement()))
 		);
 		return menu;
-	}
-
-	private VBox createMenuItem(String name, javafx.event.EventHandler<MouseEvent> action) {
-		MenuItem item = new MenuItem();
-		item.setName(name);
-		// Click action
-		item.setOnMouseClicked(action);
-
-		return item;
-	}
-
-	// Dashboard content
-	private Node createDashboard() {
-		return createFXML("Dashboard.fxml");
 	}
 
 	private VBox createSubjectManagement() {
@@ -529,6 +476,19 @@ public class Window extends Application {
 			}
 		});
 		return actionCol;
+	}
+
+	private VBox createMenuItem(String name, javafx.event.EventHandler<MouseEvent> action) {
+		MenuItem item = new MenuItem();
+		item.setName(name);
+		// Click action
+		item.setOnMouseClicked(action);
+		return item;
+	}
+
+	// Dashboard content
+	private Node createDashboard() {
+		return createFXML("Dashboard.fxml");
 	}
 
 	// Student Management content
