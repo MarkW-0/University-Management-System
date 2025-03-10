@@ -1,15 +1,19 @@
 .root {
-	theme-color-primary: #3498db;
+	theme-color-primary: #3789db;
 	theme-color-secondary: #2c3e50;
-	theme-color-red: #e74c3c;
+	theme-color-red: #e83a3a;
+	theme-color-orange: #f28211;
+	theme-color-background: #ffffff;
+	theme-color-shadowed: #f0f0f0;
+	theme-color-dropshadow: #00000033;
 	/* I can't find this in the javaFX spec, only color look up is supported */
-	theme-dropshadow: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+	theme-dropshadow: dropshadow(three-pass-box, theme-color-dropshadow, 10, 0, 0, 0);
 }
 .LoginScreen {
-	-fx-background-color: #f5f5f5;
+	-fx-background-color: theme-color-shadowed;
 }
 .LoginScreen > VBox {
-   -fx-background-color: white;
+   -fx-background-color: theme-color-background;
    -fx-effect: theme-dropshadow;
 }
 .LoginScreen > VBox > Label {
@@ -17,7 +21,7 @@
 }
 .loginButton {
 	-fx-background-color: theme-color-primary;
-	-fx-text-fill: white;
+	-fx-text-fill: theme-color-background;
 }
 
 .navigationMenu {
@@ -35,48 +39,48 @@
 }
 
 .contentPane {
-	-fx-background-color: #f5f5f5;
+	-fx-background-color: theme-color-shadowed;
 }
 .Header {
 	-fx-background-color: theme-color-primary;
 }
 .logoutButton {
 	-fx-background-color: theme-color-red;
-	-fx-text-fill: white;
+	-fx-text-fill: theme-color-background;
 }
 
 .MetricCard {
-	-fx-background-color: white;
+	-fx-background-color: theme-color-background;
 	-fx-effect: theme-dropshadow;
 	-fx-background-radius: 5;
 }
 
 .addButton {
 	-fx-background-color: theme-color-primary;
-	-fx-text-fill: white;
+	-fx-text-fill: theme-color-background;
 }
 .editButton {
-	-fx-background-color: #f39c12;
-	-fx-text-fill: white;
+	-fx-background-color: theme-color-orange;
+	-fx-text-fill: theme-color-background;
 }
 .deleteButton {
 	-fx-background-color: theme-color-red;
-	-fx-text-fill: white;
+	-fx-text-fill: theme-color-background;
 }
 
 .profileGrid {
-	-fx-background-color: white;
+	-fx-background-color: theme-color-background;
 	-fx-effect: theme-dropshadow;
 }
 .avatarPane {
-	-fx-background-color: #f0f0f0;
+	-fx-background-color: theme-color-shadowed;
 	-fx-background-radius: 60;
 }
 .uploadPhotoButton {
 	-fx-background-color: theme-color-primary;
-	-fx-text-fill: white;
+	-fx-text-fill: theme-color-background;
 }
 .updatePasswordButton {
 	-fx-background-color: theme-color-primary;
-	-fx-text-fill: white;
+	-fx-text-fill: theme-color-background;
 }
