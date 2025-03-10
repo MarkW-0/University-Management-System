@@ -5,10 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
 
@@ -56,7 +56,10 @@ public class Window extends Application {
 		BorderPane mainLayout = new BorderPane();
 
 		//  header
-		mainLayout.setTop(createHeader());
+		Header header = new Header();
+		header.setUserLabel("Logged in as: " + this.userRole);
+		header.logoutButton.setOnAction(e -> this._setScene(createLoginScreen(), 800, 600));
+		mainLayout.setTop(header);
 
 		// Create left menu
 		VBox menuPane;
@@ -84,33 +87,6 @@ public class Window extends Application {
 		this.contentPane.getChildren().add(createDashboard());
 
 		return mainLayout;
-	}
-
-	private HBox createHeader() {
-		HBox header = new HBox(5);
-		header.setPadding(new Insets(10, 15, 10, 15));
-		header.getStyleClass().add("header");
-		header.setAlignment(Pos.CENTER_LEFT);
-
-		// App title
-		Label title = new Label("University Management System");
-		title.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-		title.setTextFill(Color.WHITE);
-
-		// this is Spacer
-		Region spacer = new Region();
-		HBox.setHgrow(spacer, Priority.ALWAYS);
-
-		// User info and logout
-		Label userLabel = new Label("Logged in as: " + this.userRole);
-		userLabel.setTextFill(Color.WHITE);
-
-		Button logoutBtn = new Button("Logout");
-		logoutBtn.getStyleClass().add("logoutButton");
-		logoutBtn.setOnAction(e -> this._setScene(createLoginScreen(), 800, 600));
-
-		header.getChildren().addAll(title, spacer, userLabel, logoutBtn);
-		return header;
 	}
 
 	// Only add management options for ADMIN
@@ -166,19 +142,16 @@ public class Window extends Application {
 			addButton.setDisable(true);
 		}
 
-		Region spacer = new Region();
-		HBox.setHgrow(spacer, Priority.ALWAYS);
-
-		controls.getChildren().addAll(searchField, spacer, addButton);
+		controls.getChildren().addAll(searchField, new Spacer(), addButton);
 
 		// Subjects table
 		TableView<Subject> subjectsTable = new TableView<>();
 		TableColumn<Subject, String> codeCol = new TableColumn<>("Subject Code");
-		codeCol.setCellValueFactory(cellData -> cellData.getValue().code);
+		codeCol.setCellValueFactory(new PropertyValueFactory<>("code"));
 		codeCol.setPrefWidth(150);
 
 		TableColumn<Subject, String> nameCol = new TableColumn<>("Subject Name");
-		nameCol.setCellValueFactory(cellData -> cellData.getValue().name);
+		nameCol.setCellValueFactory(new PropertyValueFactory<>("subjectName"));
 		nameCol.setPrefWidth(400);
 
 		subjectsTable.getColumns().addAll(codeCol, nameCol);
@@ -186,14 +159,15 @@ public class Window extends Application {
 		// Add button functionality
 		addButton.setOnAction(e -> {
 			Dialog<Subject> dialog = createSubjectEditDialog(null);
-			dialog.showAndWait().ifPresent(newSubject -> {
-				subjectsTable.getItems().add(newSubject);
-			});
+			dialog.showAndWait().ifPresent(newSubject -> subjectsTable.getItems().add(newSubject));
 		});
 
 		// Add action column if ADMIN
 		if (this.userRole.equals("ADMIN")) {
-			subjectsTable.getColumns().add(SubjectManagementAdminActionCol());
+			TableColumn<Subject, Void> actionCol = new TableColumn<>("Actions");
+			actionCol.setPrefWidth(150);
+			actionCol.setCellFactory(param -> new SubjectManagementAdminActionCell());
+			subjectsTable.getColumns().add(actionCol);
 		}
 
 		// Add sample data
@@ -212,59 +186,7 @@ public class Window extends Application {
 		return content;
 	}
 
-	private TableColumn<Subject, Void> SubjectManagementAdminActionCol() {
-		TableColumn<Subject, Void> actionCol = new TableColumn<>("Actions");
-		actionCol.setPrefWidth(150);
-		actionCol.setCellFactory(param -> new TableCell<>() {
-			private final Button editBtn = new Button("Edit");
-			private final Button deleteBtn = new Button("Delete");
-			private final HBox actionButtons = new HBox(5, editBtn, deleteBtn);
-
-			{
-				editBtn.getStyleClass().add("editButton");
-				deleteBtn.getStyleClass().add("deleteButton");
-
-				editBtn.setOnAction(event -> {
-					Subject subject = getTableView().getItems().get(getIndex());
-					Dialog<Subject> dialog = createSubjectEditDialog(subject);
-					dialog.showAndWait().ifPresent(editedSubject -> {
-						// Update the existing subject in the table
-						int index = getTableView().getItems().indexOf(subject);
-						if (index != -1) {
-							getTableView().getItems().set(index, editedSubject);
-						}
-					});
-				});
-
-				deleteBtn.setOnAction(event -> {
-					Subject subject = getTableView().getItems().get(getIndex());
-					// Show confirmation dialog
-					Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-					alert.setTitle("Delete Subject");
-					alert.setHeaderText("Delete Subject: " + subject.name.get());
-					alert.setContentText("Are you sure you want to delete this subject?");
-
-					alert.showAndWait().ifPresent(response -> {
-						if (response == ButtonType.OK) {
-							getTableView().getItems().remove(getIndex());
-						}
-					});
-				});
-			}
-
-			@Override
-			protected void updateItem(Void item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty) {
-					setGraphic(null);
-				} else {
-					setGraphic(actionButtons);
-				}
-			}
-		});
-		return actionCol;
-	}
-	private Dialog<Subject> createSubjectEditDialog(Subject existingSubject) {
+	static Dialog<Subject> createSubjectEditDialog(Subject existingSubject) {
 		Dialog<Subject> dialog = new Dialog<>();
 		// Create a dialog for the subject form
 		dialog.setTitle(existingSubject == null ? "Add Subject" : "Edit Subject");
@@ -286,7 +208,7 @@ public class Window extends Application {
 		// Pre-fill fields if editing a subject that is already there
 		if (existingSubject != null) {
 			codeField.setText(existingSubject.code.get());
-			nameField.setText(existingSubject.name.get());
+			nameField.setText(existingSubject.subjectName.get());
 		}
 		grid.add(new Label("Subject Code:"), 0, 0);
 		grid.add(codeField, 1, 0);
@@ -351,47 +273,45 @@ public class Window extends Application {
 			addButton.setDisable(true);
 		}
 
-		Region spacer = new Region();
-		HBox.setHgrow(spacer, Priority.ALWAYS);
-
-		controls.getChildren().addAll(searchField, subjectFilter, spacer, addButton);
+		controls.getChildren().addAll(searchField, subjectFilter, new Spacer(), addButton);
 
 		// Courses table
 		TableView<Course> coursesTable = new TableView<>();
 
 		TableColumn<Course, String> codeCol = new TableColumn<>("Course Code");
-		codeCol.setCellValueFactory(cellData -> cellData.getValue().code);
+		codeCol.setCellValueFactory(new PropertyValueFactory<>("code"));
 		codeCol.setPrefWidth(100);
 
 		TableColumn<Course, String> nameCol = new TableColumn<>("Course Name");
-		nameCol.setCellValueFactory(cellData -> cellData.getValue().name);
+		nameCol.setCellValueFactory(new PropertyValueFactory<>("courseName"));
 		nameCol.setPrefWidth(200);
 
 		TableColumn<Course, String> subjectCol = new TableColumn<>("Subject");
-		subjectCol.setCellValueFactory(cellData -> cellData.getValue().subject);
+		subjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
 		subjectCol.setPrefWidth(150);
 
 		TableColumn<Course, String> sectionCol = new TableColumn<>("Section");
-		sectionCol.setCellValueFactory(cellData -> cellData.getValue().section);
+		sectionCol.setCellValueFactory(new PropertyValueFactory<>("section"));
 		sectionCol.setPrefWidth(80);
 
 		TableColumn<Course, String> teacherCol = new TableColumn<>("Teacher");
-		teacherCol.setCellValueFactory(cellData -> cellData.getValue().teacher);
+		teacherCol.setCellValueFactory(new PropertyValueFactory<>("teacher"));
 		teacherCol.setPrefWidth(150);
 
 		TableColumn<Course, String> capacityCol = new TableColumn<>("Capacity");
-		capacityCol.setCellValueFactory(cellData -> cellData.getValue().capacity);
+		capacityCol.setCellValueFactory(new PropertyValueFactory<>("capacity"));
 		capacityCol.setPrefWidth(80);
 
 		TableColumn<Course, String> locationCol = new TableColumn<>("Location");
-		locationCol.setCellValueFactory(cellData -> cellData.getValue().location);
+		locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
 		locationCol.setPrefWidth(100);
-
 		coursesTable.getColumns().addAll(codeCol, nameCol, subjectCol, sectionCol, teacherCol, capacityCol, locationCol);
-
 		// Add action column if ADMIN
 		if (this.userRole.equals("ADMIN")) {
-			coursesTable.getColumns().add(CourseManagementAdminActionCol());
+			TableColumn<Course, Void> actionCol = new TableColumn<>("Actions");
+			actionCol.setPrefWidth(150);
+			actionCol.setCellFactory(param -> new CourseManagementAdminActionCell());
+			coursesTable.getColumns().add(actionCol);
 		}
 
 		// Add sample data
@@ -441,35 +361,9 @@ public class Window extends Application {
 		}
 
 		VBox.setVgrow(tabPane, Priority.ALWAYS);
-		content.getChildren().addAll(titleLabel, tabPane);
+		content.getChildren().addAll(titleLabel, tabPane, createFXML("CourseManagement.fxml"));
 
 		return content;
-	}
-
-	private static TableColumn<Course, Void> CourseManagementAdminActionCol() {
-		TableColumn<Course, Void> actionCol = new TableColumn<>("Actions");
-		actionCol.setPrefWidth(150);
-		actionCol.setCellFactory(param -> new TableCell<>() {
-			private final Button editBtn = new Button("Edit");
-			private final Button deleteBtn = new Button("Delete");
-			private final HBox actionButtons = new HBox(5, editBtn, deleteBtn);
-
-			{
-				editBtn.getStyleClass().add("editButton");
-				deleteBtn.getStyleClass().add("deleteButton");
-			}
-
-			@Override
-			protected void updateItem(Void item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty) {
-					setGraphic(null);
-				} else {
-					setGraphic(actionButtons);
-				}
-			}
-		});
-		return actionCol;
 	}
 
 	private VBox createMenuItem(String name, javafx.event.EventHandler<MouseEvent> action) {
@@ -522,38 +416,6 @@ public class Window extends Application {
 	private void setContent(Node content) {
 		this.contentPane.getChildren().clear();
 		this.contentPane.getChildren().add(content);
-	}
-
-	// Subject data model class
-	public static class Subject {
-		private final javafx.beans.property.StringProperty code;
-		private final javafx.beans.property.StringProperty name;
-
-		public Subject(String code, String name) {
-			this.code = new javafx.beans.property.SimpleStringProperty(code);
-			this.name = new javafx.beans.property.SimpleStringProperty(name);
-		}
-	}
-
-	public static class Course {
-		private final javafx.beans.property.StringProperty code;
-		private final javafx.beans.property.StringProperty name;
-		private final javafx.beans.property.StringProperty subject;
-		private final javafx.beans.property.StringProperty section;
-		private final javafx.beans.property.StringProperty teacher;
-		private final javafx.beans.property.StringProperty capacity;
-		private final javafx.beans.property.StringProperty location;
-
-		public Course(String code, String name, String subject, String section,
-					  String teacher, String capacity, String location) {
-			this.code = new javafx.beans.property.SimpleStringProperty(code);
-			this.name = new javafx.beans.property.SimpleStringProperty(name);
-			this.subject = new javafx.beans.property.SimpleStringProperty(subject);
-			this.section = new javafx.beans.property.SimpleStringProperty(section);
-			this.teacher = new javafx.beans.property.SimpleStringProperty(teacher);
-			this.capacity = new javafx.beans.property.SimpleStringProperty(capacity);
-			this.location = new javafx.beans.property.SimpleStringProperty(location);
-		}
 	}
 
 	// Main method

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import edu.exampleuni.ums.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root type="javafx.scene.layout.HBox" alignment="CENTER_LEFT" spacing="5.0" styleClass="Header"
+		 xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+	<padding>
+		<Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+	</padding>
+	<Label text="University Management System" textFill="WHITE">
+		<font>
+			<Font name="Arial Bold" size="18.0" />
+		</font>
+	</Label>
+   <Spacer />
+	<Label fx:id="userLabel" text="Logged in as: this.userRole" textFill="WHITE" />
+   <Button fx:id="logoutButton" styleClass="logoutButton" text="Logout" />
+</fx:root>
