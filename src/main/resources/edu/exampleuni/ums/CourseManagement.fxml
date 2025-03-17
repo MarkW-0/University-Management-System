@@ -10,7 +10,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.cell.*?>
 
-<VBox spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.scene.layout.VBox" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
 	<padding>
 		<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
 	</padding>
@@ -44,9 +44,9 @@
 						</value>
 					</ComboBox>
 					<Spacer />
-					<Button styleClass="addButton" text="Add Course" />
+					<Button fx:id="addButton" styleClass="addButton" text="Add Course" />
 				</HBox>
-				<TableView VBox.vgrow="ALWAYS">
+				<TableView fx:id="courseTable" VBox.vgrow="ALWAYS">
 					<columns>
 						<TableColumn prefWidth="100.0" text="Course Code" ><cellValueFactory><PropertyValueFactory property="code" /></cellValueFactory></TableColumn>
 						<TableColumn prefWidth="200.0" text="Course Name" ><cellValueFactory><PropertyValueFactory property="courseName" /></cellValueFactory></TableColumn>
@@ -55,7 +55,7 @@
 						<TableColumn prefWidth="150.0" text="Teacher" ><cellValueFactory><PropertyValueFactory property="teacher" /></cellValueFactory></TableColumn>
 						<TableColumn prefWidth="80.0" text="Capacity" ><cellValueFactory><PropertyValueFactory property="capacity" /></cellValueFactory></TableColumn>
 						<TableColumn prefWidth="100.0" text="Location" ><cellValueFactory><PropertyValueFactory property="location" /></cellValueFactory></TableColumn>
-						<TableColumn prefWidth="150.0" text="Admin Actions" ><cellValueFactory><PropertyValueFactory property="location" /></cellValueFactory></TableColumn>
+						<!--<TableColumn prefWidth="150.0" text="Admin Actions"/>-->
 					</columns>
 					<items>
 						<FXCollections fx:factory="observableArrayList">
@@ -73,4 +73,4 @@
 		<Tab text="Admin Enrollments" />
 		<Tab text="User My Courses" />
 	</TabPane>
-</VBox>
+</fx:root>

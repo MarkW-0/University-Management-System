@@ -239,130 +239,26 @@ public class Window extends Application {
 
 	// Course Management content
 	private VBox createCourseManagement() {
-		VBox content = new VBox(20);
-		content.setPadding(new Insets(20));
+		CourseManagement content = new CourseManagement();
 
-		Label titleLabel = new Label("Course Management");
-		titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-
-		// Tab pane for different course views
-		TabPane tabPane = new TabPane();
-		tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-
-		// All Courses Tab
-		Tab allCoursesTab = new Tab("All Courses");
-		VBox allCoursesContent = new VBox(10);
-		allCoursesContent.setPadding(new Insets(10));
-
-		// Search and controls
-		HBox controls = new HBox(10);
-		controls.setAlignment(Pos.CENTER_LEFT);
-
-		TextField searchField = new TextField();
-		searchField.setPromptText("Search courses...");
-		searchField.setPrefWidth(300);
-
-		ComboBox<String> subjectFilter = new ComboBox<>();
-		subjectFilter.setPromptText("Filter by Subject");
-		subjectFilter.getItems().addAll("All Subjects", "Mathematics", "Computer Science", "English", "Biology", "Physics");
-		subjectFilter.setValue("All Subjects");
-
-		Button addButton = new Button("Add Course");
-		addButton.getStyleClass().add("addButton");
 		if (this.userRole.equals("USER")) {
-			addButton.setDisable(true);
+			content.addButton.setDisable(true);
 		}
-
-		controls.getChildren().addAll(searchField, subjectFilter, new Spacer(), addButton);
-
-		// Courses table
-		TableView<Course> coursesTable = new TableView<>();
-
-		TableColumn<Course, String> codeCol = new TableColumn<>("Course Code");
-		codeCol.setCellValueFactory(new PropertyValueFactory<>("code"));
-		codeCol.setPrefWidth(100);
-
-		TableColumn<Course, String> nameCol = new TableColumn<>("Course Name");
-		nameCol.setCellValueFactory(new PropertyValueFactory<>("courseName"));
-		nameCol.setPrefWidth(200);
-
-		TableColumn<Course, String> subjectCol = new TableColumn<>("Subject");
-		subjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
-		subjectCol.setPrefWidth(150);
-
-		TableColumn<Course, String> sectionCol = new TableColumn<>("Section");
-		sectionCol.setCellValueFactory(new PropertyValueFactory<>("section"));
-		sectionCol.setPrefWidth(80);
-
-		TableColumn<Course, String> teacherCol = new TableColumn<>("Teacher");
-		teacherCol.setCellValueFactory(new PropertyValueFactory<>("teacher"));
-		teacherCol.setPrefWidth(150);
-
-		TableColumn<Course, String> capacityCol = new TableColumn<>("Capacity");
-		capacityCol.setCellValueFactory(new PropertyValueFactory<>("capacity"));
-		capacityCol.setPrefWidth(80);
-
-		TableColumn<Course, String> locationCol = new TableColumn<>("Location");
-		locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
-		locationCol.setPrefWidth(100);
-		coursesTable.getColumns().addAll(codeCol, nameCol, subjectCol, sectionCol, teacherCol, capacityCol, locationCol);
 		// Add action column if ADMIN
 		if (this.userRole.equals("ADMIN")) {
 			TableColumn<Course, Void> actionCol = new TableColumn<>("Actions");
 			actionCol.setPrefWidth(150);
 			actionCol.setCellFactory(param -> new CourseManagementAdminActionCell());
-			coursesTable.getColumns().add(actionCol);
+			content.courseTable.getColumns().add(actionCol);
 		}
-
-		// Add sample data
-		coursesTable.getItems().addAll(
-				new Course("CS101", "Introduction to Programming", "Computer Science", "Section 1", "Dr. Smith", "30", "Room 101"),
-				new Course("MATH101", "Calculus I", "Mathematics", "Section 1", "Dr. Johnson", "35", "Room 202"),
-				new Course("ENG201", "Advanced Composition", "English", "Section 2", "Prof. Williams", "25", "Room 303"),
-				new Course("BIO101", "Introduction to Biology", "Biology", "Section 1", "Dr. Brown", "40", "Lab 1"),
-				new Course("PHYS101", "Physics I", "Physics", "Section 3", "Dr. Davis", "30", "Room 405")
-		);
-
-		VBox.setVgrow(coursesTable, Priority.ALWAYS);
-
-		allCoursesContent.getChildren().addAll(controls, coursesTable);
-		allCoursesTab.setContent(allCoursesContent);
-
 		// Add more tabs based on role
-		if (this.userRole.equals("ADMIN")) {
-			Tab scheduleTab = new Tab("Schedule");
-			VBox scheduleContent = new VBox(10);
-			scheduleContent.setPadding(new Insets(10));
-			Label scheduleLabel = new Label("Course Schedule Management");
-			scheduleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-			scheduleContent.getChildren().add(scheduleLabel);
-			scheduleTab.setContent(scheduleContent);
-
-			Tab enrollmentsTab = new Tab("Enrollments");
-			VBox enrollmentsContent = new VBox(10);
-			enrollmentsContent.setPadding(new Insets(10));
-			Label enrollmentsLabel = new Label("Course Enrollments Management");
-			enrollmentsLabel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-			enrollmentsContent.getChildren().add(enrollmentsLabel);
-			enrollmentsTab.setContent(enrollmentsContent);
-
-			tabPane.getTabs().addAll(allCoursesTab, scheduleTab, enrollmentsTab);
-		} else {
+		//if (this.userRole.equals("ADMIN")) {
+			//Tab scheduleTab = new Tab("Schedule");
+			//Tab enrollmentsTab = new Tab("Enrollments");
+		//} else {
 			// USER role
-			Tab myCoursesTab = new Tab("My Courses");
-			VBox myCoursesContent = new VBox(10);
-			myCoursesContent.setPadding(new Insets(10));
-			Label myCoursesLabel = new Label("My Enrolled Courses");
-			myCoursesLabel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-			myCoursesContent.getChildren().add(myCoursesLabel);
-			myCoursesTab.setContent(myCoursesContent);
-
-			tabPane.getTabs().addAll(allCoursesTab, myCoursesTab);
-		}
-
-		VBox.setVgrow(tabPane, Priority.ALWAYS);
-		content.getChildren().addAll(titleLabel, tabPane, createFXML("CourseManagement.fxml"));
-
+			//Tab myCoursesTab = new Tab("My Courses");
+		//}
 		return content;
 	}
 
