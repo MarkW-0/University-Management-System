@@ -84,3 +84,18 @@
 	-fx-background-color: theme-color-primary;
 	-fx-text-fill: theme-color-background;
 }
+
+.navButton {
+	-fx-background-color: -fx-box-border, -fx-inner-border, -fx-body-color;
+	-fx-background-insets: 0, 1, 2;
+	-fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;
+	-fx-padding: 2 10 3 10;
+}
+
+.navArrow {
+	-fx-background-radius: 0;
+	-fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+	-fx-background-insets: 1 0 -1 0, 0;
+	-fx-padding: 3 6.75 3 3.75;
+	-fx-shape: "M 0 0 h 7 l -3.5 4 z";
+}

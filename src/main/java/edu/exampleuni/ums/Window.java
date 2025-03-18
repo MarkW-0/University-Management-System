@@ -68,13 +68,11 @@ public class Window extends Application {
 		} else {
 			menuPane = createUserMenu();
 		}
-		ScrollPane menuScrollPane = new ScrollPane(menuPane);
-		menuScrollPane.setFitToWidth(true);
-		menuScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-		menuScrollPane.setPrefWidth(250);
-		menuScrollPane.getStyleClass().add("menuScrollPane");
+		var collapsibleMenuPane = new TitledPane("Nav menu", menuPane);
+		collapsibleMenuPane.setSkin(new Nav(collapsibleMenuPane));
+		collapsibleMenuPane.getStyleClass().add("menuScrollPane");
 
-		mainLayout.setLeft(menuScrollPane);
+		mainLayout.setLeft(collapsibleMenuPane);
 
 		// Create content area
 		this.contentPane = new StackPane();
