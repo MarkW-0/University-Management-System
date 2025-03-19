@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox alignment="CENTER" spacing="15" maxWidth="400" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30" />
+            </padding>
+
+            <Label text="University Management System" textFill="#2c3e50">
+                <font>
+                    <Font name="Arial" size="20" />
+                </font>
+            </Label>
+
+            <Label text="Username" />
+            <TextField fx:id="usernameField" promptText="Username / Student ID" prefHeight="40" />
+
+            <Label text="Password" />
+            <PasswordField fx:id="passwordField" promptText="Password" prefHeight="40" />
+
+            <Button fx:id="loginButton" text="Login" prefHeight="40" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+
+            <Label fx:id="errorMessage" textFill="RED" visible="false" />
+        </VBox>
+    </children>
+</StackPane>
