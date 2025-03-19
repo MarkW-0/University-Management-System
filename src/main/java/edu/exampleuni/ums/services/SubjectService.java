@@ -1,22 +1,32 @@
 package edu.exampleuni.ums.services;
 
 import edu.exampleuni.ums.models.Subject;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectService {
+	private final List<Subject> subjects = new ArrayList<>();
+
 	public List<Subject> getAllSubjects() {
-		// Fetch subjects from database
-		return List.of(
-				new Subject("MATH001", "Mathematics 101"),
-				new Subject("CS101", "Introduction to Computer Science")
-		);
+		return new ArrayList<>(subjects);
 	}
 
 	public void addSubject(Subject subject) {
-		// Add subject to database
+		subjects.add(subject);
 	}
 
-	public void deleteSubject(String subjectCode) {
-		// Delete subject from database
+	public void deleteSubject(Subject subject) {
+		subjects.remove(subject);
+	}
+
+	// NEW: Method to update a subject
+	public void updateSubject(Subject updatedSubject) {
+		for (int i = 0; i < subjects.size(); i++) {
+			Subject subject = subjects.get(i);
+			if (subject.getCode().equals(updatedSubject.getCode())) {
+				subjects.set(i, updatedSubject);
+				break;
+			}
+		}
 	}
 }

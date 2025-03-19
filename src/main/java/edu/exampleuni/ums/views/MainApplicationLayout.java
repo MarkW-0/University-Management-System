@@ -1,5 +1,5 @@
 package edu.exampleuni.ums.views;
-
+import edu.exampleuni.ums.views.ManagementViews;
 import edu.exampleuni.ums.models.User;
 import edu.exampleuni.ums.utils.NavigationManager;
 import javafx.geometry.Insets;
@@ -22,6 +22,7 @@ public class MainApplicationLayout {
 	public MainApplicationLayout(Stage stage, User user) {
 		this.stage = stage;
 		this.user = user;
+		this.contentPane = new StackPane(); // Initialize first
 		this.navigationManager = new NavigationManager(contentPane);
 	}
 
@@ -91,30 +92,36 @@ public class MainApplicationLayout {
 		menu.setStyle("-fx-background-color: #2c3e50;");
 
 		// Dashboard menu item
-		VBox dashboardItem = createMenuItem("Dashboard", e -> setContent(createDashboard()));
-		menu.getChildren().add(dashboardItem);
+		menu.getChildren().add(
+				createMenuItem("Dashboard", e -> setContent(createDashboard()))
+		);
 
-		// Add menu items based on user role
 		if (this.user.getRole().equals("ADMIN")) {
 			menu.getChildren().addAll(
-					createMenuItem("Subject Management", e -> setContent(createSubjectManagement())),
-					createMenuItem("Course Management", e -> setContent(createCourseManagement())),
-					createMenuItem("Student Management", e -> setContent(createStudentManagement())),
-					createMenuItem("Faculty Management", e -> setContent(createFacultyManagement())),
-					createMenuItem("Event Management", e -> setContent(createEventManagement()))
+					createMenuItem("Subject Management", e ->
+							setContent(ManagementViews.createSubjectManagement(user.getRole()))),
+					createMenuItem("Course Management", e ->
+							setContent(ManagementViews.createCourseManagement(user.getRole())))//,
+					/*createMenuItem("Student Management", e ->
+							setContent(ManagementViews.createStudentManagement(user.getRole()))),
+					createMenuItem("Faculty Management", e ->
+							setContent(ManagementViews.createFacultyManagement(user.getRole()))),
+					createMenuItem("Event Management", e ->
+							setContent(ManagementViews.createEventManagement(user.getRole())))*/
 			);
 		} else {
-			// USER role - limited menu
 			menu.getChildren().addAll(
-					createMenuItem("Course Management", e -> setContent(createCourseManagement())),
-					createMenuItem("Event Management", e -> setContent(createEventManagement())),
-					createMenuItem("Profile Management", e -> setContent(createProfileManagement()))
+					createMenuItem("Course Management", e ->
+							setContent(ManagementViews.createCourseManagement(user.getRole()))),
+					/*createMenuItem("Event Management", e ->
+							setContent(ManagementViews.createEventManagement(user.getRole()))),*/
+					createMenuItem("Profile Management", e ->
+							setContent(createProfileManagement()))
 			);
 		}
 
 		return menu;
 	}
-
 	private VBox createMenuItem(String name, javafx.event.EventHandler<javafx.event.ActionEvent> action) {
 		VBox item = new VBox();
 		item.setPadding(new Insets(10, 15, 10, 15));
