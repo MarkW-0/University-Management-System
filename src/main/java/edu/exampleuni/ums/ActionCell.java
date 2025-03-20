@@ -5,8 +5,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.layout.HBox;
 
 public class ActionCell<S> extends TableCell<S,Void> {
-    Button editBtn = new Button("Edit");
-    Button deleteBtn = new Button("Delete");
+    protected Button editBtn = new Button("Edit");
+    protected Button deleteBtn = new Button("Delete");
     HBox actionButtons = new HBox(5, this.editBtn, this.deleteBtn);
 
     {
