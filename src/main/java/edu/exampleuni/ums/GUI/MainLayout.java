@@ -1,8 +1,7 @@
 package edu.exampleuni.ums.GUI;
 
 import edu.exampleuni.ums.*;
-import edu.exampleuni.ums.models.Course;
-import edu.exampleuni.ums.models.Subject;
+import edu.exampleuni.ums.models.*;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 import javafx.scene.Node;
@@ -54,12 +53,12 @@ public class MainLayout extends BorderPane {
 		menu.getStyleClass().add("navigationMenu");
 		// Add all management options for ADMIN
 		menu.getChildren().addAll(
-				new edu.exampleuni.ums.GUI.MenuItem("Dashboard", e -> setContent(createDashboard())),
-				new edu.exampleuni.ums.GUI.MenuItem("Subject Management", e -> setContent(createSubjectManagement())),
-				new edu.exampleuni.ums.GUI.MenuItem("Course Management", e -> setContent(createCourseManagement())),
-				new edu.exampleuni.ums.GUI.MenuItem("Student Management", e -> setContent(createStudentManagement())),
-				new edu.exampleuni.ums.GUI.MenuItem("Faculty Management", e -> setContent(createFacultyManagement())),
-				new edu.exampleuni.ums.GUI.MenuItem("Event Management", e -> setContent(createEventManagement()))
+				new MenuItem("Dashboard", e -> setContent(createDashboard())),
+				new MenuItem("Subject Management", e -> setContent(createSubjectManagement())),
+				new MenuItem("Course Management", e -> setContent(createCourseManagement())),
+				new MenuItem("Student Management", e -> setContent(createStudentManagement())),
+				new MenuItem("Faculty Management", e -> setContent(createFacultyManagement())),
+				new MenuItem("Event Management", e -> setContent(createEventManagement()))
 		);
 		return menu;
 	}
@@ -71,9 +70,9 @@ public class MainLayout extends BorderPane {
 		menu.getStyleClass().add("navigationMenu");
 		// USER role - limited menu
 		menu.getChildren().addAll(
-				new edu.exampleuni.ums.GUI.MenuItem("Dashboard", e -> setContent(createDashboard())),
-				new edu.exampleuni.ums.GUI.MenuItem("Course Management", e -> setContent(createCourseManagement())),
-				new edu.exampleuni.ums.GUI.MenuItem("Event Management", e -> setContent(createEventManagement())),
+				new MenuItem("Dashboard", e -> setContent(createDashboard())),
+				new MenuItem("Course Management", e -> setContent(createCourseManagement())),
+				new MenuItem("Event Management", e -> setContent(createEventManagement())),
 				new MenuItem("Profile Management", e -> setContent(createProfileManagement()))
 		);
 		return menu;

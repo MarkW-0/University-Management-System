@@ -2,9 +2,7 @@ package edu.exampleuni.ums.GUI;
 
 import edu.exampleuni.ums.MainApp;
 import edu.exampleuni.ums.models.Subject;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
+import javafx.scene.control.*;
 
 public class SubjectManagementAdminActionCell extends ActionCell<Subject> {
 	SubjectManagementAdminActionCell(MainApp mainApp) {

@@ -1,9 +1,7 @@
 package edu.exampleuni.ums;
 
 import edu.exampleuni.ums.GUI.*;
-import edu.exampleuni.ums.models.Course;
-import edu.exampleuni.ums.models.Subject;
-import edu.exampleuni.ums.models.User;
+import edu.exampleuni.ums.models.*;
 import edu.exampleuni.ums.services.*;
 import javafx.application.*;
 import javafx.geometry.*;

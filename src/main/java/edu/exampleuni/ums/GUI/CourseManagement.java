@@ -1,8 +1,7 @@
 package edu.exampleuni.ums.GUI;
 
 import edu.exampleuni.ums.models.Course;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
