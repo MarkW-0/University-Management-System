@@ -8,8 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 public class MainApplicationLayout {
@@ -22,7 +21,7 @@ public class MainApplicationLayout {
 	public MainApplicationLayout(Stage stage, User user) {
 		this.stage = stage;
 		this.user = user;
-		this.contentPane = new StackPane(); // Initialize first
+		this.contentPane = new StackPane();
 		this.navigationManager = new NavigationManager(contentPane);
 	}
 
@@ -60,23 +59,19 @@ public class MainApplicationLayout {
 		header.setStyle("-fx-background-color: #3498db;");
 		header.setAlignment(Pos.CENTER_LEFT);
 
-		// App title
 		Label title = new Label("University Management System");
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 18));
 		title.setTextFill(Color.WHITE);
 
-		// Spacer
 		Region spacer = new Region();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 
-		// User info and logout
 		Label userLabel = new Label("Logged in as: " + this.user.getRole());
 		userLabel.setTextFill(Color.WHITE);
 
 		Button logoutBtn = new Button("Logout");
 		logoutBtn.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;");
 		logoutBtn.setOnAction(e -> {
-			// Navigate back to login screen
 			LoginScreen loginScreen = new LoginScreen(stage);
 			stage.setScene(loginScreen.getScene());
 			stage.setMaximized(false);
@@ -92,36 +87,30 @@ public class MainApplicationLayout {
 		menu.setStyle("-fx-background-color: #2c3e50;");
 
 		// Dashboard menu item
-		menu.getChildren().add(
-				createMenuItem("Dashboard", e -> setContent(createDashboard()))
-		);
+		menu.getChildren().add(createMenuItem("Dashboard", e -> setContent(createDashboard())));
 
+		// For ADMIN users, show all options; for USER, include Subject Management too.
 		if (this.user.getRole().equals("ADMIN")) {
 			menu.getChildren().addAll(
-					createMenuItem("Subject Management", e ->
-							setContent(ManagementViews.createSubjectManagement(user.getRole()))),
-					createMenuItem("Course Management", e ->
-							setContent(ManagementViews.createCourseManagement(user.getRole())))//,
-					/*createMenuItem("Student Management", e ->
-							setContent(ManagementViews.createStudentManagement(user.getRole()))),
-					createMenuItem("Faculty Management", e ->
-							setContent(ManagementViews.createFacultyManagement(user.getRole()))),
-					createMenuItem("Event Management", e ->
-							setContent(ManagementViews.createEventManagement(user.getRole())))*/
+					createMenuItem("Subject Management", e -> setContent(ManagementViews.createSubjectManagement(user.getRole()))),
+					createMenuItem("Course Management", e -> setContent(ManagementViews.createCourseManagement(user.getRole()))),
+					createMenuItem("Student Management", e -> setContent(ManagementViews.createStudentManagement(user.getRole()))),
+					createMenuItem("Faculty Management", e -> setContent(ManagementViews.createFacultyManagement(user.getRole()))),
+					createMenuItem("Event Management", e -> setContent(ManagementViews.createEventManagement(user.getRole())))
 			);
 		} else {
+			// For USER role, include Subject Management as read-only along with other options.
 			menu.getChildren().addAll(
-					createMenuItem("Course Management", e ->
-							setContent(ManagementViews.createCourseManagement(user.getRole()))),
-					/*createMenuItem("Event Management", e ->
-							setContent(ManagementViews.createEventManagement(user.getRole()))),*/
-					createMenuItem("Profile Management", e ->
-							setContent(createProfileManagement()))
+					createMenuItem("Subject Management", e -> setContent(ManagementViews.createSubjectManagement(user.getRole()))),
+					createMenuItem("Course Management", e -> setContent(ManagementViews.createCourseManagement(user.getRole()))),
+					createMenuItem("Event Management", e -> setContent(ManagementViews.createEventManagement(user.getRole()))),
+					createMenuItem("Profile Management", e -> setContent(createProfileManagement()))
 			);
 		}
 
 		return menu;
 	}
+
 	private VBox createMenuItem(String name, javafx.event.EventHandler<javafx.event.ActionEvent> action) {
 		VBox item = new VBox();
 		item.setPadding(new Insets(10, 15, 10, 15));
@@ -133,17 +122,12 @@ public class MainApplicationLayout {
 
 		item.getChildren().add(label);
 
-		// Hover effect
 		item.setOnMouseEntered(e -> item.setStyle("-fx-background-color: #3498db; -fx-cursor: hand;"));
 		item.setOnMouseExited(e -> item.setStyle("-fx-cursor: hand;"));
-
-		// Click action
 		item.setOnMouseClicked(e -> {
 			if (action != null) {
 				action.handle(new javafx.event.ActionEvent());
 			}
-
-			// Highlight selected menu item
 			for (javafx.scene.Node node : this.menuPane.getChildren()) {
 				node.setStyle("-fx-cursor: hand;");
 			}
@@ -158,7 +142,6 @@ public class MainApplicationLayout {
 		this.contentPane.getChildren().add(content);
 	}
 
-	// Dashboard content
 	private VBox createDashboard() {
 		VBox dashboardContent = new VBox(20);
 		dashboardContent.setPadding(new Insets(20));
@@ -166,10 +149,8 @@ public class MainApplicationLayout {
 		Label titleLabel = new Label("Dashboard");
 		titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 
-		// Dashboard cards for key metrics
 		HBox metricsRow = new HBox(20);
 		metricsRow.setAlignment(Pos.CENTER);
-
 		metricsRow.getChildren().addAll(
 				createMetricCard("Students", "1,250", "#3498db"),
 				createMetricCard("Courses", "87", "#e74c3c"),
@@ -177,11 +158,9 @@ public class MainApplicationLayout {
 				createMetricCard("Events", "12", "#f39c12")
 		);
 
-		// Recent activities section
 		VBox recentActivities = new VBox(10);
 		Label activitiesLabel = new Label("Recent Activities");
 		activitiesLabel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-
 		ListView<String> activitiesList = new ListView<>();
 		activitiesList.getItems().addAll(
 				"New student registration: John Doe (10 minutes ago)",
@@ -189,28 +168,22 @@ public class MainApplicationLayout {
 				"Event 'Tech Symposium' created (3 hours ago)",
 				"Faculty member Dr. Johnson edited profile (Yesterday)"
 		);
-
 		recentActivities.getChildren().addAll(activitiesLabel, activitiesList);
 		VBox.setVgrow(activitiesList, Priority.ALWAYS);
 
-		// Upcoming events
 		VBox upcomingEvents = new VBox(10);
 		Label eventsLabel = new Label("Upcoming Events");
 		eventsLabel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-
 		ListView<String> eventsList = new ListView<>();
 		eventsList.getItems().addAll(
 				"Tech Symposium (March 10, 2025)",
 				"Final Exams Begin (April 15, 2025)",
 				"Graduation Ceremony (May 20, 2025)"
 		);
-
 		upcomingEvents.getChildren().addAll(eventsLabel, eventsList);
 		VBox.setVgrow(eventsList, Priority.ALWAYS);
 
-		// Add all components to dashboard
 		dashboardContent.getChildren().addAll(titleLabel, metricsRow, recentActivities, upcomingEvents);
-
 		return dashboardContent;
 	}
 
@@ -231,21 +204,7 @@ public class MainApplicationLayout {
 		return card;
 	}
 
-	// Placeholder methods for other management screens
-	private VBox createSubjectManagement() {
-		VBox content = new VBox(20);
-		content.setPadding(new Insets(20));
-		content.getChildren().add(new Label("Subject Management (Under Construction)"));
-		return content;
-	}
-
-	private VBox createCourseManagement() {
-		VBox content = new VBox(20);
-		content.setPadding(new Insets(20));
-		content.getChildren().add(new Label("Course Management (Under Construction)"));
-		return content;
-	}
-
+	// For placeholders – you may update these later
 	private VBox createStudentManagement() {
 		VBox content = new VBox(20);
 		content.setPadding(new Insets(20));
