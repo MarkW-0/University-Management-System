@@ -11,7 +11,7 @@ import javafx.stage.*;
 public class MainApp extends Application {
 	public User user;
 	public Stage stage;
-	public final AuthService authService = new AuthService();
+	public final UserService userService = new UserService();
 	public final SubjectService subjectService = new SubjectService();
 	public final CourseService courseService = new CourseService();
 	public final EventService eventService = new EventService();

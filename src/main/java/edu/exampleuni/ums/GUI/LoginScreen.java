@@ -24,7 +24,7 @@ public class LoginScreen extends StackPane {
 		}
 		// Login button action
 		this.loginButton.setOnAction(e -> {
-			mainApp.user = mainApp.authService.authenticate(this.usernameField.getText(), this.passwordField.getText());
+			mainApp.user = mainApp.userService.authenticate(this.usernameField, this.passwordField);
 			if (mainApp.user == null) {
 				this.errorMessage.setVisible(true);
 				return;
