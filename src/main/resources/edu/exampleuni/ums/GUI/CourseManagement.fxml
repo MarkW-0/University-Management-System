@@ -19,7 +19,6 @@
 			<Font name="Arial Bold" size="24.0" />
 		</font>
 	</Label>
-	<Label text="Under construction" />
 	<TabPane tabClosingPolicy="UNAVAILABLE">
 		<Tab text="All Courses">
 			<VBox spacing="10.0">

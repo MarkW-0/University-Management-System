@@ -1,6 +1,15 @@
 package edu.exampleuni.ums.models;
 
+import java.util.*;
+
 public class User {
+	private String firstName; // todo
+	private String middleNames; // todo
+	private String lastName; // todo
+	// todo Photo
+	private final List<Course> courses = new ArrayList<>(); // todo
+	private final List<Event> events = new ArrayList<>(); // todo
+	private String email; // todo
 	private String username;
 	private String password;
 	private String role; // ADMIN or USER

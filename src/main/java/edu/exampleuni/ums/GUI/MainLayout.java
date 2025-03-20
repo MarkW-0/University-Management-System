@@ -115,7 +115,7 @@ public class MainLayout extends BorderPane {
 
 		// Add button functionality
 		addButton.setOnAction(e -> {
-			Dialog<Subject> dialog = MainApp.createSubjectEditDialog(null);
+			Dialog<Subject> dialog = SubjectManagementAdminActionCell.createSubjectEditDialog(null);
 			dialog.showAndWait().ifPresent(newSubject -> {
 				this.mainApp.subjectService.addSubject(newSubject);
 				subjectsTable.getItems().add(newSubject);
@@ -156,7 +156,7 @@ public class MainLayout extends BorderPane {
 		}
 		// Add Course button functionality
 		content.addButton.setOnAction(e -> {
-			Dialog<Course> dialog = MainApp.createCourseEditDialog(null);
+			Dialog<Course> dialog = CourseManagementAdminActionCell.createCourseEditDialog(null);
 			dialog.showAndWait().ifPresent(newCourse -> {
 				this.mainApp.courseService.addCourse(newCourse);
 				content.courseTable.getItems().add(newCourse);
@@ -220,7 +220,30 @@ public class MainLayout extends BorderPane {
 
 	// Event Management content
 	private Node createEventManagement() {
-		return createFXML("EventManagement.fxml");
+		EventManagement content = new EventManagement();
+
+		if (!this.mainApp.user.getRole().equals("ADMIN")) {
+			content.addButton.setDisable(true);
+		}
+		// Add action column if ADMIN
+		//if (this.mainApp.user.getRole().equals("ADMIN")) {
+		//	TableColumn<Event, Void> actionCol = new TableColumn<>("Actions");
+		//	actionCol.setPrefWidth(150);
+		//	actionCol.setCellFactory(param -> new EventManagementAdminActionCell(this.mainApp));
+		//	content.eventTable.getColumns().add(actionCol);
+		//}
+		// Add Event button functionality
+		//content.addButton.setOnAction(e -> {
+		//	Dialog<Event> dialog = MainApp.createEventEditDialog(null);
+		//	dialog.showAndWait().ifPresent(newEvent -> {
+		//		this.mainApp.eventService.addEvent(newEvent);
+		//		content.eventTable.getItems().add(newEvent);
+		//	});
+		//});
+
+		// Add data
+		content.eventTable.getItems().addAll(this.mainApp.eventService.getAllEvents());
+		return content;
 	}
 
 	// Profile Management (for USER role)

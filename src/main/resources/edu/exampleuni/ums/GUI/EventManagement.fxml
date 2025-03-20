@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import edu.exampleuni.ums.GUI.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.control.cell.*?>
 
-<VBox spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12">
+<fx:root type="javafx.scene.layout.VBox" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
 	<padding>
 		<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
 	</padding>
@@ -14,5 +16,20 @@
 			<Font name="Arial Bold" size="24.0" />
 		</font>
 	</Label>
-	<Label text="Under construction" />
-</VBox>
+	<HBox alignment="CENTER_LEFT" spacing="10.0">
+		<TextField prefWidth="300.0" promptText="Search events..." />
+		<Spacer />
+		<Button fx:id="addButton" styleClass="addButton" text="Add Event" />
+	</HBox>
+	<TableView fx:id="eventTable" VBox.vgrow="ALWAYS">
+		<columns>
+			<TableColumn prefWidth="100.0" text="Event Code" ><cellValueFactory><PropertyValueFactory property="code" /></cellValueFactory></TableColumn>
+			<!--todo capacity-->
+			<!--todo cost-->
+			<TableColumn prefWidth="200.0" text="Event Name" ><cellValueFactory><PropertyValueFactory property="eventName" /></cellValueFactory></TableColumn>
+			<!--todo description-->
+			<!--todo location-->
+			<!--todo time-->
+		</columns>
+	</TableView>
+</fx:root>

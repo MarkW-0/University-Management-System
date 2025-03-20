@@ -3,14 +3,17 @@ package edu.exampleuni.ums.models;
 import javafx.beans.property.*;
 
 public class Course {
-	final StringProperty code;
-	final StringProperty courseName;
-	final StringProperty subject;
-	final StringProperty section;
-	final StringProperty teacher;
-	final StringProperty capacity;
-	final StringProperty location;
-
+	private final StringProperty code;
+	private final StringProperty courseName;
+	private final StringProperty subject;
+	private final StringProperty section;
+	private final StringProperty teacher;
+	private final StringProperty capacity;
+	private final StringProperty location;
+	/*	todo
+		Lecture Times
+		Final Exam Date/Time
+	*/
 	public Course() {
 		this("", "", "", "", "", "", "");
 	}

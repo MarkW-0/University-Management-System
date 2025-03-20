@@ -10,8 +10,6 @@ import java.io.IOException;
 public class CourseManagement extends VBox {
 	@FXML public TableView<Course> courseTable;
 	@FXML public Button addButton;
-	//@FXML public TextField usernameField;
-	//@FXML public Label errorMessage;
 
 	public CourseManagement() {
 		FXMLLoader fxmlLoader = new FXMLLoader(CourseManagement.class.getResource("CourseManagement.fxml"));

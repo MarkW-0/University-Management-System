@@ -3,8 +3,8 @@ Todo
 	✗ Import Excel Data
 
 	✗ FXML GUI
-		✗ Login
-		✗ Main Layout (collapsible Nav)
+		✓ Login
+		✓ Main Layout (collapsible Nav)
 		✗ Header
 			✗ Notifications and alerts
 		✓ Dashboard
@@ -126,7 +126,8 @@ Modules and Features
 			✗ Manage Enrollments: View and manage students enrolled in the course.
 		✗ User Features:
 			✗ View Courses: Access comprehensive information about courses.
-			✗ View Enrollments: Faculty can view courses they teach; students can view courses they are enrolled in. Data Attributes
+			✗ View Enrollments: Faculty can view courses they teach; students can view courses they are enrolled in.
+		✗ Data Attributes
 			✗ Course Name: A descriptive name of the course.
 			✗ Course Code: A unique identifier for the course (e.g., 001).
 			✗ Subject Name: The subject to which the course belongs.
