@@ -1,4 +1,4 @@
-package edu.exampleuni.ums;
+package edu.exampleuni.ums.GUI;
 
 import javafx.animation.Animation.*;
 import javafx.animation.*;

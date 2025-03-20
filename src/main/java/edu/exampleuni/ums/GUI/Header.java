@@ -1,8 +1,7 @@
-package edu.exampleuni.ums;
+package edu.exampleuni.ums.GUI;
 
-import javafx.beans.property.*;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import edu.exampleuni.ums.MainApp;
+import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
@@ -12,7 +11,7 @@ public class Header extends HBox {
 	@FXML private Label userLabel;
 	@FXML public Button logoutButton;
 
-	public Header() {
+	public Header(MainApp mainApp) {
 		FXMLLoader fxmlLoader = new FXMLLoader(Header.class.getResource("Header.fxml"));
 		fxmlLoader.setController(this);
 		fxmlLoader.setRoot(this);
@@ -21,17 +20,8 @@ public class Header extends HBox {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-	}
-	public String getUserLabel() {
-		return this.userLabelProperty().get();
-	}
-
-	public void setUserLabel(String value) {
-		this.userLabelProperty().set(value);
-	}
-
-	public StringProperty userLabelProperty() {
-		return this.userLabel.textProperty();
+		this.userLabel.setText("Logged in as: " + mainApp.user.getRole());
+		this.logoutButton.setOnAction(e -> mainApp._setScene(new LoginScreen(mainApp), 800, 600));
 	}
 
 }

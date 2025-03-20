@@ -1,6 +1,6 @@
 package edu.exampleuni.ums.services;
 
-import edu.exampleuni.ums.User;
+import edu.exampleuni.ums.models.User;
 
 public class AuthService {
 	public User authenticate(String username, String password) {

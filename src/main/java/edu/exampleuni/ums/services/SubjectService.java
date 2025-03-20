@@ -1,10 +1,16 @@
 package edu.exampleuni.ums.services;
 
-import edu.exampleuni.ums.Subject;
+import edu.exampleuni.ums.models.Subject;
 import java.util.*;
 
 public class SubjectService {
-	private final List<Subject> subjects = new ArrayList<>();
+	private final List<Subject> subjects = new ArrayList<>(Arrays.asList(
+			new Subject("MATH001", "Mathematics 101"),
+			new Subject("CS101", "Introduction to Computer Science"),
+			new Subject("ENG201", "Advanced English Composition"),
+			new Subject("BIO101", "Fundamentals of Biology"),
+			new Subject("PHYS101", "Physics I")
+	));
 
 	public List<Subject> getAllSubjects() {
 		return new ArrayList<>(subjects);

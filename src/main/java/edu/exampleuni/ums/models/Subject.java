@@ -1,4 +1,4 @@
-package edu.exampleuni.ums;
+package edu.exampleuni.ums.models;
 
 public class Subject {
 	private final javafx.beans.property.StringProperty code;

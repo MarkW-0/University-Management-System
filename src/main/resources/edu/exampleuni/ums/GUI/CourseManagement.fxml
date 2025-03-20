@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<?import edu.exampleuni.ums.*?>
+<?import edu.exampleuni.ums.GUI.*?>
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
@@ -57,15 +57,6 @@
 						<TableColumn prefWidth="100.0" text="Location" ><cellValueFactory><PropertyValueFactory property="location" /></cellValueFactory></TableColumn>
 						<!--<TableColumn prefWidth="150.0" text="Admin Actions"/>-->
 					</columns>
-					<items>
-						<FXCollections fx:factory="observableArrayList">
-							<Course code="CS101" courseName="Introduction to Programming" subject="Computer Science" section="Section 1" teacher="Dr. Smith" capacity="30" location="Room 101"/>
-							<Course code="MATH101" courseName="Calculus I" subject="Mathematics" section="Section 1" teacher="Dr. Johnson" capacity="35" location="Room 202"/>
-							<Course code="ENG201" courseName="Advanced Composition" subject="English" section="Section 2" teacher="Prof. Williams" capacity="25" location="Room 303"/>
-							<Course code="BIO101" courseName="Introduction to Biology" subject="Biology" section="Section 1" teacher="Dr. Brown" capacity="40" location="Lab 1"/>
-							<Course code="PHYS101" courseName="Physics I" subject="Physics" section="Section 3" teacher="Dr. Davis" capacity="30" location="Room 405"/>
-						</FXCollections>
-					</items>
 				</TableView>
 			</VBox>
 		</Tab>

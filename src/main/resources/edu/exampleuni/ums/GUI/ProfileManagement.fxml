@@ -14,7 +14,7 @@
 			<Font name="Arial Bold" size="24.0" />
 		</font>
 	</Label>
-	<GridPane styleClass="profileGrid" hgap="20.0" vgap="10.0">
+	<GridPane hgap="20.0" styleClass="profileGrid" vgap="10.0">
 		<columnConstraints>
 			<ColumnConstraints />
 			<ColumnConstraints />
@@ -31,7 +31,7 @@
 			<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
 		</padding>
 		<VBox alignment="CENTER" spacing="10.0" GridPane.rowSpan="5">
-			<StackPane styleClass="avatarPane" prefHeight="120.0" prefWidth="120.0">
+			<StackPane prefHeight="120.0" prefWidth="120.0" styleClass="avatarPane">
 				<Label text="JD" textFill="#808080">
 					<font>
 						<Font name="Arial Bold" size="36.0" />
@@ -47,7 +47,7 @@
 		<Label text="Phone:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 		<Label text="John Doe" GridPane.columnIndex="2" />
 		<Label text="STU1234567" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-		<Label text="john.doe@university.eduLabel" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+		<Label text="john.doe@university.edu" GridPane.columnIndex="2" GridPane.rowIndex="2" />
 		<Label text="123 Campus Drive, University City" GridPane.columnIndex="2" GridPane.rowIndex="3" />
 		<Label text="(555) 123-4567" GridPane.columnIndex="2" GridPane.rowIndex="4" />
 	</GridPane>

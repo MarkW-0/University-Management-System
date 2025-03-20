@@ -1,16 +1,19 @@
-package edu.exampleuni.ums;
+package edu.exampleuni.ums.GUI;
 
+import edu.exampleuni.ums.MainApp;
+import edu.exampleuni.ums.models.Subject;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 
 public class SubjectManagementAdminActionCell extends ActionCell<Subject> {
-	{
+	SubjectManagementAdminActionCell(MainApp mainApp) {
+		super();
 		this.editBtn.setOnAction(event -> {
 			Subject subject = this.getTableView().getItems().get(getIndex());
-			Dialog<Subject> dialog = Window.createSubjectEditDialog(subject);
+			Dialog<Subject> dialog = MainApp.createSubjectEditDialog(subject);
 			dialog.showAndWait().ifPresent(editedSubject -> {
-				Window.subjectService.updateSubject(editedSubject);
+				mainApp.subjectService.updateSubject(editedSubject);
 				this.getTableView().refresh();
 			});
 		});
@@ -25,7 +28,7 @@ public class SubjectManagementAdminActionCell extends ActionCell<Subject> {
 
 			alert.showAndWait().ifPresent(response -> {
 				if (response == ButtonType.OK) {
-					Window.subjectService.deleteSubject(subject);
+					mainApp.subjectService.deleteSubject(subject);
 					this.getTableView().getItems().remove(getIndex());
 				}
 			});
