@@ -20,7 +20,7 @@ public class MainLayout extends BorderPane {
 
 		// Create left menu
 		VBox menuPane;
-		if (mainApp.user.getRole().equals("ADMIN")) {
+		if (mainApp.userAuth.getRole().equals("ADMIN")) {
 			menuPane = this.createAdminMenu();
 		} else {
 			menuPane = this.createUserMenu();
@@ -53,6 +53,7 @@ public class MainLayout extends BorderPane {
 				new MenuItem("Dashboard", e -> setContent(createDashboard())),
 				new MenuItem("Subject Management", e -> setContent(new SubjectManagement(this.mainApp))),
 				new MenuItem("Course Management", e -> setContent(new CourseManagement(this.mainApp))),
+				new MenuItem("User Management", e -> setContent(new UserManagement(this.mainApp))),
 				new MenuItem("Student Management", e -> setContent(createStudentManagement())),
 				new MenuItem("Faculty Management", e -> setContent(createFacultyManagement())),
 				new MenuItem("Event Management", e -> setContent(new EventManagement(this.mainApp))),

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import edu.exampleuni.ums.GUI.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.cell.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<fx:root type="javafx.scene.layout.VBox" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+	<padding>
+		<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+	</padding>
+	<Label text="User Management">
+		<font>
+			<Font name="Arial Bold" size="24.0" />
+		</font>
+	</Label>
+	<HBox alignment="CENTER_LEFT" spacing="10.0">
+		<TextField prefWidth="300.0" promptText="Search users..." />
+		<ComboBox promptText="Filter by Subject">
+			<items>
+				<FXCollections fx:factory="observableArrayList">
+					<String fx:value="All Users" />
+					<String fx:value="Admins" />
+					<String fx:value="Faculty" />
+					<String fx:value="Students" />
+				</FXCollections>
+			</items>
+			<value>
+				<String fx:value="All Users" />
+			</value>
+		</ComboBox>
+		<Spacer />
+		<Button fx:id="addButton" styleClass="addButton" text="Add User" />
+	</HBox>
+	<TableView fx:id="userTable" VBox.vgrow="ALWAYS">
+		<columns>
+			<TableColumn prefWidth="200.0" text="Email" ><cellValueFactory><PropertyValueFactory property="email" /></cellValueFactory></TableColumn>
+			<TableColumn prefWidth="100.0" text="First Name" ><cellValueFactory><PropertyValueFactory property="firstName" /></cellValueFactory></TableColumn>
+			<TableColumn prefWidth="100.0" text="Last Name" ><cellValueFactory><PropertyValueFactory property="lastName" /></cellValueFactory></TableColumn>
+			<!--<TableColumn prefWidth="150.0" text="Admin Actions"/>-->
+		</columns>
+	</TableView>
+</fx:root>

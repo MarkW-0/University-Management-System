@@ -11,7 +11,7 @@ public class CourseManagementAdminActionCell extends ActionCell<Course> {
 		super();
 		this.editBtn.setOnAction(event -> {
 			Course course = this.getTableView().getItems().get(getIndex());
-			Dialog<Course> dialog = CourseManagementAdminActionCell.createCourseEditDialog(course);
+			Dialog<Course> dialog = CourseManagementAdminActionCell.createEditDialog(course);
 			dialog.showAndWait().ifPresent(editedCourse -> {
 				mainApp.courseService.updateCourse(editedCourse);
 				this.getTableView().refresh();
@@ -34,7 +34,7 @@ public class CourseManagementAdminActionCell extends ActionCell<Course> {
 			});
 		});
 	}
-	public static Dialog<Course> createCourseEditDialog(Course existingCourse) { // todo move to own class?
+	public static Dialog<Course> createEditDialog(Course existingCourse) { // todo move to own class?
 		Dialog<Course> dialog = new Dialog<>();
 		dialog.setTitle(existingCourse == null ? "Add Course" : "Edit Course");
 
@@ -46,26 +46,13 @@ public class CourseManagementAdminActionCell extends ActionCell<Course> {
 		grid.setVgap(10);
 		grid.setPadding(new Insets(20, 150, 10, 10));
 
-		TextField codeField = new TextField();
-		codeField.setPromptText("Course Code");
-
-		TextField nameField = new TextField();
-		nameField.setPromptText("Course Name");
-
-		TextField subjectField = new TextField();
-		subjectField.setPromptText("Subject");
-
-		TextField sectionField = new TextField();
-		sectionField.setPromptText("Section");
-
-		TextField teacherField = new TextField();
-		teacherField.setPromptText("Teacher");
-
-		TextField capacityField = new TextField();
-		capacityField.setPromptText("Capacity");
-
-		TextField locationField = new TextField();
-		locationField.setPromptText("Location");
+		TextField codeField = new TextField();		codeField.setPromptText("Course Code");
+		TextField nameField = new TextField();		nameField.setPromptText("Course Name");
+		TextField subjectField = new TextField();	subjectField.setPromptText("Subject");
+		TextField sectionField = new TextField();	sectionField.setPromptText("Section");
+		TextField teacherField = new TextField();	teacherField.setPromptText("Teacher");
+		TextField capacityField = new TextField();	capacityField.setPromptText("Capacity");
+		TextField locationField = new TextField();	locationField.setPromptText("Location");
 
 		// Pre-fill fields if editing an existing course
 		if (existingCourse != null) {
@@ -83,20 +70,13 @@ public class CourseManagementAdminActionCell extends ActionCell<Course> {
 			locationField.setText("Room 101");
 		}
 
-		grid.add(new Label("Course Code:"), 0, 0);
-		grid.add(codeField, 1, 0);
-		grid.add(new Label("Course Name:"), 0, 1);
-		grid.add(nameField, 1, 1);
-		grid.add(new Label("Subject:"), 0, 2);
-		grid.add(subjectField, 1, 2);
-		grid.add(new Label("Section:"), 0, 3);
-		grid.add(sectionField, 1, 3);
-		grid.add(new Label("Teacher:"), 0, 4);
-		grid.add(teacherField, 1, 4);
-		grid.add(new Label("Capacity:"), 0, 5);
-		grid.add(capacityField, 1, 5);
-		grid.add(new Label("Location:"), 0, 6);
-		grid.add(locationField, 1, 6);
+		grid.add(new Label("Course Code:"), 0, 0);	grid.add(codeField, 1, 0);
+		grid.add(new Label("Course Name:"), 0, 1);	grid.add(nameField, 1, 1);
+		grid.add(new Label("Subject:"), 0, 2);		grid.add(subjectField, 1, 2);
+		grid.add(new Label("Section:"), 0, 3);		grid.add(sectionField, 1, 3);
+		grid.add(new Label("Teacher:"), 0, 4);		grid.add(teacherField, 1, 4);
+		grid.add(new Label("Capacity:"), 0, 5);		grid.add(capacityField, 1, 5);
+		grid.add(new Label("Location:"), 0, 6);		grid.add(locationField, 1, 6);
 
 		dialog.getDialogPane().setContent(grid);
 

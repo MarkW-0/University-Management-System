@@ -1,30 +1,35 @@
 package edu.exampleuni.ums.services;
 
 import edu.exampleuni.ums.models.User;
-import javafx.scene.control.*;
 
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class UserService {
 	private final List<User> users = new ArrayList<>(Arrays.asList(
-			new User("admin", "admin".getBytes(StandardCharsets.UTF_8),	"ADMIN"),
-			new User("user", "user".getBytes(StandardCharsets.UTF_8), "USER")
+			new User("admin", "ADMIN", "admin@exampleuni.edu"),
+			new User("user", "USER", "user@exampleuni.edu")
 		)
 	);
 
 	public List<User> getAllUsers() {
 		return new ArrayList<>(users);
 	}
-	public User authenticate(TextField usernameField, PasswordField passwordField) {
-		String username = usernameField.getText();
-		byte[] password = passwordField.getText().getBytes(StandardCharsets.UTF_8);
-		passwordField.setText("");
-		for(User user : users) {
-			if(user.getUsername().equals(username)) {
-				if (user.login(password)) return user;
+	
+	public void addUser(User user) {
+		users.add(user);
+	}
+
+	public void deleteUser(User user) {
+		users.remove(user);
+	}
+
+	public void updateUser(User updatedUser) {
+		for (int i = 0; i < users.size(); i++) {
+			User user = users.get(i);
+			if (user.getEmail().equals(updatedUser.getEmail())) {
+				users.set(i, updatedUser);
+				break;
 			}
 		}
-		return null;
 	}
 }

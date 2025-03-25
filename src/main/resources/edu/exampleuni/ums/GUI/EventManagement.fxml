@@ -24,10 +24,10 @@
 	<TableView fx:id="eventTable" VBox.vgrow="ALWAYS">
 		<columns>
 			<TableColumn prefWidth="100.0" text="Event Code" ><cellValueFactory><PropertyValueFactory property="code" /></cellValueFactory></TableColumn>
-			<!--todo capacity-->
-			<!--todo cost-->
-			<TableColumn prefWidth="200.0" text="Event Name" ><cellValueFactory><PropertyValueFactory property="eventName" /></cellValueFactory></TableColumn>
-			<!--todo description-->
+			<TableColumn prefWidth="250.0" text="Event Name" ><cellValueFactory><PropertyValueFactory property="eventName" /></cellValueFactory></TableColumn>
+			<TableColumn prefWidth="100.0" text="capacity" ><cellValueFactory><PropertyValueFactory property="capacity" /></cellValueFactory></TableColumn>
+			<TableColumn prefWidth="50.0" text="cost" ><cellValueFactory><PropertyValueFactory property="cost" /></cellValueFactory></TableColumn>
+			<TableColumn prefWidth="200.0" text="description" ><cellValueFactory><PropertyValueFactory property="description" /></cellValueFactory></TableColumn>
 			<!--todo location-->
 			<!--todo time-->
 			<!--<TableColumn prefWidth="150.0" text="Admin Actions"/>-->

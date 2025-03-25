@@ -9,12 +9,13 @@ import javafx.stage.*;
 
 
 public class MainApp extends Application {
-	public User user;
+	public UserAuth userAuth;
 	public Stage stage;
-	public final UserService userService = new UserService();
+	public final AuthService authService = new AuthService();
 	public final SubjectService subjectService = new SubjectService();
 	public final CourseService courseService = new CourseService();
 	public final EventService eventService = new EventService();
+	public final UserService userService = new UserService();
 
 	@Override
 	public void start(Stage stage) {

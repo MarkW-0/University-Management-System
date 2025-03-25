@@ -7,7 +7,7 @@ public class Faculty extends User {
 		Research Interest
 		Office
 	*/
-	public Faculty(String username, byte[] password, String role) {
-		super(username, password, role);
+	public Faculty(String firstName, String lastName, String email) {
+		super(firstName, lastName, email);
 	}
 }

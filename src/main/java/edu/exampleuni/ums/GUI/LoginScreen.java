@@ -1,11 +1,13 @@
 package edu.exampleuni.ums.GUI;
 
 import edu.exampleuni.ums.MainApp;
+import edu.exampleuni.ums.models.UserAuth;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class LoginScreen extends StackPane {
 	@FXML public TextField usernameField;
@@ -24,13 +26,20 @@ public class LoginScreen extends StackPane {
 		}
 		// Login button action
 		this.loginButton.setOnAction(e -> {
-			mainApp.user = mainApp.userService.authenticate(this.usernameField, this.passwordField);
-			if (mainApp.user == null) {
-				this.errorMessage.setVisible(true);
-				return;
+			String username = this.usernameField.getText();
+			byte[] password = this.passwordField.getText().getBytes(StandardCharsets.UTF_8);
+			this.passwordField.setText("");
+			for(UserAuth userAuth : mainApp.authService.getAllUserAuths()) {
+				if(userAuth.getUsername().equals(username)) {
+					if (userAuth.login(password)) {
+						mainApp.userAuth = userAuth;
+						mainApp._setScene(new MainLayout(mainApp), 1024, 768);
+						mainApp.stage.setMaximized(true);
+						return;
+					}
+				}
 			}
-			mainApp._setScene(new MainLayout(mainApp), 1024, 768);
-			mainApp.stage.setMaximized(true);
+			this.errorMessage.setVisible(true);
 		});
 	}
 }

@@ -22,11 +22,11 @@ public class SubjectManagement extends VBox {
 			throw new RuntimeException(e);
 		}
 
-		if (!mainApp.user.getRole().equals("ADMIN")) {
+		if (!mainApp.userAuth.getRole().equals("ADMIN")) {
 			this.addButton.setDisable(true);
 		}
 		// Add action column if ADMIN
-		if (mainApp.user.getRole().equals("ADMIN")) {
+		if (mainApp.userAuth.getRole().equals("ADMIN")) {
 			TableColumn<Subject, Void> actionCol = new TableColumn<>("Actions");
 			actionCol.setPrefWidth(150);
 			actionCol.setCellFactory(param -> new SubjectManagementAdminActionCell(mainApp));
@@ -34,7 +34,7 @@ public class SubjectManagement extends VBox {
 		}
 		// Add Subject button functionality
 		this.addButton.setOnAction(e -> {
-			Dialog<Subject> dialog = SubjectManagementAdminActionCell.createSubjectEditDialog(null);
+			Dialog<Subject> dialog = SubjectManagementAdminActionCell.createEditDialog(null);
 			dialog.showAndWait().ifPresent(newSubject -> {
 				mainApp.subjectService.addSubject(newSubject);
 				this.subjectTable.getItems().add(newSubject);

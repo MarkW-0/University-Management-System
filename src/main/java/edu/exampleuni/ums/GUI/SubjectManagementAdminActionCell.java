@@ -11,7 +11,7 @@ public class SubjectManagementAdminActionCell extends ActionCell<Subject> {
 		super();
 		this.editBtn.setOnAction(event -> {
 			Subject subject = this.getTableView().getItems().get(getIndex());
-			Dialog<Subject> dialog = SubjectManagementAdminActionCell.createSubjectEditDialog(subject);
+			Dialog<Subject> dialog = SubjectManagementAdminActionCell.createEditDialog(subject);
 			dialog.showAndWait().ifPresent(editedSubject -> {
 				mainApp.subjectService.updateSubject(editedSubject);
 				this.getTableView().refresh();
@@ -34,7 +34,7 @@ public class SubjectManagementAdminActionCell extends ActionCell<Subject> {
 			});
 		});
 	}
-	public static Dialog<Subject> createSubjectEditDialog(Subject existingSubject) { // todo move to own class?
+	public static Dialog<Subject> createEditDialog(Subject existingSubject) { // todo move to own class?
 		Dialog<Subject> dialog = new Dialog<>();
 		// Create a dialog for the subject form
 		dialog.setTitle(existingSubject == null ? "Add Subject" : "Edit Subject");
@@ -48,20 +48,16 @@ public class SubjectManagementAdminActionCell extends ActionCell<Subject> {
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(20, 150, 10, 10));
-		TextField codeField = new TextField();
 
-		codeField.setPromptText("Subject Code");
-		TextField nameField = new TextField();
-		nameField.setPromptText("Subject Name");
+		TextField codeField = new TextField();	codeField.setPromptText("Subject Code");
+		TextField nameField = new TextField();	nameField.setPromptText("Subject Name");
 		// Pre-fill fields if editing a subject that is already there
 		if (existingSubject != null) {
 			codeField.setText(existingSubject.getCode());
 			nameField.setText(existingSubject.getSubjectName());
 		}
-		grid.add(new Label("Subject Code:"), 0, 0);
-		grid.add(codeField, 1, 0);
-		grid.add(new Label("Subject Name:"), 0, 1);
-		grid.add(nameField, 1, 1);
+		grid.add(new Label("Subject Code:"), 0, 0);	grid.add(codeField, 1, 0);
+		grid.add(new Label("Subject Name:"), 0, 1);	grid.add(nameField, 1, 1);
 		dialog.getDialogPane().setContent(grid);
 		// Convert the result to a Subject when the save button is clicked
 		dialog.setResultConverter(dialogButton -> {

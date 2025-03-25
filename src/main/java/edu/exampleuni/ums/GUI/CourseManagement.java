@@ -22,11 +22,11 @@ public class CourseManagement extends VBox {
 			throw new RuntimeException(e);
 		}
 
-		if (!mainApp.user.getRole().equals("ADMIN")) {
+		if (!mainApp.userAuth.getRole().equals("ADMIN")) {
 			this.addButton.setDisable(true);
 		}
 		// Add action column if ADMIN
-		if (mainApp.user.getRole().equals("ADMIN")) {
+		if (mainApp.userAuth.getRole().equals("ADMIN")) {
 			TableColumn<Course, Void> actionCol = new TableColumn<>("Actions");
 			actionCol.setPrefWidth(150);
 			actionCol.setCellFactory(param -> new CourseManagementAdminActionCell(mainApp));
@@ -34,7 +34,7 @@ public class CourseManagement extends VBox {
 		}
 		// Add Course button functionality
 		this.addButton.setOnAction(e -> {
-			Dialog<Course> dialog = CourseManagementAdminActionCell.createCourseEditDialog(null);
+			Dialog<Course> dialog = CourseManagementAdminActionCell.createEditDialog(null);
 			dialog.showAndWait().ifPresent(newCourse -> {
 				mainApp.courseService.addCourse(newCourse);
 				this.courseTable.getItems().add(newCourse);

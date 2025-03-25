@@ -21,25 +21,24 @@ public class EventManagement extends VBox {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		if (!mainApp.user.getRole().equals("ADMIN")) {
+		if (!mainApp.userAuth.getRole().equals("ADMIN")) {
 			this.addButton.setDisable(true);
 		}
-		// todo createEventEditDialog
 		// Add action column if ADMIN
-		//if (this.mainApp.user.getRole().equals("ADMIN")) {
-		//	TableColumn<Event, Void> actionCol = new TableColumn<>("Actions");
-		//	actionCol.setPrefWidth(150);
-		//	actionCol.setCellFactory(param -> new EventManagementAdminActionCell(this.mainApp));
-		//	content.eventTable.getColumns().add(actionCol);
-		//}
+		if (mainApp.userAuth.getRole().equals("ADMIN")) {
+			TableColumn<Event, Void> actionCol = new TableColumn<>("Actions");
+			actionCol.setPrefWidth(150);
+			actionCol.setCellFactory(param -> new EventManagementAdminActionCell(mainApp));
+			this.eventTable.getColumns().add(actionCol);
+		}
 		// Add Event button functionality
-		//content.addButton.setOnAction(e -> {
-		//	Dialog<Event> dialog = MainApp.createEventEditDialog(null);
-		//	dialog.showAndWait().ifPresent(newEvent -> {
-		//		this.mainApp.eventService.addEvent(newEvent);
-		//		content.eventTable.getItems().add(newEvent);
-		//	});
-		//});
+		this.addButton.setOnAction(e -> {
+			Dialog<Event> dialog = EventManagementAdminActionCell.createEditDialog(null);
+			dialog.showAndWait().ifPresent(newEvent -> {
+				mainApp.eventService.addEvent(newEvent);
+				this.eventTable.getItems().add(newEvent);
+			});
+		});
 
 		// Add data
 		this.eventTable.getItems().addAll(mainApp.eventService.getAllEvents());
