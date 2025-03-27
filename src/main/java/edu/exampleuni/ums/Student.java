@@ -12,7 +12,7 @@ public class Student extends User{
     private String ThesisTitle;
     private int progress;
 
-    public Student(String name, String email, String password, String address, String TelephoneNumber, String AcademicLevel, String CurrentSemester, String photoLocation, ArrayList<String> Courses, String ThesisTitle, int progress) {
+    public Student(String name, String email, byte[] password, String address, String TelephoneNumber, String AcademicLevel, String CurrentSemester, String photoLocation, ArrayList<String> Courses, String ThesisTitle, int progress) {
         super(name, email, password);
         this.Address = address;
         this.TelephoneNumber = TelephoneNumber;
