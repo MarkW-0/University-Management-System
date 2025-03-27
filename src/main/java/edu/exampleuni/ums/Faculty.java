@@ -24,7 +24,7 @@ public class Faculty extends User {
     public String getDegree() {
         return degree;
     }
-
+    //
     public Faculty(String name, String email, byte[] password, String degree, String researchInterest, String officeLocation){
         super(name, email, password);
         this.degree = degree;

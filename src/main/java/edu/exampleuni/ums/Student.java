@@ -12,6 +12,7 @@ public class Student extends User{
     private String ThesisTitle;
     private int progress;
 
+    // Password passed must be converted into
     public Student(String name, String email, byte[] password, String address, String TelephoneNumber, String AcademicLevel, String CurrentSemester, String photoLocation, ArrayList<String> Courses, String ThesisTitle, int progress) {
         super(name, email, password);
         this.Address = address;
