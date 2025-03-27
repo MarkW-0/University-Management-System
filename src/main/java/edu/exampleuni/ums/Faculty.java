@@ -25,8 +25,8 @@ public class Faculty extends User {
         return degree;
     }
     //
-    public Faculty(String name, String email, byte[] password, String degree, String researchInterest, String officeLocation){
-        super(name, email, password);
+    public Faculty(String name, String email, byte[] password, String degree, String researchInterest, String officeLocation, ArrayList<String> fullName){
+        super(name, email, password, fullName);
         this.degree = degree;
         this.researchInterest = researchInterest;
         this.officeLocation = officeLocation;

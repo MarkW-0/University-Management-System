@@ -4,7 +4,9 @@ import java.util.*;
 public class User {
     // Derivative classes just add the required attributes for now, hypothetically they could have unique methods, but that is not implemented as of now.
     protected String userRole;
-    private String name;
+    private String username;
+    // Name stored as an array, accounting for people with middle names
+    private ArrayList<String> fullName;
     private String email;
     private byte[] passwordSalt;
     private byte[] passwordHash;
@@ -36,8 +38,9 @@ public class User {
     // Password must be passed as a byte array (this is true for all derivative classes)
     // This can be done through: byte[] passwordBytes = passwordString.getBytes(StandardCharsets.UTF_8); Keep which Charset is being used consistent
     // Where passwordString is the password in string form
-    public User(String name, String email, byte[] password){
-        this.name = name;
+    // Pass fullName as an ArrayList
+    public User(String name, String email, byte[] password, ArrayList<String> fullName){
+        this.username = name;
         this.email = email;
         setPassword(password);
     }
@@ -52,11 +55,11 @@ public class User {
     }
 
     public String getUserame() {
-        return name;
+        return username;
     }
 
     public void setUsername(String username) {
-        this.name = username;
+        this.username = username;
     }
     // Set a new password, used during construction and when changing password
     public void setPassword(byte[] password) {
