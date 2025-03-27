@@ -1,5 +1,4 @@
 package edu.exampleuni.ums;
-import edu.exampleuni.ums.User.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;

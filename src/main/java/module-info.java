@@ -7,4 +7,6 @@ module edu.exampleuni.ums {
 
 	opens edu.exampleuni.ums to javafx.fxml;
 	exports edu.exampleuni.ums;
+	exports edu.exampleuni.ums.models;
+	opens edu.exampleuni.ums.models to javafx.fxml;
 }

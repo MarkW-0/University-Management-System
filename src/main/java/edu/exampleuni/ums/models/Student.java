@@ -1,8 +1,8 @@
-package edu.exampleuni.ums;
+package edu.exampleuni.ums.models;
 
 import java.util.ArrayList;
 
-public class Student extends User{
+public class Student extends User {
     private String Address;
     private String TelephoneNumber;
     private String AcademicLevel;

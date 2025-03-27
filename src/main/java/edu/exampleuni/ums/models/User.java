@@ -1,4 +1,4 @@
-package edu.exampleuni.ums;
+package edu.exampleuni.ums.models;
 import java.security.*;
 import java.util.*;
 public class User {
