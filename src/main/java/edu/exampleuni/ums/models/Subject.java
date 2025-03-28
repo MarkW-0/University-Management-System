@@ -4,8 +4,8 @@ import javafx.beans.property.*;
 import org.apache.poi.ss.usermodel.Row;
 
 public class Subject {
-	private final StringProperty code = new SimpleStringProperty();
-	private final StringProperty subjectName = new SimpleStringProperty();
+	private final StringProperty code = new SimpleStringProperty("");
+	private final StringProperty subjectName = new SimpleStringProperty("");
 
 	public Subject() {}
 

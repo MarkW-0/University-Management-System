@@ -19,7 +19,7 @@ public class CourseService {
 	public void updateCourse(Course updatedCourse) {
 		for (int i = 0; i < courses.size(); i++) {
 			Course course = courses.get(i);
-			if (course.getCode().equals(updatedCourse.getCode())) {
+			if (course.getCode().equals(updatedCourse.getCode()) && course.getSection().equals(updatedCourse.getSection())) {
 				courses.set(i, updatedCourse);
 				break;
 			}

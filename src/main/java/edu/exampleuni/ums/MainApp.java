@@ -23,7 +23,7 @@ public class MainApp extends Application {
 		this.authService = new AuthService();
 		this.subjectService = new SubjectService(this.excelService);
 		this.courseService = new CourseService(this.excelService);
-		this.eventService = new EventService();
+		this.eventService = new EventService(this.excelService);
 		this.userService = new UserService();
 	}
 

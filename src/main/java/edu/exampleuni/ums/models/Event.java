@@ -1,28 +1,31 @@
 package edu.exampleuni.ums.models;
 
 import javafx.beans.property.*;
-
-import java.util.List;
+import org.apache.poi.ss.usermodel.Row;
 
 public class Event {
-	private final StringProperty code;
-	private final StringProperty eventName;
-	private final StringProperty capacity; // todo convert to int?
-	private final StringProperty cost; // todo convert to int?
-	private final StringProperty description; // todo convert to int?
-	/*	todo
-		Image headerImage;
-		location;
-		time;
-	*/
-	private List<UserAuth> attendees;
+	private final StringProperty code = new SimpleStringProperty("");
+	private final StringProperty eventName = new SimpleStringProperty("");
+	private final StringProperty description = new SimpleStringProperty("");
+	// todo Event location
+	// todo Event time
+	private final StringProperty capacity = new SimpleStringProperty(""); // todo convert to int?
+	private final StringProperty cost = new SimpleStringProperty(""); // todo convert to int?
+	// todo Event headerImage;
+	// todo Event attendees;
 
-	public Event(String code, String eventName, String capacity, String cost, String description) {
-		this.code = new SimpleStringProperty(code);
-		this.eventName = new SimpleStringProperty(eventName);
-		this.capacity = new SimpleStringProperty(capacity);
-		this.cost = new SimpleStringProperty(cost);
-		this.description = new SimpleStringProperty(description);
+	public Event() {}
+
+	public Event(Row row) {
+		this.code.set(row.getCell(0).getStringCellValue());
+		this.eventName.set(row.getCell(1).getStringCellValue());
+		this.description.set(row.getCell(2).getStringCellValue());
+		//	String	location
+		//	Date	Exam Date/Time
+		this.capacity.set(String.valueOf(row.getCell(5).getNumericCellValue()));
+		this.cost.set(row.getCell(6).getStringCellValue());
+		//	headerImage
+		//	attendees
 	}
 
 	// Getters and Setters

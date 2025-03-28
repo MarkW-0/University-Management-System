@@ -23,7 +23,7 @@ public class UserManagementAdminActionCell extends ActionCell<User> {
 			// Show confirmation dialog
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 			alert.setTitle("Delete User");
-			alert.setHeaderText("Delete User: " + user.getFirstName() + " " + user.getLastName() + " ( " + user.getEmail() + " )");
+			alert.setHeaderText("Delete User: " + user.getFullName() + " ( " + user.getID() + " )");
 			alert.setContentText("Are you sure you want to delete this user?");
 
 			alert.showAndWait().ifPresent(response -> {
@@ -46,15 +46,15 @@ public class UserManagementAdminActionCell extends ActionCell<User> {
 		grid.setVgap(10);
 		grid.setPadding(new Insets(20, 150, 10, 10));
 
-		TextField firstNameField = new TextField();	firstNameField.setPromptText("First Name");
-		TextField lastNameField = new TextField();	lastNameField.setPromptText("Last Name");
+		TextField idField = new TextField();	idField.setPromptText("ID");
+		TextField fullNameField = new TextField();	fullNameField.setPromptText("Name");
 		TextField emailField = new TextField();		emailField.setPromptText("Email");
 
 
 		// Pre-fill fields if editing an existing user
 		if (existingUser != null) {
-			firstNameField.setText(existingUser.getFirstName());
-			lastNameField.setText(existingUser.getLastName());
+			idField.setText(existingUser.getID());
+			fullNameField.setText(existingUser.getFullName());
 			emailField.setText(existingUser.getEmail());
 		} else {
 			// Default values for new user
@@ -63,8 +63,8 @@ public class UserManagementAdminActionCell extends ActionCell<User> {
 			// locationField.setText("Room 101");
 		}
 
-		grid.add(new Label("First Name:"), 0, 0); grid.add(firstNameField,1, 0);
-		grid.add(new Label("Last Name:"),  0, 1); grid.add(lastNameField, 1, 1);
+		grid.add(new Label("ID:"), 0, 0); grid.add(idField,1, 0);
+		grid.add(new Label("Name:"),  0, 1); grid.add(fullNameField, 1, 1);
 		grid.add(new Label("Email:"),	  0, 2); grid.add(emailField,	 1, 2);
 
 		dialog.getDialogPane().setContent(grid);
@@ -72,29 +72,26 @@ public class UserManagementAdminActionCell extends ActionCell<User> {
 		// Convert the result to a User when the save button is clicked
 		dialog.setResultConverter(dialogButton -> {
 			if (dialogButton == saveButtonType) {
-				String firstName = firstNameField.getText().trim();
-				String lastName = lastNameField.getText().trim();
+				String id = idField.getText().trim();
+				String fullName = fullNameField.getText().trim();
 				String email = emailField.getText().trim();
 
 				// Validate input
-				if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
+				if (id.isEmpty() || fullName.isEmpty() || email.isEmpty()) {
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setTitle("Invalid Input");
 					alert.setHeaderText(null);
-					alert.setContentText("User Code, Name, Subject, and Teacher cannot be empty!");
+					alert.setContentText("ID, name, and email cannot be empty!");
 					alert.showAndWait();
 					return null;
 				}
 
 				// If editing existing user, update values; otherwise create new User
-				if (existingUser != null) {
-					existingUser.setFirstName(firstName);
-					existingUser.setLastName(lastName);
-					existingUser.setEmail(email);
-					return existingUser;
-				} else {
-					return new User(firstName, lastName, email);
-				}
+				User output = existingUser != null ? existingUser : new User();
+				output.setID(id);
+				output.setFullName(fullName);
+				output.setEmail(email);
+				return output;
 			}
 			return null;
 		});

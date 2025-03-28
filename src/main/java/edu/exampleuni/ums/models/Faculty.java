@@ -7,7 +7,7 @@ public class Faculty extends User {
 		Research Interest
 		Office
 	*/
-	public Faculty(String firstName, String lastName, String email) {
-		super(firstName, lastName, email);
+	public Faculty(String id, String fullName, String email) {
+		super(id, fullName, email);
 	}
 }

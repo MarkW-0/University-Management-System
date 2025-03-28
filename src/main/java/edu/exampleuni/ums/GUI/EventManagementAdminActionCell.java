@@ -93,16 +93,13 @@ public class EventManagementAdminActionCell extends ActionCell<Event> {
 				}
 
 				// If editing existing event, update values; otherwise create new Event
-				if (existingEvent != null) {
-					existingEvent.setCode(code);
-					existingEvent.setEventName(name);
-					existingEvent.setCapacity(capacity);
-					existingEvent.setCost(cost);
-					existingEvent.setDescription(description);
-					return existingEvent;
-				} else {
-					return new Event(code, name, capacity, cost, description);
-				}
+				Event output = existingEvent != null ? existingEvent : new Event();
+				output.setCode(code);
+				output.setEventName(name);
+				output.setCapacity(capacity);
+				output.setCost(cost);
+				output.setDescription(description);
+				return output;
 			}
 			return null;
 		});

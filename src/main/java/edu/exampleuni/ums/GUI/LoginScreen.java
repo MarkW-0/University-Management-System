@@ -33,7 +33,7 @@ public class LoginScreen extends StackPane {
 				if(userAuth.getUsername().equals(username)) {
 					if (userAuth.login(password)) {
 						mainApp.userAuth = userAuth;
-						mainApp._setScene(new MainLayout(mainApp), 1024, 768);
+						mainApp._setScene(new MainLayout(mainApp), 1400, 800);
 						mainApp.stage.setMaximized(true);
 						return;
 					}

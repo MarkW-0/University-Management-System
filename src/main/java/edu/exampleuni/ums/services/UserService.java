@@ -26,7 +26,7 @@ public class UserService {
 	public void updateUser(User updatedUser) {
 		for (int i = 0; i < users.size(); i++) {
 			User user = users.get(i);
-			if (user.getEmail().equals(updatedUser.getEmail())) {
+			if (user.getID().equals(updatedUser.getID())) {
 				users.set(i, updatedUser);
 				break;
 			}

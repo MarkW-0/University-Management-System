@@ -40,9 +40,9 @@
 	</HBox>
 	<TableView fx:id="userTable" VBox.vgrow="ALWAYS">
 		<columns>
+			<TableColumn prefWidth="100.0" text="ID" ><cellValueFactory><PropertyValueFactory property="ID" /></cellValueFactory></TableColumn>
+			<TableColumn prefWidth="100.0" text="Name" ><cellValueFactory><PropertyValueFactory property="fullName" /></cellValueFactory></TableColumn>
 			<TableColumn prefWidth="200.0" text="Email" ><cellValueFactory><PropertyValueFactory property="email" /></cellValueFactory></TableColumn>
-			<TableColumn prefWidth="100.0" text="First Name" ><cellValueFactory><PropertyValueFactory property="firstName" /></cellValueFactory></TableColumn>
-			<TableColumn prefWidth="100.0" text="Last Name" ><cellValueFactory><PropertyValueFactory property="lastName" /></cellValueFactory></TableColumn>
 			<!--<TableColumn prefWidth="150.0" text="Admin Actions"/>-->
 		</columns>
 	</TableView>

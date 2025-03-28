@@ -43,7 +43,7 @@
 		<columns>
 			<TableColumn prefWidth="100.0" text="Course Code" ><cellValueFactory><PropertyValueFactory property="code" /></cellValueFactory></TableColumn>
 			<TableColumn prefWidth="200.0" text="Course Name" ><cellValueFactory><PropertyValueFactory property="courseName" /></cellValueFactory></TableColumn>
-			<TableColumn prefWidth="150.0" text="Subject" ><cellValueFactory><PropertyValueFactory property="subject" /></cellValueFactory></TableColumn>
+			<TableColumn prefWidth="80.0" text="Subject" ><cellValueFactory><PropertyValueFactory property="subject" /></cellValueFactory></TableColumn>
 			<TableColumn prefWidth="80.0" text="Section" ><cellValueFactory><PropertyValueFactory property="section" /></cellValueFactory></TableColumn>
 			<TableColumn prefWidth="150.0" text="Teacher" ><cellValueFactory><PropertyValueFactory property="teacher" /></cellValueFactory></TableColumn>
 			<TableColumn prefWidth="80.0" text="Capacity" ><cellValueFactory><PropertyValueFactory property="capacity" /></cellValueFactory></TableColumn>
