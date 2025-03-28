@@ -3,20 +3,23 @@ package edu.exampleuni.ums;
 import java.util.*;
 import java.io.*;
 
+import edu.exampleuni.ums.services.ExcelService;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 
 public class ExcelDemo {
 	public static void main(String[] args) {
-		String exel = "exel_demo.xlsx";
-
+		//String exel_demo = "exel_demo.xlsx";
+		//String ums_data = "src/main/resources/edu/exampleuni/ums/UMS_Data.xlsx";
+		new ExcelService();
+		/*
 		try {
-			writeExcelDemo(exel);
-			readExcelDemo(exel);
+			//writeExcelDemo(exel_demo);
 		} catch (IOException e) {
 			//e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+		*/
 	}
 	public static void writeExcelDemo(String exel) throws IOException {
 		//Blank workbook
@@ -53,33 +56,5 @@ public class ExcelDemo {
 			workbook.write(out);
 			out.close();
 			System.out.println(exel + " written successfully on disk.");
-	}
-	public static void readExcelDemo(String exel) throws IOException {
-		FileInputStream file = new FileInputStream(exel);
-
-		//Create Workbook instance holding reference to .xlsx file
-		XSSFWorkbook workbook = new XSSFWorkbook(file);
-
-		//Get first/desired sheet from the workbook
-		XSSFSheet sheet = workbook.getSheetAt(0);
-
-		//Iterate through each rows one by one
-		for (Row row : sheet) {
-
-			//For each row, iterate through all the columns
-			for (Cell cell : row) {
-				//Check the cell type and format accordingly
-				switch (cell.getCellType()) {
-					case CellType.NUMERIC:
-						System.out.print(cell.getNumericCellValue() + "t");
-						break;
-					case CellType.STRING:
-						System.out.print(cell.getStringCellValue() + "t");
-						break;
-				}
-			}
-			System.out.println();
-		}
-		file.close();
 	}
 }

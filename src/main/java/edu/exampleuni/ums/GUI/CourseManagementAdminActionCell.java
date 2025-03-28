@@ -102,18 +102,15 @@ public class CourseManagementAdminActionCell extends ActionCell<Course> {
 				}
 
 				// If editing existing course, update values; otherwise create new Course
-				if (existingCourse != null) {
-					existingCourse.setCode(code);
-					existingCourse.setCourseName(name);
-					existingCourse.setSubject(subject);
-					existingCourse.setSection(section);
-					existingCourse.setTeacher(teacher);
-					existingCourse.setCapacity(capacity);
-					existingCourse.setLocation(location);
-					return existingCourse;
-				} else {
-					return new Course(code, name, subject, section, teacher, capacity, location);
-				}
+				Course output = existingCourse != null ? existingCourse : new Course();
+				output.setCode(code);
+				output.setCourseName(name);
+				output.setSubject(subject);
+				output.setSection(section);
+				output.setTeacher(teacher);
+				output.setCapacity(capacity);
+				output.setLocation(location);
+				return output;
 			}
 			return null;
 		});

@@ -4,22 +4,19 @@ import edu.exampleuni.ums.models.Subject;
 import java.util.*;
 
 public class SubjectService {
-	private final List<Subject> subjects = new ArrayList<>(Arrays.asList(
-			new Subject("MATH001", "Mathematics 101"),
-			new Subject("CS101", "Introduction to Computer Science"),
-			new Subject("ENG201", "Advanced English Composition"),
-			new Subject("BIO101", "Fundamentals of Biology"),
-			new Subject("PHYS101", "Physics I")
-	));
+	private final List<Subject> subjects;
+
+	public SubjectService(ExcelService excelService) {
+		String[] expectedFirstRow = {"Subject Code", "Subject Name"};
+		this.subjects = excelService.getData(excelService.subjects, expectedFirstRow, Subject::new);
+	}
 
 	public List<Subject> getAllSubjects() {
 		return new ArrayList<>(subjects);
 	}
-
 	public void addSubject(Subject subject) {
 		subjects.add(subject);
 	}
-
 	public void deleteSubject(Subject subject) {
 		subjects.remove(subject);
 	}

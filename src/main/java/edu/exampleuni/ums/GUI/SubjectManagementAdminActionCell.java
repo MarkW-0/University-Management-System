@@ -74,13 +74,10 @@ public class SubjectManagementAdminActionCell extends ActionCell<Subject> {
 					return null;
 				}
 				// If editing existing subject, update values; otherwise create new Subject
-				if (existingSubject != null) {
-					existingSubject.setCode(code);
-					existingSubject.setSubjectName(name);
-					return existingSubject;
-				} else {
-					return new Subject(code, name);
-				}
+				Subject output = existingSubject != null ? existingSubject : new Subject();
+				output.setCode(code);
+				output.setSubjectName(name);
+				return output;
 			}
 			return null;
 		});

@@ -1,37 +1,40 @@
 package edu.exampleuni.ums.models;
 
 import javafx.beans.property.*;
+import org.apache.poi.ss.usermodel.*;
 
 public class Course {
-	private final StringProperty code;
-	private final StringProperty courseName;
-	private final StringProperty subject;
-	private final StringProperty section;
-	private final StringProperty teacher;
-	private final StringProperty capacity;
-	private final StringProperty location;
-	/*	todo
-		Lecture Times
-		Final Exam Date/Time
-	*/
-	public Course() {
-		this("", "", "", "", "", "", "");
+	private final StringProperty code = new SimpleStringProperty("");
+	private final StringProperty courseName = new SimpleStringProperty("");
+	private final StringProperty subject = new SimpleStringProperty("");
+	private final StringProperty section = new SimpleStringProperty("");
+	private final StringProperty capacity = new SimpleStringProperty("");
+	// todo Course Lecture Time
+	// todo Course Final Exam Date/Time
+	private final StringProperty location = new SimpleStringProperty("");
+	private final StringProperty teacher = new SimpleStringProperty("");
+
+	public Course() {}
+
+	public Course(Row row) {
+		this.code.set(String.valueOf(row.getCell(0).getNumericCellValue()));
+		this.courseName.set(row.getCell(1).getStringCellValue());
+		this.subject.set(row.getCell(2).getStringCellValue());
+		this.section.set(row.getCell(3).getStringCellValue());
+		this.capacity.set(String.valueOf(row.getCell(4).getNumericCellValue()));
+		//	String	Lecture Time
+		//	Date	Exam Date/Time
+		this.location.set(row.getCell(7).getStringCellValue());
+		this.teacher.set(row.getCell(8).getStringCellValue());
 	}
-	public Course(String code, String courseName, String subject, String section,
-				  String teacher, String capacity, String location) {
-		this.code = new SimpleStringProperty(code);
-		this.courseName = new SimpleStringProperty(courseName);
-		this.subject = new SimpleStringProperty(subject);
-		this.section = new SimpleStringProperty(section);
-		this.teacher = new SimpleStringProperty(teacher);
-		this.capacity = new SimpleStringProperty(capacity);
-		this.location = new SimpleStringProperty(location);
-	}
+
 	public String getCode() { return code.get(); } public void setCode(String value) { code.set(value); }
 	public String getCourseName() { return courseName.get(); } public void setCourseName(String value) { courseName.set(value); }
 	public String getSubject() { return subject.get(); } public void setSubject(String value) { subject.set(value); }
 	public String getSection() { return section.get(); } public void setSection(String value) { section.set(value); }
-	public String getTeacher() { return teacher.get(); } public void setTeacher(String value) { teacher.set(value); }
 	public String getCapacity() { return capacity.get(); } public void setCapacity(String value) { capacity.set(value); }
+	//	Lecture Time getters/setters
+	//	Exam Date/Time getters/setters
 	public String getLocation() { return location.get(); } public void setLocation(String value) { location.set(value); }
+	public String getTeacher() { return teacher.get(); } public void setTeacher(String value) { teacher.set(value); }
 }
