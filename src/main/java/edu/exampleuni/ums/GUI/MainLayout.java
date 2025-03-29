@@ -1,6 +1,7 @@
 package edu.exampleuni.ums.GUI;
 
 import edu.exampleuni.ums.*;
+import edu.exampleuni.ums.models.Role;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 import javafx.scene.Node;
@@ -20,7 +21,7 @@ public class MainLayout extends BorderPane {
 
 		// Create left menu
 		VBox menuPane;
-		if (mainApp.userAuth.getRole().equals("ADMIN")) {
+		if (mainApp.user.getRole() == Role.ADMIN) {
 			menuPane = this.createAdminMenu();
 		} else {
 			menuPane = this.createUserMenu();

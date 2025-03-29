@@ -8,6 +8,10 @@ public class Faculty extends User {
 		Office
 	*/
 	public Faculty(String id, String fullName, String email) {
-		super(id, fullName, email);
+		super();
+		this.setRole(Role.FACULTY);
+		this.setID(id);
+		this.setFullName(fullName);
+		this.setEmail(email);
 	}
 }

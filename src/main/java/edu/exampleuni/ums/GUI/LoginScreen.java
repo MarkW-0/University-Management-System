@@ -1,7 +1,7 @@
 package edu.exampleuni.ums.GUI;
 
 import edu.exampleuni.ums.MainApp;
-import edu.exampleuni.ums.models.UserAuth;
+import edu.exampleuni.ums.models.User;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -29,10 +29,10 @@ public class LoginScreen extends StackPane {
 			String username = this.usernameField.getText();
 			byte[] password = this.passwordField.getText().getBytes(StandardCharsets.UTF_8);
 			this.passwordField.setText("");
-			for(UserAuth userAuth : mainApp.authService.getAllUserAuths()) {
-				if(userAuth.getUsername().equals(username)) {
-					if (userAuth.login(password)) {
-						mainApp.userAuth = userAuth;
+			for(User user : mainApp.userService.getAll()) {
+				if(user.getID().equals(username)) {
+					if (user.login(password)) {
+						mainApp.user = user;
 						mainApp._setScene(new MainLayout(mainApp), 1400, 800);
 						mainApp.stage.setMaximized(true);
 						return;

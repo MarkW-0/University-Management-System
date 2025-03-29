@@ -21,7 +21,7 @@
 		<Spacer />
 		<Button fx:id="addButton" styleClass="addButton" text="Add Event" />
 	</HBox>
-	<TableView fx:id="eventTable" VBox.vgrow="ALWAYS">
+	<TableView fx:id="table" VBox.vgrow="ALWAYS">
 		<columns>
 			<TableColumn prefWidth="100.0" text="Event Code" ><cellValueFactory><PropertyValueFactory property="code" /></cellValueFactory></TableColumn>
 			<TableColumn prefWidth="150.0" text="Event Name" ><cellValueFactory><PropertyValueFactory property="eventName" /></cellValueFactory></TableColumn>

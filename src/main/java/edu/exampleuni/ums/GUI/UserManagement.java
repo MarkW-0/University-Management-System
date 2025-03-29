@@ -1,7 +1,7 @@
 package edu.exampleuni.ums.GUI;
 
 import edu.exampleuni.ums.MainApp;
-import edu.exampleuni.ums.models.User;
+import edu.exampleuni.ums.models.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 public class UserManagement extends VBox {
-	@FXML public TableView<User> userTable;
+	@FXML public TableView<User> table;
 	@FXML public Button addButton;
 
 	public UserManagement(MainApp mainApp) {
@@ -21,25 +21,25 @@ public class UserManagement extends VBox {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		if (!mainApp.userAuth.getRole().equals("ADMIN")) {
+		if (mainApp.user.getRole() != Role.ADMIN) {
 			this.addButton.setDisable(true);
 		}
 		// Add action column if ADMIN
-		if (mainApp.userAuth.getRole().equals("ADMIN")) {
+		if (mainApp.user.getRole() == Role.ADMIN) {
 			TableColumn<User, Void> actionCol = new TableColumn<>("Actions");
 			actionCol.setPrefWidth(150);
-			actionCol.setCellFactory(param -> new UserManagementAdminActionCell(mainApp));
-			this.userTable.getColumns().add(actionCol);
+			actionCol.setCellFactory(param -> new UserEditActions(mainApp));
+			this.table.getColumns().add(actionCol);
 		}
 		// Add User button functionality
 		this.addButton.setOnAction(e -> {
-			Dialog<User> dialog = UserManagementAdminActionCell.createEditDialog(null);
+			Dialog<User> dialog = UserEditActions.createEditDialog(null);
 			dialog.showAndWait().ifPresent(newUser -> {
-				mainApp.userService.addUser(newUser);
-				this.userTable.getItems().add(newUser);
+				mainApp.userService.add(newUser);
+				this.table.getItems().add(newUser);
 			});
 		});
 		// Add data
-		this.userTable.getItems().addAll(mainApp.userService.getAllUsers());
+		this.table.getItems().addAll(mainApp.userService.getAll());
 	}
 }

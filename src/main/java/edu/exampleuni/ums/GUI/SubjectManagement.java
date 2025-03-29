@@ -1,7 +1,7 @@
 package edu.exampleuni.ums.GUI;
 
 import edu.exampleuni.ums.MainApp;
-import edu.exampleuni.ums.models.Subject;
+import edu.exampleuni.ums.models.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 public class SubjectManagement extends VBox {
-	@FXML public TableView<Subject> subjectTable;
+	@FXML public TableView<Subject> table;
 	@FXML public Button addButton;
 
 	public SubjectManagement(MainApp mainApp) {
@@ -22,26 +22,26 @@ public class SubjectManagement extends VBox {
 			throw new RuntimeException(e);
 		}
 
-		if (!mainApp.userAuth.getRole().equals("ADMIN")) {
+		if (mainApp.user.getRole() != Role.ADMIN) {
 			this.addButton.setDisable(true);
 		}
 		// Add action column if ADMIN
-		if (mainApp.userAuth.getRole().equals("ADMIN")) {
+		if (mainApp.user.getRole() == Role.ADMIN) {
 			TableColumn<Subject, Void> actionCol = new TableColumn<>("Actions");
 			actionCol.setPrefWidth(150);
-			actionCol.setCellFactory(param -> new SubjectManagementAdminActionCell(mainApp));
-			this.subjectTable.getColumns().add(actionCol);
+			actionCol.setCellFactory(param -> new SubjectEditActions(mainApp));
+			this.table.getColumns().add(actionCol);
 		}
 		// Add Subject button functionality
 		this.addButton.setOnAction(e -> {
-			Dialog<Subject> dialog = SubjectManagementAdminActionCell.createEditDialog(null);
+			Dialog<Subject> dialog = SubjectEditActions.createEditDialog(null);
 			dialog.showAndWait().ifPresent(newSubject -> {
-				mainApp.subjectService.addSubject(newSubject);
-				this.subjectTable.getItems().add(newSubject);
+				mainApp.subjectService.add(newSubject);
+				this.table.getItems().add(newSubject);
 			});
 		});
 
 		// Add data
-		this.subjectTable.getItems().addAll(mainApp.subjectService.getAllSubjects());
+		this.table.getItems().addAll(mainApp.subjectService.getAll());
 	}
 }

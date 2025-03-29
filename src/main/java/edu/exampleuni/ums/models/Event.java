@@ -3,7 +3,7 @@ package edu.exampleuni.ums.models;
 import javafx.beans.property.*;
 import org.apache.poi.ss.usermodel.Row;
 
-public class Event {
+public class Event  extends Model {
 	private final StringProperty code = new SimpleStringProperty("");
 	private final StringProperty eventName = new SimpleStringProperty("");
 	private final StringProperty description = new SimpleStringProperty("");
@@ -26,6 +26,12 @@ public class Event {
 		this.cost.set(row.getCell(6).getStringCellValue());
 		//	headerImage
 		//	attendees
+	}
+
+	@Override
+	public boolean isEqual(Model updated) {
+		if (!(updated instanceof Event updatedEvent)) return false;
+		return this.getCode().equals(updatedEvent.getCode());
 	}
 
 	// Getters and Setters

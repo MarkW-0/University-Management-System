@@ -3,7 +3,7 @@ package edu.exampleuni.ums.models;
 import javafx.beans.property.*;
 import org.apache.poi.ss.usermodel.*;
 
-public class Course {
+public class Course extends Model {
 	private final StringProperty code = new SimpleStringProperty("");
 	private final StringProperty courseName = new SimpleStringProperty("");
 	private final StringProperty subject = new SimpleStringProperty("");
@@ -16,6 +16,12 @@ public class Course {
 
 	public Course() {}
 
+	@Override
+	public boolean isEqual(Model updated) {
+		if (!(updated instanceof Course updatedCourse)) return false;
+		return this.getCode().equals(updatedCourse.getCode()) && this.getSection().equals(updatedCourse.getSection());
+	}
+
 	public Course(Row row) {
 		this.code.set(String.valueOf(row.getCell(0).getNumericCellValue()));
 		this.courseName.set(row.getCell(1).getStringCellValue());
@@ -27,6 +33,8 @@ public class Course {
 		this.location.set(row.getCell(7).getStringCellValue());
 		this.teacher.set(row.getCell(8).getStringCellValue());
 	}
+
+
 
 	public String getCode() { return code.get(); } public void setCode(String value) { code.set(value); }
 	public String getCourseName() { return courseName.get(); } public void setCourseName(String value) { courseName.set(value); }

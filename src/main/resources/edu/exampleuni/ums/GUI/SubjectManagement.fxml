@@ -22,7 +22,7 @@
 		<Spacer />
 		<Button fx:id="addButton" styleClass="addButton" text="Add Subject" />
 	</HBox>
-	<TableView fx:id="subjectTable" VBox.vgrow="ALWAYS">
+	<TableView fx:id="table" VBox.vgrow="ALWAYS">
 		<columns>
 			<TableColumn prefWidth="150.0" text="Subject Code" ><cellValueFactory><PropertyValueFactory property="code" /></cellValueFactory></TableColumn>
 			<TableColumn prefWidth="350.0" text="Subject Name" ><cellValueFactory><PropertyValueFactory property="subjectName" /></cellValueFactory></TableColumn>

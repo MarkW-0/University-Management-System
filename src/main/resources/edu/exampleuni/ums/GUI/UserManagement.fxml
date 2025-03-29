@@ -38,7 +38,7 @@
 		<Spacer />
 		<Button fx:id="addButton" styleClass="addButton" text="Add User" />
 	</HBox>
-	<TableView fx:id="userTable" VBox.vgrow="ALWAYS">
+	<TableView fx:id="table" VBox.vgrow="ALWAYS">
 		<columns>
 			<TableColumn prefWidth="100.0" text="ID" ><cellValueFactory><PropertyValueFactory property="ID" /></cellValueFactory></TableColumn>
 			<TableColumn prefWidth="100.0" text="Name" ><cellValueFactory><PropertyValueFactory property="fullName" /></cellValueFactory></TableColumn>

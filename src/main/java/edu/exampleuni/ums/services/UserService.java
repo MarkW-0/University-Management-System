@@ -1,35 +1,17 @@
 package edu.exampleuni.ums.services;
 
+import edu.exampleuni.ums.models.Role;
 import edu.exampleuni.ums.models.User;
-
+import java.nio.charset.*;
 import java.util.*;
 
-public class UserService {
-	private final List<User> users = new ArrayList<>(Arrays.asList(
-			new User("admin", "ADMIN", "admin@exampleuni.edu"),
-			new User("user", "USER", "user@exampleuni.edu")
-		)
-	);
-
-	public List<User> getAllUsers() {
-		return new ArrayList<>(users);
-	}
-	
-	public void addUser(User user) {
-		users.add(user);
-	}
-
-	public void deleteUser(User user) {
-		users.remove(user);
-	}
-
-	public void updateUser(User updatedUser) {
-		for (int i = 0; i < users.size(); i++) {
-			User user = users.get(i);
-			if (user.getID().equals(updatedUser.getID())) {
-				users.set(i, updatedUser);
-				break;
-			}
-		}
+public class UserService extends Service<User> {
+	public UserService() {
+		super(new ArrayList<>(Arrays.asList(
+				new User(Role.ADMIN, "admin", "admin".getBytes(StandardCharsets.UTF_8), "ADMIN", "admin@exampleuni.edu"),
+				new User(Role.FACULTY, "faculty", "faculty".getBytes(StandardCharsets.UTF_8), "FACULTY", "faculty@exampleuni.edu"),
+				new User(Role.STUDENT, "student", "student".getBytes(StandardCharsets.UTF_8), "STUDENT", "student@exampleuni.edu"),
+				new User(Role.USER, "user", "user".getBytes(StandardCharsets.UTF_8), "USER", "user@exampleuni.edu")
+		)));
 	}
 }

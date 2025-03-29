@@ -6,14 +6,14 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
-public class EventManagementAdminActionCell extends ActionCell<Event> {
-	EventManagementAdminActionCell(MainApp mainApp) {
+public class EventEditActions extends EditActions<Event> {
+	EventEditActions(MainApp mainApp) {
 		super();
 		this.editBtn.setOnAction(_event -> {
 			Event event = this.getTableView().getItems().get(getIndex());
-			Dialog<Event> dialog = EventManagementAdminActionCell.createEditDialog(event);
+			Dialog<Event> dialog = EventEditActions.createEditDialog(event);
 			dialog.showAndWait().ifPresent(editedEvent -> {
-				mainApp.eventService.updateEvent(editedEvent);
+				mainApp.eventService.update(editedEvent);
 				this.getTableView().refresh();
 			});
 		});
@@ -28,7 +28,7 @@ public class EventManagementAdminActionCell extends ActionCell<Event> {
 
 			alert.showAndWait().ifPresent(response -> {
 				if (response == ButtonType.OK) {
-					mainApp.eventService.deleteEvent(event);
+					mainApp.eventService.delete(event);
 					this.getTableView().getItems().remove(getIndex());
 				}
 			});

@@ -9,10 +9,9 @@ import javafx.stage.*;
 
 
 public class MainApp extends Application {
-	public UserAuth userAuth;
+	public User user;
 	public Stage stage;
 	public final ExcelService excelService;
-	public final AuthService authService;
 	public final SubjectService subjectService;
 	public final CourseService courseService;
 	public final EventService eventService;
@@ -20,7 +19,6 @@ public class MainApp extends Application {
 
 	public MainApp() {
 		this.excelService = new ExcelService();
-		this.authService = new AuthService();
 		this.subjectService = new SubjectService(this.excelService);
 		this.courseService = new CourseService(this.excelService);
 		this.eventService = new EventService(this.excelService);

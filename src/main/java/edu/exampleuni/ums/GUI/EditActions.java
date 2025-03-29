@@ -3,12 +3,12 @@ package edu.exampleuni.ums.GUI;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
-public class ActionCell<S> extends TableCell<S, Void> {
+public class EditActions<S> extends TableCell<S, Void> {
 	protected Button editBtn = new Button("Edit");
 	protected Button deleteBtn = new Button("Delete");
 	protected HBox actionButtons = new HBox(5, this.editBtn, this.deleteBtn);
 
-	ActionCell(){
+	EditActions(){
 		super();
 		this.editBtn.getStyleClass().add("editButton");
 		this.deleteBtn.getStyleClass().add("deleteButton");

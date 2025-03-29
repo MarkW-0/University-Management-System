@@ -6,14 +6,14 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
-public class SubjectManagementAdminActionCell extends ActionCell<Subject> {
-	SubjectManagementAdminActionCell(MainApp mainApp) {
+public class SubjectEditActions extends EditActions<Subject> {
+	SubjectEditActions(MainApp mainApp) {
 		super();
 		this.editBtn.setOnAction(event -> {
 			Subject subject = this.getTableView().getItems().get(getIndex());
-			Dialog<Subject> dialog = SubjectManagementAdminActionCell.createEditDialog(subject);
+			Dialog<Subject> dialog = SubjectEditActions.createEditDialog(subject);
 			dialog.showAndWait().ifPresent(editedSubject -> {
-				mainApp.subjectService.updateSubject(editedSubject);
+				mainApp.subjectService.update(editedSubject);
 				this.getTableView().refresh();
 			});
 		});
@@ -28,7 +28,7 @@ public class SubjectManagementAdminActionCell extends ActionCell<Subject> {
 
 			alert.showAndWait().ifPresent(response -> {
 				if (response == ButtonType.OK) {
-					mainApp.subjectService.deleteSubject(subject);
+					mainApp.subjectService.delete(subject);
 					this.getTableView().getItems().remove(getIndex());
 				}
 			});
