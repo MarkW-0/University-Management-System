@@ -79,7 +79,7 @@ public class User {
     private String email;
     private byte[] passwordSalt;
     private byte[] passwordHash;
-    private Role role;
+    private Role role = Role.USER;
 
     // If I'm correct setting newSalt and hash to private will only allow calling them through the setPassword method and login method
     // Generate random salt with  SecureRandom
