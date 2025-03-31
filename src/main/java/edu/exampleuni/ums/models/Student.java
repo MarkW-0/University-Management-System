@@ -22,7 +22,7 @@ public class Student extends User {
         this.Courses = Courses;
         this.ThesisTitle = ThesisTitle;
         this.progress = progress;
-        this.role = USER;
+        this.role = STUDENT;
     }
 
     public String getAddress() {
