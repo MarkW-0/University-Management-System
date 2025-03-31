@@ -79,6 +79,7 @@ public class User {
     private String email;
     private byte[] passwordSalt;
     private byte[] passwordHash;
+    private Role role;
 
     // If I'm correct setting newSalt and hash to private will only allow calling them through the setPassword method and login method
     // Generate random salt with  SecureRandom
@@ -112,7 +113,7 @@ public class User {
         this.username = name;
         this.email = email;
         setPassword(password);
-	this.role = Role.USER;
+	
     }
 
 
