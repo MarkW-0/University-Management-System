@@ -77,7 +77,7 @@ public class User extends Model {
     protected String userRole;
     private String username;
     // Name stored as an array, accounting for people with middle names
-    private ArrayList<String> fullName;
+    private String fullName;
     private String email;
     private byte[] passwordSalt;
     private byte[] passwordHash;
@@ -112,7 +112,7 @@ public class User extends Model {
     // This can be done through: byte[] passwordBytes = passwordString.getBytes(StandardCharsets.UTF_8); Keep which Charset is being used consistent
     // Where passwordString is the password in string form
     // Pass fullName as an ArrayList
-    public User(String name, String email, byte[] password, ArrayList<String> fullName, String id){
+    public User(String name, String email, byte[] password, String fullName, String id){
         this.username = name;
         this.email = email;
         setPassword(password);
