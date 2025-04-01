@@ -81,7 +81,7 @@ public class User extends Model {
     private String email;
     private byte[] passwordSalt;
     private byte[] passwordHash;
-    private Role role = Role.USER;
+    Role role = Role.USER;
     private final StringProperty id = new SimpleStringProperty("");
 	
     // If I'm correct setting newSalt and hash to private will only allow calling them through the setPassword method and login method

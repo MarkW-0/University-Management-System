@@ -30,6 +30,6 @@ public class Faculty extends User {
         this.degree = degree;
         this.researchInterest = researchInterest;
         this.officeLocation = officeLocation;
-        this.role = FACULTY;
+        this.role = Role.FACULTY;
     }
 }
