@@ -69,7 +69,7 @@ public class User  extends Model {
 
 package edu.exampleuni.ums.models;
 import javafx.beans.property.*;
-import java.nio.charset.*;
+
 import java.security.*;
 import java.util.*;
 public class User extends Model {
@@ -130,7 +130,7 @@ public class User extends Model {
         this.email = email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
