@@ -126,7 +126,7 @@ public class User extends Model {
     }
 
     public String getRole() {
-        return userRole;
+        return role;
     }
 
     public String getUsername() {
