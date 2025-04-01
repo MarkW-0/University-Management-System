@@ -8,7 +8,7 @@ public class EditActions<S> extends TableCell<S, Void> {
 	protected Button deleteBtn = new Button("Delete");
 	protected HBox actionButtons = new HBox(5, this.editBtn, this.deleteBtn);
 
-	EditActions(){
+	EditActions() {
 		super();
 		this.editBtn.getStyleClass().add("editButton");
 		this.deleteBtn.getStyleClass().add("deleteButton");

@@ -1,8 +1,7 @@
 package edu.exampleuni.ums.services;
 
-import edu.exampleuni.ums.models.Role;
-import edu.exampleuni.ums.models.User;
-import java.nio.charset.StandardCharsets;
+import edu.exampleuni.ums.models.*;
+import java.nio.charset.*;
 import java.util.*;
 
 public class UserService extends Service<User> {
