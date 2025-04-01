@@ -138,13 +138,13 @@ public class User extends Model {
         return username;
     }
     public String getFullName(){
-	return fullName;
+	    return fullName;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
-    public void setFullname(String fullName) {
+    public void setFullName(String fullName) {
         this.fullName = fullName;
     }
     // Set a new password, used during construction and when changing password
