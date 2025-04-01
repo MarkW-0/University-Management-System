@@ -11,7 +11,7 @@ import javafx.scene.layout.*;
 import java.io.IOException;
 
 public class MainLayout extends BorderPane {
-	private final StackPane contentPane;
+	private final StackPane contentPane = new StackPane();
 	private final MainApp mainApp;
 	public MainLayout(MainApp mainApp) {
 		super();
@@ -33,7 +33,6 @@ public class MainLayout extends BorderPane {
 		this.setLeft(collapsibleMenuPane);
 
 		// Create content area
-		this.contentPane = new StackPane();
 		this.contentPane.setPadding(new Insets(20));
 		this.contentPane.getStyleClass().add("contentPane");
 
@@ -51,14 +50,14 @@ public class MainLayout extends BorderPane {
 		menu.getStyleClass().add("navigationMenu");
 		// Add all management options for ADMIN
 		menu.getChildren().addAll(
-				new MenuItem("Dashboard", e -> setContent(createDashboard())),
-				new MenuItem("Subject Management", e -> setContent(new SubjectManagement(this.mainApp))),
-				new MenuItem("Course Management", e -> setContent(new CourseManagement(this.mainApp))),
-				new MenuItem("User Management", e -> setContent(new UserManagement(this.mainApp))),
-				new MenuItem("Student Management", e -> setContent(createStudentManagement())),
-				new MenuItem("Faculty Management", e -> setContent(createFacultyManagement())),
-				new MenuItem("Event Management", e -> setContent(new EventManagement(this.mainApp))),
-				new MenuItem("Profile Management", e -> setContent(createProfileManagement()))
+				new MenuItem("Dashboard", this.contentPane, createDashboard()),
+				new MenuItem("Subject Management", this.contentPane, new SubjectManagement(this.mainApp)),
+				new MenuItem("Course Management", this.contentPane, new CourseManagement(this.mainApp)),
+				new MenuItem("User Management", this.contentPane, new UserManagement(this.mainApp)),
+				new MenuItem("Student Management", this.contentPane, createStudentManagement()),
+				new MenuItem("Faculty Management", this.contentPane, createFacultyManagement()),
+				new MenuItem("Event Management", this.contentPane, new EventManagement(this.mainApp)),
+				new MenuItem("Profile Management", this.contentPane, createProfileManagement())
 		);
 		return menu;
 	}
@@ -70,11 +69,11 @@ public class MainLayout extends BorderPane {
 		menu.getStyleClass().add("navigationMenu");
 		// USER role - limited menu
 		menu.getChildren().addAll(
-				new MenuItem("Dashboard", e -> setContent(createDashboard())),
-				new MenuItem("Course Management", e -> setContent(new CourseManagement(this.mainApp))),
-				new MenuItem("Faculty Management", e -> setContent(createFacultyManagement())),
-				new MenuItem("Event Management", e -> setContent(new EventManagement(this.mainApp))),
-				new MenuItem("Profile Management", e -> setContent(createProfileManagement()))
+				new MenuItem("Dashboard", this.contentPane, createDashboard()),
+				new MenuItem("Course Management", this.contentPane, new CourseManagement(this.mainApp)),
+				new MenuItem("Faculty Management", this.contentPane, createFacultyManagement()),
+				new MenuItem("Event Management", this.contentPane, new EventManagement(this.mainApp)),
+				new MenuItem("Profile Management", this.contentPane, createProfileManagement())
 		);
 		return menu;
 	}
@@ -105,9 +104,4 @@ public class MainLayout extends BorderPane {
 			throw new RuntimeException(e);
 		}
 	}
-	private void setContent(Node content) {
-		this.contentPane.getChildren().clear();
-		this.contentPane.getChildren().add(content);
-	}
-
 }

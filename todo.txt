@@ -8,11 +8,11 @@ Todo
 		✗ Header
 			✗ Notifications and alerts
 		✓ Dashboard
-		✗ Subject Management
-		✗ Course Management
+		✓ Subject Management
+		✓ Course Management
 		✗ Student Management
 		✗ Faculty Management
-		✗ Event Management
+		✓ Event Management
 		✓ Profile Management
 
 	✗ Features
