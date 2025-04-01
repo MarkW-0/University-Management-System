@@ -119,7 +119,9 @@ public class User extends Model {
 	this.id.set(id);
 	
     }
-
+    public User(){
+	    
+    }
 
     public String getEmail() {
         return email;
