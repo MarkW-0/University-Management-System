@@ -139,6 +139,9 @@ public class User extends Model {
     public void setUsername(String username) {
         this.username = username;
     }
+    public void setFullname(String fullName) {
+        this.fullName = fullName;
+    }
     // Set a new password, used during construction and when changing password
     public void setPassword(byte[] password) {
         this.passwordSalt = newSalt();
