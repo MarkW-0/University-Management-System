@@ -125,12 +125,15 @@ public class User extends Model {
         return email;
     }
 
-    public String getUserRole() {
+    public String getRole() {
         return userRole;
     }
 
-    public String getUserame() {
+    public String getUsername() {
         return username;
+    }
+    public String getFullName(){
+	return fullName;
     }
 
     public void setUsername(String username) {
