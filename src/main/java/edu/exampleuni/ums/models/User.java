@@ -68,9 +68,11 @@ public class User  extends Model {
 }*/
 
 package edu.exampleuni.ums.models;
+import javafx.beans.property.*;
+import java.nio.charset.*;
 import java.security.*;
 import java.util.*;
-public class User {
+public class User extends Model {
     // Derivative classes just add the required attributes for now, hypothetically they could have unique methods, but that is not implemented as of now.
     protected String userRole;
     private String username;
@@ -80,7 +82,8 @@ public class User {
     private byte[] passwordSalt;
     private byte[] passwordHash;
     private Role role = Role.USER;
-
+    private final StringProperty id = new SimpleStringProperty("");
+	
     // If I'm correct setting newSalt and hash to private will only allow calling them through the setPassword method and login method
     // Generate random salt with  SecureRandom
     private byte[] newSalt() {
@@ -109,10 +112,11 @@ public class User {
     // This can be done through: byte[] passwordBytes = passwordString.getBytes(StandardCharsets.UTF_8); Keep which Charset is being used consistent
     // Where passwordString is the password in string form
     // Pass fullName as an ArrayList
-    public User(String name, String email, byte[] password, ArrayList<String> fullName){
+    public User(String name, String email, byte[] password, ArrayList<String> fullName, String id){
         this.username = name;
         this.email = email;
         setPassword(password);
+	this.id.set(id);
 	
     }
 
@@ -137,4 +141,10 @@ public class User {
         this.passwordSalt = newSalt();
         this.passwordHash = hash(password);
     }
+    public String getID() { return id.get(); } public void setID(String id) { this.id.set(id); }
+
+    public boolean isEqual(Model updated) {
+		if (!(updated instanceof User updatedUser)) return false;
+		return this.getID().equals(updatedUser.getID());
+	}
 }
