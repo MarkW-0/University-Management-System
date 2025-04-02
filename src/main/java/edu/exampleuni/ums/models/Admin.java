@@ -14,10 +14,8 @@ public class Admin extends User {
 	public String getOfficeLocation() { return officeLocation; }
 	public String getDegree() { return degree; }
 
-	public Admin(String name, String email, byte[] password, String degree, String researchInterest, String officeLocation, String fullName, String id) {
+	public Admin(String name, String email, byte[] password, String officeLocation, String fullName, String id) {
 		super(name, email, password, fullName, id);
-		this.degree = degree;
-		this.researchInterest = researchInterest;
 		this.officeLocation = officeLocation;
 		this.setRole(Role.ADMIN);
 	}
