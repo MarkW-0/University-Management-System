@@ -16,7 +16,7 @@
 			<Font name="Arial Bold" size="18.0" />
 		</font>
 	</Label>
-   <Spacer />
+	<Spacer />
 	<Label fx:id="userLabel" text="Logged in as: this.userRole" textFill="WHITE" />
-   <Button fx:id="logoutButton" styleClass="logoutButton" text="Logout" />
+	<Button fx:id="logoutButton" styleClass="logoutButton" text="Logout" />
 </fx:root>

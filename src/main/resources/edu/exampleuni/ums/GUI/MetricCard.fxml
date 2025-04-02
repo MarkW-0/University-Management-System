@@ -7,15 +7,13 @@
 
 <fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
 		 prefWidth="200.0" spacing="5.0" styleClass="MetricCard">
-	<Label fx:id="title" text="Title">
-      <font>
-         <Font name="Arial" size="14.0" />
-      </font></Label>
-	<Label fx:id="value" text="Value" textFill="LIME">
-      <font>
-         <Font name="Arial Bold" size="28.0" />
-      </font></Label>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
+	<Label fx:id="title" text="Title"><font>
+		<Font name="Arial" size="14.0" />
+	</font></Label>
+	<Label fx:id="value" text="Value" textFill="LIME"><font>
+			<Font name="Arial Bold" size="28.0" />
+		</font></Label>
+	<padding>
+		<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+	</padding>
 </fx:root>

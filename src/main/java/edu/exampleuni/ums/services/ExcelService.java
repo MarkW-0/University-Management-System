@@ -24,11 +24,11 @@ public class ExcelService {
 			this.faculty = this.getSheet("Faculty");
 			this.events = this.getSheet("Events");
 
-			this.logSheet(this.subjects);
-			this.logSheet(this.courses);
-			this.logSheet(this.students);
-			this.logSheet(this.faculty);
-			this.logSheet(this.events);
+			//this.logSheet(this.subjects);
+			//this.logSheet(this.courses);
+			//this.logSheet(this.students);
+			//this.logSheet(this.faculty);
+			//this.logSheet(this.events);
 			//try (OutputStream fileOut = new FileOutputStream(file)) {
 			//	this.workbook.write(fileOut);
 			//}

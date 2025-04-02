@@ -6,7 +6,7 @@ import java.nio.charset.*;
 import java.security.*;
 import java.util.*;
 
-public class User  extends Model {
+public class User extends Model {
 	private final StringProperty id = new SimpleStringProperty("");
 	private final StringProperty fullName = new SimpleStringProperty("");
 	private final StringProperty email = new SimpleStringProperty("");
@@ -101,7 +101,7 @@ public class User extends Model {
 	}
 
 	// If I'm correct setting newSalt and hash to private will only allow calling them through the setPassword method and login method
-	// Generate random salt with  SecureRandom
+	// Generate random salt with SecureRandom
 	private byte[] newSalt() {
 		byte[] random = new byte[16];
 		new SecureRandom().nextBytes(random);

@@ -3,7 +3,7 @@ package edu.exampleuni.ums.models;
 import javafx.beans.property.*;
 import org.apache.poi.ss.usermodel.Row;
 
-public class Event  extends Model {
+public class Event extends Model {
 	private final StringProperty code = new SimpleStringProperty("");
 	private final StringProperty eventName = new SimpleStringProperty("");
 	private final StringProperty description = new SimpleStringProperty("");

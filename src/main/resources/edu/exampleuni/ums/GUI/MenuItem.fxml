@@ -7,11 +7,11 @@
 
 <fx:root styleClass="MenuItem" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
 	<Label fx:id="name" text="name" textFill="WHITE">
-      <font>
-         <Font name="Arial" size="14.0" />
-      </font>
+		<font>
+			<Font name="Arial" size="14.0" />
+		</font>
 	</Label>
-   <padding>
-      <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
-   </padding>
+	<padding>
+		<Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+	</padding>
 </fx:root>

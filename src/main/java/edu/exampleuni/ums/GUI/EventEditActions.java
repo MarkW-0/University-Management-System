@@ -46,11 +46,11 @@ public class EventEditActions extends EditActions<Event> {
 		grid.setVgap(10);
 		grid.setPadding(new Insets(20, 150, 10, 10));
 
-		TextField codeField = new TextField();		  codeField.setPromptText("Event Code");
-		TextField nameField = new TextField();		  nameField.setPromptText("Event Name");
-		TextField capacityField = new TextField();	  capacityField.setPromptText("Capacity");
-		TextField costField = new TextField();		  costField.setPromptText("Cost");
-		TextField descriptionField = new TextField(); descriptionField.setPromptText("Description");
+		TextField codeField = new TextField();			codeField.setPromptText("Event Code");
+		TextField nameField = new TextField();			nameField.setPromptText("Event Name");
+		TextField capacityField = new TextField();		capacityField.setPromptText("Capacity");
+		TextField costField = new TextField();			costField.setPromptText("Cost");
+		TextField descriptionField = new TextField();	descriptionField.setPromptText("Description");
 
 		// Pre-fill fields if editing an existing event
 		if (existingEvent != null) {

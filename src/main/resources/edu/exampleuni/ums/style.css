@@ -13,8 +13,8 @@
 	-fx-background-color: theme-color-shadowed;
 }
 .LoginScreen > VBox {
-   -fx-background-color: theme-color-background;
-   -fx-effect: theme-dropshadow;
+	-fx-background-color: theme-color-background;
+	-fx-effect: theme-dropshadow;
 }
 .LoginScreen > VBox > Label {
 	-fx-text-fill: theme-color-secondary;

@@ -63,9 +63,9 @@ public class UserEditActions extends EditActions<User> {
 			// locationField.setText("Room 101");
 		}
 
-		grid.add(new Label("ID:"), 0, 0); grid.add(idField,1, 0);
-		grid.add(new Label("Name:"),  0, 1); grid.add(fullNameField, 1, 1);
-		grid.add(new Label("Email:"),	  0, 2); grid.add(emailField,	 1, 2);
+		grid.add(new Label("ID:"), 0, 0); grid.add(idField, 1, 0);
+		grid.add(new Label("Name:"), 0, 1); grid.add(fullNameField, 1, 1);
+		grid.add(new Label("Email:"), 0, 2); grid.add(emailField, 1, 2);
 
 		dialog.getDialogPane().setContent(grid);
 

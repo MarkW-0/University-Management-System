@@ -12,7 +12,7 @@ import javafx.util.*;
 import javafx.scene.input.*;
 
 
-public class Nav extends SkinBase<TitledPane>  {
+public class Nav extends SkinBase<TitledPane> {
 
 	private static final Duration TRANSITION_DURATION = new Duration(350.0);
 

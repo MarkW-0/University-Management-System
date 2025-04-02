@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Admin extends User {
 	private String degree;
 	private String researchInterest;
-	private  String officeLocation;
+	private String officeLocation;
 	// Don't know what's the max courses a faculty member can offer, probably will change later
 	private ArrayList<String> coursesOffered;
 
