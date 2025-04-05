@@ -15,7 +15,7 @@ public class ExcelService {
 	final XSSFSheet faculty;
 	final XSSFSheet events;
 	public ExcelService() {
-		String file = "src/main/resources/edu/exampleuni/ums/UMS_Data.xlsx";
+		String file = "UMS_Data.xlsx";
 		try (InputStream fileIn = new FileInputStream(file)) {
 			this.workbook = new XSSFWorkbook(fileIn);
 			this.subjects = this.getSheet("Subjects");

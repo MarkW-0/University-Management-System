@@ -40,10 +40,4 @@ public class MainApp extends Application {
 		else System.err.println("missing stylesheet");
 		this.stage.setScene(scene);
 	}
-
-
-	// Main method
-	public static void main(String[] args) {
-		launch(args);
-	}
 }

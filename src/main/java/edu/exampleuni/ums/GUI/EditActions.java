@@ -17,10 +17,6 @@ public class EditActions<S> extends TableCell<S, Void> {
 	@Override
 	protected void updateItem(Void item, boolean empty) {
 		super.updateItem(item, empty);
-		if (empty) {
-			this.setGraphic(null);
-		} else {
-			this.setGraphic(this.actionButtons);
-		}
+		this.setGraphic(empty ? null : actionButtons);
 	}
 }
