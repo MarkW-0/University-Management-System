@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/UMS_jar</output-path>
     <root id="archive" name="UMS.jar">
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/edu/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/MANIFEST.MF" />
       </element>
       <element id="module-output" name="UMS" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../.m2/repository/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar" path-in-jar="/" />
