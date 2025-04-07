@@ -2,22 +2,9 @@
 **University of Guelph**   
 **School of Engineering** 
 
-**![University of Guelph - School of ...][image1]**
-
 **ENGG\*1420 – Object-Oriented Programming**  
 **Final Project \- University Management System**   
 **April 6th, 2025** 
-
-**Group No: 18**   
-Shane D’Souza (1328295)  
-Rayyan Ahmed (1295573)   
-Aryan Ashraf (1286850)   
-Ibrahim Ahmed (1339250)  
-Rayyan Quraishi (1334999)  
-Mark Waterman (1305036)
-
-source code available at [https://github.com/MarkW-0/University-Management-System](https://github.com/MarkW-0/University-Management-System)  
-This file may be available online at [https://docs.google.com/document/d/1TsaLpf7wxHbFcYYxB5TA74ofSMi3ia1hY2qLPCi5udU/edit?usp=sharing](https://docs.google.com/document/d/1TsaLpf7wxHbFcYYxB5TA74ofSMi3ia1hY2qLPCi5udU/edit?usp=sharing)
 
 # **Table of Contents** {#table-of-contents}
 
